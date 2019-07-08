@@ -4,13 +4,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.textStyle}>Home</Text>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("SignIn")}
-          style={styles.buttonStyle}
-        >
-          <Text style={styles.textStyle}>Go to Sign In</Text>
-        </TouchableOpacity>
+        <Text style={styles.textStyle}>Promo</Text>
       </View>
     );
   }
@@ -20,6 +14,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#aa73b7",
     alignItems: "center",
-    justifyContent: "space-around"
+    justifyContent: "center"
   }
 });

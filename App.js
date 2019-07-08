@@ -3,6 +3,7 @@ import LandingScreen from "./src/components/LandingScreen";
 import SignInScreen from "./src/components/SignInScreen";
 import HomeScreen from "./src/components/HomeScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
+import PromoScreen from "./src/components/PromoScreen";
 import SettingScreen from "./src/components/SettingScreen";
 import {
   createSwitchNavigator,
@@ -21,7 +22,8 @@ Amplify.configure(config);
 const OwnerStackNavigator = createStackNavigator({
   // Tabs: OwnerStackNavigator, // defined above
   Profile: ProfileScreen,
-  Setting: SettingScreen
+  Setting: SettingScreen,
+  Promo: PromoScreen
 });
 const AppTabNavigator = createStackNavigator({
   SignIn: SignInScreen
