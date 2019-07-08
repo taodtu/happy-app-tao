@@ -1,19 +1,52 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import LandingScreen from "./src/components/LandingScreen";
+import SignInScreen from "./src/components/SignInScreen";
+import HomeScreen from "./src/components/HomeScreen";
+import ProfileScreen from "./src/components/ProfileScreen";
+import SettingScreen from "./src/components/SettingScreen";
+import {
+  createSwitchNavigator,
+  createStackNavigator,
+  createDrawerNavigator,
+  createMaterialTopTabNavigator,
+  createAppContainer
+} from "react-navigation";
+import { Icon, Tabs } from "native-base";
+import Amplify from "@aws-amplify/core";
+import config from "./src/aws-exports";
+import Auth from "@aws-amplify/auth";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Start App Now!</Text>
-    </View>
-  );
-}
+Amplify.configure(config);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
+const OwnerStackNavigator = createStackNavigator({
+  // Tabs: OwnerStackNavigator, // defined above
+  Profile: ProfileScreen,
+  Setting: SettingScreen
 });
+const AppTabNavigator = createStackNavigator({
+  SignIn: SignInScreen
+});
+const AppStackNavigator = createStackNavigator({
+  // Tabs: AppStackNavigator, // defined above
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: () => ({
+      title: `Welcome`, // for the header screen
+      headerBackTitle: "Back"
+    })
+  },
+  SignIn: SignInScreen
+});
+const AppNavigator = createSwitchNavigator({
+  Landing: LandingScreen,
+  Owner: OwnerStackNavigator, // the Owner stack
+  App: AppStackNavigator // the App stack
+});
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
+  }
+}
