@@ -5,6 +5,7 @@ import HomeScreen from "./src/components/HomeScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
 import PromoScreen from "./src/components/PromoScreen";
 import SettingScreen from "./src/components/SettingScreen";
+import { View, TouchableOpacity } from "react-native";
 import {
   createSwitchNavigator,
   createStackNavigator,
@@ -20,10 +21,25 @@ import Auth from "@aws-amplify/auth";
 Amplify.configure(config);
 
 const OwnerStackNavigator = createStackNavigator({
-  // Tabs: OwnerStackNavigator, // defined above
+  Header: {
+    screen: PromoScreen,
+    // Set the header icon
+    navigationOptions: ({ navigation }) => ({
+      headerLeft: (
+        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+          <View style={{ paddingHorizontal: 10 }}>
+            <Icon name="md-menu" size={24} />
+          </View>
+        </TouchableOpacity>
+      )
+    })
+  }
+});
+const OwnerDrawerNavigator = createDrawerNavigator({
+  Tabs: OwnerStackNavigator,
+  Promo: PromoScreen,
   Profile: ProfileScreen,
-  Setting: SettingScreen,
-  Promo: PromoScreen
+  Setting: SettingScreen
 });
 const AppTabNavigator = createStackNavigator({
   SignIn: SignInScreen
@@ -41,7 +57,7 @@ const AppStackNavigator = createStackNavigator({
 });
 const AppNavigator = createSwitchNavigator({
   Landing: LandingScreen,
-  Owner: OwnerStackNavigator, // the Owner stack
+  Owner: OwnerDrawerNavigator, // the Owner stack
   App: AppStackNavigator // the App stack
 });
 
