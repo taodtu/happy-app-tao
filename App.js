@@ -56,24 +56,16 @@ const AppStackNavigator = createStackNavigator({
     })
   }
 });
-const HomeStackNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-    navigationOptions: () => ({
-      title: `Promo list`, // for the header screen
-      headerBackTitle: "Back"
-    })
-  }
+const SignInStackNavigator = createStackNavigator({
+  SignIn: SignInScreen
 });
-const AppDrawerNavigator = createDrawerNavigator(
+const AppTabNavigator = createMaterialTopTabNavigator(
   {
-    Tabs: AppStackNavigator, // defined above
-    Home: HomeStackNavigator,
+    Home: HomeScreen,
     SignIn: {
-      screen: SignInScreen,
+      screen: SignInStackNavigator, //define above
       navigationOptions: () => ({
-        title: `Pub owner sign in`, // for the header screen
-        headerBackTitle: "Back"
+        title: `Pub sign in` // for the header screen
       })
     }
   },
@@ -85,7 +77,7 @@ const AppDrawerNavigator = createDrawerNavigator(
 const AppNavigator = createSwitchNavigator({
   Landing: LandingScreen,
   Owner: OwnerDrawerNavigator, // the Owner stack
-  App: AppDrawerNavigator // the App stack
+  App: AppTabNavigator // the App stack
 });
 
 const AppContainer = createAppContainer(AppNavigator);
