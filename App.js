@@ -1,6 +1,8 @@
 import React from "react";
 import LandingScreen from "./src/components/LandingScreen";
 import SignInScreen from "./src/components/SignInScreen";
+import SignUpScreen from "./src/components/SignUpScreen";
+import ForgetPasswordScreen from "./src/components/ForgetPasswordScreen";
 import HomeScreen from "./src/components/HomeScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
 import PromoScreen from "./src/components/PromoScreen";
@@ -41,51 +43,69 @@ const OwnerDrawerNavigator = createDrawerNavigator({
   Profile: ProfileScreen,
   Setting: SettingScreen
 });
-const AppStackNavigator = createStackNavigator({
-  Header: {
-    screen: HomeScreen,
-    // Set the header icon
-    navigationOptions: ({ navigation }) => ({
-      headerLeft: (
-        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-          <View style={{ paddingHorizontal: 10 }}>
-            <Icon name="md-menu" size={24} />
-          </View>
-        </TouchableOpacity>
-      )
-    })
-  }
-});
-const HomeStackNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
+
+const SignInStackNavigator = createStackNavigator({
+  SignIn: {
+    screen: SignInScreen,
     navigationOptions: () => ({
-      title: `Promo list`, // for the header screen
-      headerBackTitle: "Back"
+      title: `Pub sign in` // for the header screen
     })
-  }
+  },
+  SignUp: SignUpScreen,
+  ForgetPassword: ForgetPasswordScreen
 });
-const AppDrawerNavigator = createDrawerNavigator(
+const options = {
+  tabBarPosition: "bottom",
+  swipeEnabled: true,
+  animationEnabled: true,
+  navigationOptions: {
+    tabBarVisible: true
+  }
+};
+const AppTabNavigator = createMaterialTopTabNavigator(
   {
-    Tabs: AppStackNavigator, // defined above
-    Home: HomeStackNavigator,
-    SignIn: {
-      screen: SignInScreen,
+    Home: {
+      screen: HomeScreen,
       navigationOptions: () => ({
-        title: `Pub owner sign in`, // for the header screen
-        headerBackTitle: "Back"
+        title: `Offers list` // for the header screen
+      })
+    },
+    SignIn: {
+      screen: SignInStackNavigator, //define above
+      navigationOptions: () => ({
+        title: `Pub sign in/up` // for the header screen
       })
     }
   },
+  options
+);
+const OwnerTabNavigator = createMaterialTopTabNavigator(
   {
-    swipeEnabled: true,
-    animationEnabled: true
-  }
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: () => ({
+        title: `Offers` // for the header screen
+      })
+    },
+    Profile: {
+      screen: ProfileScreen, //define above
+      navigationOptions: () => ({
+        title: `Profile` // for the header screen
+      })
+    },
+    Setting: {
+      screen: SettingScreen, //define above
+      navigationOptions: () => ({
+        title: `Setting` // for the header screen
+      })
+    }
+  },
+  options
 );
 const AppNavigator = createSwitchNavigator({
   Landing: LandingScreen,
-  Owner: OwnerDrawerNavigator, // the Owner stack
-  App: AppDrawerNavigator // the App stack
+  Owner: OwnerTabNavigator, // the Owner stack
+  App: AppTabNavigator // the App stack
 });
 
 const AppContainer = createAppContainer(AppNavigator);
