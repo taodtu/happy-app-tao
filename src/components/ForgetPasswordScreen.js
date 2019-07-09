@@ -80,7 +80,7 @@ export default class ScreenName extends React.Component {
                     <Input
                       style={styles.input}
                       placeholder="email"
-                      placeholderTextColor="#896ef5"
+                      placeholderTextColor="#0468d4"
                       keyboardType={"email-address"}
                       returnKeyType="go"
                       autoCapitalize="none"
@@ -100,7 +100,7 @@ export default class ScreenName extends React.Component {
                     <Input
                       style={styles.input}
                       placeholder="New password"
-                      placeholderTextColor="#896ef5"
+                      placeholderTextColor="#0468d4"
                       returnKeyType="next"
                       autoCapitalize="none"
                       autoCorrect={false}
@@ -119,7 +119,7 @@ export default class ScreenName extends React.Component {
                     <Input
                       style={styles.input}
                       placeholder="Confirmation code"
-                      placeholderTextColor="#896ef5"
+                      placeholderTextColor="#0468d4"
                       keyboardType={"numeric"}
                       returnKeyType="done"
                       autoCapitalize="none"

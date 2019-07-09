@@ -71,7 +71,7 @@ export default class SignInScreen extends React.Component {
                     <Input
                       style={styles.input}
                       placeholder="Email"
-                      placeholderTextColor="#896ef5"
+                      placeholderTextColor="#0468d4"
                       keyboardType={"email-address"}
                       returnKeyType="next"
                       autoCapitalize="none"
@@ -87,7 +87,7 @@ export default class SignInScreen extends React.Component {
                     <Input
                       style={styles.input}
                       placeholder="Password"
-                      placeholderTextColor="#896ef5"
+                      placeholderTextColor="#0468d4"
                       returnKeyType="go"
                       autoCapitalize="none"
                       autoCorrect={false}
