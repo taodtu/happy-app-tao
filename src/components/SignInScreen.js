@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../images/beer.png";
 import Auth from "@aws-amplify/auth";
 import {
+  AsyncStorage,
   StyleSheet,
   View,
   Text,
@@ -22,22 +23,27 @@ export default class SignInScreen extends React.Component {
   onChangeText(key, value) {
     this.setState({ [key]: value });
   }
+  // signIn = async () => {
+  //   const { email, password } = this.state;
+  //   await Auth.signIn(email, password)
+  //     .then(user => {
+  //       this.setState({ user });
+  //       this.props.navigation.navigate("Landing");
+  //     })
+  //     .catch(err => {
+  //       if (!err.message) {
+  //         console.log("Error when signing in: ", err);
+  //         Alert.alert("Error when signing in: ", err);
+  //       } else {
+  //         console.log("Error when signing in: ", err.message);
+  //         Alert.alert("Error when signing in: ", err.message);
+  //       }
+  //     });
+  // };
   signIn = async () => {
-    const { email, password } = this.state;
-    await Auth.signIn(email, password)
-      .then(user => {
-        this.setState({ user });
-        this.props.navigation.navigate("Landing");
-      })
-      .catch(err => {
-        if (!err.message) {
-          console.log("Error when signing in: ", err);
-          Alert.alert("Error when signing in: ", err);
-        } else {
-          console.log("Error when signing in: ", err.message);
-          Alert.alert("Error when signing in: ", err.message);
-        }
-      });
+    await AsyncStorage.setItem("userToken", "123456789");
+
+    this.props.navigation.navigate("Landing");
   };
   render() {
     return (
