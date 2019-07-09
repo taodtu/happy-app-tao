@@ -45,28 +45,43 @@ const OwnerDrawerNavigator = createDrawerNavigator({
 });
 
 const SignInStackNavigator = createStackNavigator({
-  SignIn: SignInScreen,
+  SignIn: {
+    screen: SignInScreen,
+    navigationOptions: () => ({
+      title: `Pub sign in` // for the header screen
+    })
+  },
   SignUp: SignUpScreen,
   ForgetPassword: ForgetPasswordScreen
 });
+const options = {
+  tabBarPosition: "bottom",
+  swipeEnabled: true,
+  animationEnabled: true,
+  navigationOptions: {
+    tabBarVisible: true
+  }
+};
 const AppTabNavigator = createMaterialTopTabNavigator(
   {
-    Home: HomeScreen,
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: () => ({
+        title: `Offers list` // for the header screen
+      })
+    },
     SignIn: {
       screen: SignInStackNavigator, //define above
       navigationOptions: () => ({
-        title: `Pub sign in` // for the header screen
+        title: `Pub sign in/up` // for the header screen
       })
     }
   },
-  {
-    swipeEnabled: true,
-    animationEnabled: true
-  }
+  options
 );
 const AppNavigator = createSwitchNavigator({
   Landing: LandingScreen,
-  Owner: OwnerDrawerNavigator, // the Owner stack
+  Owner: ProfileScreen, // the Owner stack
   App: AppTabNavigator // the App stack
 });
 

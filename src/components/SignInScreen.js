@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   SafeAreaView,
-  StatusBar,
   KeyboardAvoidingView,
   Keyboard,
   Alert,
@@ -18,33 +17,8 @@ import { Container, Item, Input, Icon } from "native-base";
 export default class SignInScreen extends React.Component {
   state = {
     email: "",
-    password: "",
-    fadeIn: new Animated.Value(0),
-    fadeOut: new Animated.Value(0),
-    isHidden: false
+    password: ""
   };
-  componentDidMount() {
-    this.fadeIn();
-  }
-  fadeIn() {
-    Animated.timing(this.state.fadeIn, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true
-    }).start();
-
-    this.setState({ isHidden: true });
-  }
-  fadeOut() {
-    Animated.timing(this.state.fadeOut, {
-      toValue: 0, // 1 in the SignInScreen component
-      duration: 700,
-      useNativeDriver: true
-    }).start();
-
-    this.setState({ isHidden: false });
-  }
-
   onChangeText(key, value) {
     this.setState({ [key]: value });
   }
@@ -66,10 +40,8 @@ export default class SignInScreen extends React.Component {
       });
   };
   render() {
-    let { fadeOut, fadeIn, isHidden } = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar />
         <KeyboardAvoidingView
           style={styles.container}
           behavior="padding"
@@ -81,14 +53,10 @@ export default class SignInScreen extends React.Component {
           >
             <View style={styles.container}>
               <View style={styles.logoContainer}>
-                {isHidden ? (
-                  <Animated.Image source={logo} style={{ opacity: fadeIn }} />
-                ) : (
-                  <Animated.Image
-                    source={logo}
-                    style={{ opacity: fadeOut, width: 113.46, height: 117 }}
-                  />
-                )}
+                <Animated.Image
+                  source={logo}
+                  style={{ width: 80, height: 80 }}
+                />
               </View>
               <Container style={styles.infoContainer}>
                 <View style={styles.container}>
@@ -96,7 +64,7 @@ export default class SignInScreen extends React.Component {
                     <Icon active name="person" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
-                      placeholder="Username"
+                      placeholder="Email"
                       placeholderTextColor="#adb4bc"
                       keyboardType={"email-address"}
                       returnKeyType="next"
@@ -105,9 +73,7 @@ export default class SignInScreen extends React.Component {
                       onSubmitEditing={event => {
                         this.refs.SecondInput._root.focus();
                       }}
-                      onChangeText={value =>
-                        this.onChangeText("username", value)
-                      }
+                      onChangeText={value => this.onChangeText("email", value)}
                     />
                   </Item>
                   <Item rounded style={styles.itemStyle}>
@@ -132,6 +98,13 @@ export default class SignInScreen extends React.Component {
                   >
                     <Text style={styles.buttonText}>Sign In</Text>
                   </TouchableOpacity>
+
+                  <Text
+                    style={styles.buttonText}
+                    onPress={() => this.props.navigation.navigate("SignUp")}
+                  >
+                    Don't have an account? Sign Up
+                  </Text>
                 </View>
               </Container>
             </View>
