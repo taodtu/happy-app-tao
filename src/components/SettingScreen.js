@@ -9,7 +9,6 @@ import {
 export default class SettingsScreen extends React.Component {
   async singOut() {
     await AsyncStorage.clear();
-
     this.props.navigation.navigate("Landing");
   }
   render() {
