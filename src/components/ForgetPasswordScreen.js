@@ -1,5 +1,6 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
+import logo from "../images/beer.png";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -60,6 +61,7 @@ export default class ScreenName extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar />
+
         <KeyboardAvoidingView
           style={styles.container}
           behavior="padding"

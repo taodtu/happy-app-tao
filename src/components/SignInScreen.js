@@ -2,7 +2,6 @@ import React from "react";
 import logo from "../images/beer.png";
 import Auth from "@aws-amplify/auth";
 import {
-  AsyncStorage,
   StyleSheet,
   View,
   Text,
@@ -18,32 +17,30 @@ import {
 import { Container, Item, Input, Icon } from "native-base";
 export default class SignInScreen extends React.Component {
   state = {
-    email: "",
-    password: ""
+    username: "",
+    password: "",
+    loading: false
   };
   onChangeText(key, value) {
     this.setState({ [key]: value });
   }
-  // signIn = async () => {
-  //   const { email, password } = this.state;
-  //   await Auth.signIn(email, password)
-  //     .then(user => {
-  //       this.setState({ user });
-  //       this.props.navigation.navigate("Landing");
-  //     })
-  //     .catch(err => {
-  //       if (!err.message) {
-  //         console.log("Error when signing in: ", err);
-  //         Alert.alert("Error when signing in: ", err);
-  //       } else {
-  //         console.log("Error when signing in: ", err.message);
-  //         Alert.alert("Error when signing in: ", err.message);
-  //       }
-  //     });
-  // };
   signIn = async () => {
-    await AsyncStorage.setItem("userToken", "123456789");
-    this.props.navigation.navigate("Owner");
+    const { username, password, loading } = this.state;
+    console.log(username);
+    await Auth.signIn(username, password)
+      .then(user => {
+        this.setState({ user });
+        this.props.navigation.navigate("Landing");
+      })
+      .catch(err => {
+        if (!err.message) {
+          console.log("Error when signing in: ", err);
+          Alert.alert("Error when signing in: ", err);
+        } else {
+          console.log("Error when signing in: ", err.message);
+          Alert.alert("Error when signing in: ", err.message);
+        }
+      });
   };
   render() {
     return (
@@ -79,7 +76,9 @@ export default class SignInScreen extends React.Component {
                       onSubmitEditing={event => {
                         this.refs.SecondInput._root.focus();
                       }}
-                      onChangeText={value => this.onChangeText("email", value)}
+                      onChangeText={value =>
+                        this.onChangeText("username", value)
+                      }
                     />
                   </Item>
                   <Item rounded style={styles.itemStyle}>
