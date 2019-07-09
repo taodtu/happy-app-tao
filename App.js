@@ -1,6 +1,8 @@
 import React from "react";
 import LandingScreen from "./src/components/LandingScreen";
 import SignInScreen from "./src/components/SignInScreen";
+import SignUpScreen from "./src/components/SignUpScreen";
+import ForgetPasswordScreen from "./src/components/ForgetPasswordScreen";
 import HomeScreen from "./src/components/HomeScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
 import PromoScreen from "./src/components/PromoScreen";
@@ -41,23 +43,11 @@ const OwnerDrawerNavigator = createDrawerNavigator({
   Profile: ProfileScreen,
   Setting: SettingScreen
 });
-const AppStackNavigator = createStackNavigator({
-  Header: {
-    screen: HomeScreen,
-    // Set the header icon
-    navigationOptions: ({ navigation }) => ({
-      headerLeft: (
-        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-          <View style={{ paddingHorizontal: 10 }}>
-            <Icon name="md-menu" size={24} />
-          </View>
-        </TouchableOpacity>
-      )
-    })
-  }
-});
+
 const SignInStackNavigator = createStackNavigator({
-  SignIn: SignInScreen
+  SignIn: SignInScreen,
+  SignUp: SignUpScreen,
+  ForgetPassword: ForgetPasswordScreen
 });
 const AppTabNavigator = createMaterialTopTabNavigator(
   {
