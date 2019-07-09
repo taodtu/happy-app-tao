@@ -41,24 +41,51 @@ const OwnerDrawerNavigator = createDrawerNavigator({
   Profile: ProfileScreen,
   Setting: SettingScreen
 });
-const AppTabNavigator = createStackNavigator({
-  SignIn: SignInScreen
-});
 const AppStackNavigator = createStackNavigator({
-  // Tabs: AppStackNavigator, // defined above
+  Header: {
+    screen: HomeScreen,
+    // Set the header icon
+    navigationOptions: ({ navigation }) => ({
+      headerLeft: (
+        <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+          <View style={{ paddingHorizontal: 10 }}>
+            <Icon name="md-menu" size={24} />
+          </View>
+        </TouchableOpacity>
+      )
+    })
+  }
+});
+const HomeStackNavigator = createStackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: () => ({
-      title: `Welcome`, // for the header screen
+      title: `Promo list`, // for the header screen
       headerBackTitle: "Back"
     })
-  },
-  SignIn: SignInScreen
+  }
 });
+const AppDrawerNavigator = createDrawerNavigator(
+  {
+    Tabs: AppStackNavigator, // defined above
+    Home: HomeStackNavigator,
+    SignIn: {
+      screen: SignInScreen,
+      navigationOptions: () => ({
+        title: `Pub owner sign in`, // for the header screen
+        headerBackTitle: "Back"
+      })
+    }
+  },
+  {
+    swipeEnabled: true,
+    animationEnabled: true
+  }
+);
 const AppNavigator = createSwitchNavigator({
   Landing: LandingScreen,
   Owner: OwnerDrawerNavigator, // the Owner stack
-  App: AppStackNavigator // the App stack
+  App: AppDrawerNavigator // the App stack
 });
 
 const AppContainer = createAppContainer(AppNavigator);
