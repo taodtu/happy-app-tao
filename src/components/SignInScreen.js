@@ -12,6 +12,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Alert,
+  Button,
   Animated
 } from "react-native";
 import { Container, Item, Input, Icon } from "native-base";
@@ -60,7 +61,7 @@ export default class SignInScreen extends React.Component {
               <View style={styles.logoContainer}>
                 <Animated.Image
                   source={logo}
-                  style={{ width: 80, height: 80 }}
+                  style={{ width: 60, height: 60 }}
                 />
               </View>
               <Container style={styles.infoContainer}>
@@ -70,7 +71,7 @@ export default class SignInScreen extends React.Component {
                     <Input
                       style={styles.input}
                       placeholder="Email"
-                      placeholderTextColor="#adb4bc"
+                      placeholderTextColor="#896ef5"
                       keyboardType={"email-address"}
                       returnKeyType="next"
                       autoCapitalize="none"
@@ -86,7 +87,7 @@ export default class SignInScreen extends React.Component {
                     <Input
                       style={styles.input}
                       placeholder="Password"
-                      placeholderTextColor="#adb4bc"
+                      placeholderTextColor="#896ef5"
                       returnKeyType="go"
                       autoCapitalize="none"
                       autoCorrect={false}
@@ -104,12 +105,24 @@ export default class SignInScreen extends React.Component {
                     <Text style={styles.buttonText}>Sign In</Text>
                   </TouchableOpacity>
 
-                  <Text
-                    style={styles.buttonText}
-                    onPress={() => this.props.navigation.navigate("SignUp")}
-                  >
-                    Don't have an account? Sign Up
-                  </Text>
+                  <View>
+                    <Text style={styles.Text}>Don't have an account?</Text>
+                    <Button
+                      title="Sign Up"
+                      color="#841584"
+                      onPress={() => this.props.navigation.navigate("SignUp")}
+                    />
+                  </View>
+                  <View style={styles.Button}>
+                    <Text style={styles.Text}>Forget your password?</Text>
+                    <Button
+                      title="Click here"
+                      color="#841584"
+                      onPress={() =>
+                        this.props.navigation.navigate("ForgetPassword")
+                      }
+                    />
+                  </View>
                 </View>
               </Container>
             </View>
@@ -122,7 +135,7 @@ export default class SignInScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#aa73b7",
+    backgroundColor: "#23ccc9",
     justifyContent: "center",
     flexDirection: "column"
   },
@@ -142,7 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 30,
-    backgroundColor: "#aa73b7"
+    backgroundColor: "#23ccc9"
   },
   itemStyle: {
     marginBottom: 20
@@ -154,7 +167,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     alignItems: "center",
-    backgroundColor: "#667292",
+    backgroundColor: "#61a0d4",
     padding: 14,
     marginBottom: 20,
     borderRadius: 24
@@ -173,5 +186,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1
+  },
+  Text: {
+    textAlign: "center"
+  },
+  Button: {
+    marginBottom: 20
   }
 });
