@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { dealsObj } from "../data/deals-data";
 import DealCard from "./deals-screen/DealCard";
-import CardImage from "./deals-screen/CardImage";
 
 const MainView = styled.View`
   flex: 1;
@@ -13,19 +12,15 @@ const MainView = styled.View`
 `;
 
 export default class HomeScreen extends Component {
-  state = { deals: dealsObj };
+  state = { deals: dealsObj.dealsArr };
   render() {
     const { deals } = this.state;
     return (
       <MainView>
+        {/*map over deals and create a card for each deal */}
         {deals.map(venue => {
-          return (
-            <>
-              <Text>{venue.venue}</Text>
-              {console.log("anything")}
-              <CardImage image={venue.image} />
-            </>
-          );
+          const { name, venueImg } = venue;
+          return <DealCard venueName={name} image={venueImg} key={name} />;
         })}
       </MainView>
     );
