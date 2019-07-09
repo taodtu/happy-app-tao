@@ -42,8 +42,7 @@ export default class SignInScreen extends React.Component {
   // };
   signIn = async () => {
     await AsyncStorage.setItem("userToken", "123456789");
-
-    this.props.navigation.navigate("Landing");
+    this.props.navigation.navigate("Owner");
   };
   render() {
     return (

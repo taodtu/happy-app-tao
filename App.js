@@ -79,9 +79,32 @@ const AppTabNavigator = createMaterialTopTabNavigator(
   },
   options
 );
+const OwnerTabNavigator = createMaterialTopTabNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: () => ({
+        title: `Offers` // for the header screen
+      })
+    },
+    Profile: {
+      screen: ProfileScreen, //define above
+      navigationOptions: () => ({
+        title: `Profile` // for the header screen
+      })
+    },
+    Setting: {
+      screen: SettingScreen, //define above
+      navigationOptions: () => ({
+        title: `Setting` // for the header screen
+      })
+    }
+  },
+  options
+);
 const AppNavigator = createSwitchNavigator({
   Landing: LandingScreen,
-  Owner: ProfileScreen, // the Owner stack
+  Owner: OwnerTabNavigator, // the Owner stack
   App: AppTabNavigator // the App stack
 });
 
