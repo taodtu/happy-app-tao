@@ -1,0 +1,31 @@
+{
+    "dealsObj": [{
+            "price": "£5",
+            "drink": "House Lager",
+            "quantity": 2,
+            "venue": "The Pilcrow",
+            "venueImg": "../images/pilcrowIcon.jpg"
+        },
+        {
+            "price": "£10",
+            "drink": "House Wine",
+            "quantity": 1,
+            "venue": "Terrace",
+            "venueImg": "../images/trofIcon.jpg"
+        },
+        {
+            "price": "£10",
+            "drink": "Mojito",
+            "quantity": 2,
+            "venue": "Trof",
+            "venueImg": "../images/trofIcon.jpg"
+        },
+        {
+            "price": "£3",
+            "drink": "Schofferhoffer",
+            "quantity": 1,
+            "venue": "Common",
+            "venueImg": "../images/commonIcon.jpg"
+        }
+    ]
+}
