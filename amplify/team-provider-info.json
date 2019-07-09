@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "happy-app-dev-20190708120833-authRole",
+            "UnauthRoleArn": "arn:aws:iam::197785695534:role/happy-app-dev-20190708120833-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::197785695534:role/happy-app-dev-20190708120833-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "happy-app-dev-20190708120833-deployment",
+            "UnauthRoleName": "happy-app-dev-20190708120833-unauthRole",
+            "StackName": "happy-app-dev-20190708120833",
+            "StackId": "arn:aws:cloudformation:us-west-2:197785695534:stack/happy-app-dev-20190708120833/ba05c460-a170-11e9-807e-0a2792008b16"
+        },
+        "categories": {
+            "auth": {
+                "happyapp79d21a4e": {}
+            }
+        }
+    }
+}
