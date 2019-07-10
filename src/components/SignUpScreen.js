@@ -146,7 +146,7 @@ export default class SignUpScreen extends React.Component {
                       // ref={c => this.SecondInput = c}
                       ref="SecondInput"
                       onSubmitEditing={event => {
-                        this.refs.ThirdInput._root.focus();
+                        this.signUp();
                       }}
                       onChangeText={value =>
                         this.onChangeText("password", value)
@@ -211,11 +211,7 @@ const styles = StyleSheet.create({
     color: "#5a52a5"
   },
   infoContainer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    height: 370,
-    bottom: 25,
+    marginTop: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
