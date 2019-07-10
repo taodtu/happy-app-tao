@@ -12,9 +12,20 @@ import styled from "styled-components";
 const Card = styled.View`
   width: 300;
   background: #7fbeeb;
-  height: 120;
-  z-index: 0;
+  height: 130;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin: 10px;
+`;
+
+const DealWrapper = styled.View`
+  margin: 10px;
+  flex: 2;
+  background: #3cdbd3;
+  padding-left: 3px;
+  margin-vertical: 18px;
+  margin-left: 45px;
 `;
 
 export default function DealCard(props) {
@@ -22,12 +33,14 @@ export default function DealCard(props) {
   return (
     <Card>
       <TimerImage image={timerImg} />
-      <VenueName name={venueName} />
       {/* <VenueImage venueImg={venueImg} /> */}
-      <Drink drink={drink} />
-      <Price price={price} />
-      <Emoji type={type} />
-      <Quantity quantity={quantity} />
+      <DealWrapper>
+        <Drink drink={drink} />
+        <VenueName name={venueName} />
+        <Quantity quantity={quantity} />
+        <Price price={price} />
+        <Emoji type={type} />
+      </DealWrapper>
     </Card>
   );
 }

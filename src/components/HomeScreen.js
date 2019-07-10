@@ -4,11 +4,10 @@ import styled from "styled-components";
 import { dealsObj } from "../data/deals-data";
 import DealCard from "./deals-screen/DealCard";
 
-const MainView = styled.View`
+const MainView = styled.ScrollView`
   flex: 1;
   background-color: #eac5d8;
-  align-items: center;
-  justify-content: space-around;
+  top: 25;
 `;
 
 export default class HomeScreen extends Component {

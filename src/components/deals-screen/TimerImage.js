@@ -2,8 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const ImageWrapper = styled.Image`
-  height: 90;
-  width: 90;
+  height: 50;
+  aspect-ratio: 1;
+  top: 3;
+  left: 8;
   flex: 1;
 `;
 

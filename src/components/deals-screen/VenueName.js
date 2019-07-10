@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const NameWrapper = styled.Text`
-  align-self: flex-end;
-  flex: 1;
+  text-align: center;
 `;
 
 export default function VenueName(props) {
