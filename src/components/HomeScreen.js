@@ -19,8 +19,27 @@ export default class HomeScreen extends Component {
       <MainView>
         {/*map over deals and create a card for each deal */}
         {deals.map(venue => {
-          const { name, venueImg } = venue;
-          return <DealCard venueName={name} image={venueImg} key={name} />;
+          const {
+            name,
+            venueImg,
+            drink,
+            price,
+            quantity,
+            timerImg,
+            type
+          } = venue;
+          return (
+            <DealCard
+              venueName={name}
+              timerImg={timerImg}
+              venueImg={venueImg}
+              drink={drink}
+              price={price}
+              quantity={quantity}
+              type={type}
+              key={name}
+            />
+          );
         })}
       </MainView>
     );
