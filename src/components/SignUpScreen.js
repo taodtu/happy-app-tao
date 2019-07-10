@@ -38,9 +38,11 @@ export default class SignUpScreen extends React.Component {
       })
       .catch(err => {
         if (!err.message) {
+          this.setState({ loading: false });
           console.log("Error when signing up: ", err);
           Alert.alert("Error when signing up: ", err);
         } else {
+          this.setState({ loading: false });
           console.log("Error when signing up: ", err.message);
           Alert.alert("Error when signing up: ", err.message);
         }
@@ -50,16 +52,20 @@ export default class SignUpScreen extends React.Component {
   // Confirm users and redirect them to the SignIn page
   async confirmSignUp() {
     const { username, authCode } = this.state;
+    this.setState({ loading: true });
     await Auth.confirmSignUp(username, authCode)
       .then(() => {
+        this.setState({ loading: false });
         this.props.navigation.navigate("SignIn");
         console.log("Confirm sign up successful");
       })
       .catch(err => {
         if (!err.message) {
+          this.setState({ loading: false });
           console.log("Error when entering confirmation code: ", err);
           Alert.alert("Error when entering confirmation code: ", err);
         } else {
+          this.setState({ loading: false });
           console.log("Error when entering confirmation code: ", err.message);
           Alert.alert("Error when entering confirmation code: ", err.message);
         }
@@ -68,13 +74,19 @@ export default class SignUpScreen extends React.Component {
   // Resend code if not received already
   async resendSignUp() {
     const { username } = this.state;
+    this.setState({ loading: true });
     await Auth.resendSignUp(username)
-      .then(() => console.log("Confirmation code resent successfully"))
+      .then(() => {
+        this.setState({ loading: false });
+        console.log("Confirmation code resent successfully");
+      })
       .catch(err => {
         if (!err.message) {
+          this.setState({ loading: false });
           console.log("Error requesting new confirmation code: ", err);
           Alert.alert("Error requesting new confirmation code: ", err);
         } else {
+          this.setState({ loading: false });
           console.log("Error requesting new confirmation code: ", err.message);
           Alert.alert("Error requesting new confirmation code: ", err.message);
         }

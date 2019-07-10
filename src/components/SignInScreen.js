@@ -34,6 +34,7 @@ export default class SignInScreen extends React.Component {
         this.props.navigation.navigate("Landing");
       })
       .catch(err => {
+        this.setState({ loading: false });
         if (!err.message) {
           console.log("Error when signing in: ", err);
           Alert.alert("Error when signing in: ", err);
