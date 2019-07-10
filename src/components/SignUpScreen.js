@@ -1,5 +1,6 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
+import Loading from "./Loading";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -19,24 +20,29 @@ export default class SignUpScreen extends React.Component {
   state = {
     username: "",
     password: "",
+    loading: false,
     authCode: ""
   };
   async signUp() {
     const { username, password } = this.state;
+    this.setState({ loading: true });
     // rename variable to conform with Amplify Auth field phone attribute
     await Auth.signUp({
       username,
       password
     })
       .then(() => {
+        this.setState({ loading: false });
         console.log("sign up successful!");
         Alert.alert("Enter the confirmation code you received.");
       })
       .catch(err => {
         if (!err.message) {
+          this.setState({ loading: false });
           console.log("Error when signing up: ", err);
           Alert.alert("Error when signing up: ", err);
         } else {
+          this.setState({ loading: false });
           console.log("Error when signing up: ", err.message);
           Alert.alert("Error when signing up: ", err.message);
         }
@@ -46,16 +52,20 @@ export default class SignUpScreen extends React.Component {
   // Confirm users and redirect them to the SignIn page
   async confirmSignUp() {
     const { username, authCode } = this.state;
+    this.setState({ loading: true });
     await Auth.confirmSignUp(username, authCode)
       .then(() => {
+        this.setState({ loading: false });
         this.props.navigation.navigate("SignIn");
         console.log("Confirm sign up successful");
       })
       .catch(err => {
         if (!err.message) {
+          this.setState({ loading: false });
           console.log("Error when entering confirmation code: ", err);
           Alert.alert("Error when entering confirmation code: ", err);
         } else {
+          this.setState({ loading: false });
           console.log("Error when entering confirmation code: ", err.message);
           Alert.alert("Error when entering confirmation code: ", err.message);
         }
@@ -64,13 +74,19 @@ export default class SignUpScreen extends React.Component {
   // Resend code if not received already
   async resendSignUp() {
     const { username } = this.state;
+    this.setState({ loading: true });
     await Auth.resendSignUp(username)
-      .then(() => console.log("Confirmation code resent successfully"))
+      .then(() => {
+        this.setState({ loading: false });
+        console.log("Confirmation code resent successfully");
+      })
       .catch(err => {
         if (!err.message) {
+          this.setState({ loading: false });
           console.log("Error requesting new confirmation code: ", err);
           Alert.alert("Error requesting new confirmation code: ", err);
         } else {
+          this.setState({ loading: false });
           console.log("Error requesting new confirmation code: ", err.message);
           Alert.alert("Error requesting new confirmation code: ", err.message);
         }
@@ -80,6 +96,8 @@ export default class SignUpScreen extends React.Component {
     this.setState({ [key]: value });
   }
   render() {
+    const { loading } = this.state;
+    if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar />
@@ -128,7 +146,7 @@ export default class SignUpScreen extends React.Component {
                       // ref={c => this.SecondInput = c}
                       ref="SecondInput"
                       onSubmitEditing={event => {
-                        this.refs.ThirdInput._root.focus();
+                        this.signUp();
                       }}
                       onChangeText={value =>
                         this.onChangeText("password", value)
@@ -193,11 +211,7 @@ const styles = StyleSheet.create({
     color: "#5a52a5"
   },
   infoContainer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    height: 370,
-    bottom: 25,
+    marginTop: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
