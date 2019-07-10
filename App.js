@@ -1,14 +1,18 @@
 import React from "react";
+import { Dimensions } from "react-native";
 import LandingScreen from "./src/components/LandingScreen";
 import SignInScreen from "./src/components/SignInScreen";
 import SignUpScreen from "./src/components/SignUpScreen";
 import ForgetPasswordScreen from "./src/components/ForgetPasswordScreen";
 import HomeScreen from "./src/components/HomeScreen";
+import PromoScreen from "./src/components/PromoScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
 import SettingScreen from "./src/components/SettingScreen";
+import MenuDrawer from "./src/components/MenuDrawer";
 import {
   createSwitchNavigator,
   createStackNavigator,
+  createDrawerNavigator,
   createMaterialTopTabNavigator,
   createAppContainer
 } from "react-navigation";
@@ -53,10 +57,17 @@ const AppTabNavigator = createMaterialTopTabNavigator(
   },
   options
 );
-const OwnerTabNavigator = createMaterialTopTabNavigator(
+const WIDTH = Dimensions.get("window").width;
+const DrawerConfig = {
+  drawerWidth: WIDTH * 0.8
+  // contentComponent: ({ navigation }) => {
+  //   return <MenuDrawer navigation={navigation} />;
+  // }
+};
+const OwnerDrawerNavigator = createDrawerNavigator(
   {
     Home: {
-      screen: HomeScreen,
+      screen: PromoScreen,
       navigationOptions: () => ({
         title: `Offers` // for the header screen
       })
@@ -74,11 +85,11 @@ const OwnerTabNavigator = createMaterialTopTabNavigator(
       })
     }
   },
-  options
+  DrawerConfig
 );
 const AppNavigator = createSwitchNavigator({
   Landing: LandingScreen,
-  Owner: OwnerTabNavigator, // the Owner stack
+  Owner: OwnerDrawerNavigator, // the Owner stack
   App: AppTabNavigator // the App stack
 });
 

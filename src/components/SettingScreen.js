@@ -1,5 +1,7 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
+import Loading from "./Loading";
+import MenuButton from "./MenuButton";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -16,24 +18,26 @@ import { Container, Item, Input, Icon } from "native-base";
 export default class SettingScreen extends React.Component {
   state = {
     password1: "",
-    password2: ""
+    password2: "",
+    loading: false
   };
   onChangeText(key, value) {
     this.setState({ [key]: value });
   }
   changePassword = async () => {
     const { password1, password2 } = this.state;
+    this.setState({ loading: true });
     await Auth.currentAuthenticatedUser()
       .then(user => {
         return Auth.changePassword(user, password1, password2);
       })
-      .then(data => console.log("Password changed successfully", data))
+      .then(data => this.setState({ loading: false }))
       .catch(err => {
         if (!err.message) {
-          console.log("Error changing password: ", err);
+          this.setState({ loading: false });
           Alert.alert("Error changing password: ", err);
         } else {
-          console.log("Error changing password: ", err.message);
+          this.setState({ loading: false });
           Alert.alert("Error changing password: ", err.message);
         }
       });
@@ -60,17 +64,20 @@ export default class SettingScreen extends React.Component {
   };
   // Confirm sign out
   signOut = async () => {
+    this.setState({ loading: true });
     await Auth.signOut()
       .then(() => {
-        console.log("Sign out complete");
-
+        this.setState({ loading: false });
         this.props.navigation.navigate("Landing");
       })
-      .catch(err => console.log("Error while signing out!", err));
+      .catch(err => this.setState({ loading: false }));
   };
   render() {
+    const { loading } = this.state;
+    if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
+        <MenuButton navigation={this.props.navigation} />
         <StatusBar />
         <KeyboardAvoidingView
           style={styles.container}
