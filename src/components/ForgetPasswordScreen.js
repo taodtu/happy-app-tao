@@ -1,6 +1,6 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
-import logo from "../images/beer.png";
+import Loading from "./Loading";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -18,37 +18,44 @@ export default class ScreenName extends React.Component {
   state = {
     email: "",
     authCode: "",
-    newPassword: ""
+    newPassword: "",
+    loading: false
   };
   // Request a new password
   async forgotPassword() {
     const { email } = this.state;
+    this.setState({ loading: true });
     await Auth.forgotPassword(email)
-      .then(data => console.log("New code sent", data))
+      .then(data => {
+        this.setState({ loading: false });
+        Alert.alert("New code sent, please check your email");
+      })
       .catch(err => {
         if (!err.message) {
-          console.log("Error while setting up the new password: ", err);
+          this.setState({ loading: false });
           Alert.alert("Error while setting up the new password: ", err);
         } else {
-          console.log("Error while setting up the new password: ", err.message);
+          this.setState({ loading: false });
           Alert.alert("Error while setting up the new password: ", err.message);
         }
       });
   }
   // Upon confirmation redirect the user to the Sign In page
   async forgotPasswordSubmit() {
+    this.setState({ loading: true });
     const { email, authCode, newPassword } = this.state;
     await Auth.forgotPasswordSubmit(email, authCode, newPassword)
       .then(() => {
+        this.setState({ loading: false });
         this.props.navigation.navigate("SignIn");
         console.log("the New password submitted successfully");
       })
       .catch(err => {
         if (!err.message) {
-          console.log("Error while confirming the new password: ", err);
+          this.setState({ loading: false });
           Alert.alert("Error while confirming the new password: ", err);
         } else {
-          console.log("Error while confirming the new password: ", err.message);
+          this.setState({ loading: false });
           Alert.alert("Error while confirming the new password: ", err.message);
         }
       });
@@ -58,6 +65,8 @@ export default class ScreenName extends React.Component {
     this.setState({ [key]: value });
   }
   render() {
+    const { loading } = this.state;
+    if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar />
@@ -164,11 +173,7 @@ const styles = StyleSheet.create({
     color: "#5a52a5"
   },
   infoContainer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    height: 200,
-    bottom: 25,
+    marginTop: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
