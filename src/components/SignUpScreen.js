@@ -1,5 +1,6 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
+import Loading from "./Loading";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -19,16 +20,19 @@ export default class SignUpScreen extends React.Component {
   state = {
     username: "",
     password: "",
+    loading: false,
     authCode: ""
   };
   async signUp() {
     const { username, password } = this.state;
+    this.setState({ loading: true });
     // rename variable to conform with Amplify Auth field phone attribute
     await Auth.signUp({
       username,
       password
     })
       .then(() => {
+        this.setState({ loading: false });
         console.log("sign up successful!");
         Alert.alert("Enter the confirmation code you received.");
       })
@@ -80,6 +84,8 @@ export default class SignUpScreen extends React.Component {
     this.setState({ [key]: value });
   }
   render() {
+    const { loading } = this.state;
+    if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar />

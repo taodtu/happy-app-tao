@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../images/beer.png";
 import Auth from "@aws-amplify/auth";
+import Loading from "./Loading";
 import {
   StyleSheet,
   View,
@@ -25,11 +26,11 @@ export default class SignInScreen extends React.Component {
     this.setState({ [key]: value });
   }
   signIn = async () => {
-    const { username, password, loading } = this.state;
-    console.log(username);
+    const { username, password } = this.state;
+    this.setState({ loading: true });
     await Auth.signIn(username, password)
       .then(user => {
-        this.setState({ user });
+        this.setState({ user, loading: false });
         this.props.navigation.navigate("Landing");
       })
       .catch(err => {
@@ -43,6 +44,8 @@ export default class SignInScreen extends React.Component {
       });
   };
   render() {
+    const { loading } = this.state;
+    if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView
