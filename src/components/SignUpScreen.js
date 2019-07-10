@@ -33,17 +33,14 @@ export default class SignUpScreen extends React.Component {
     })
       .then(() => {
         this.setState({ loading: false });
-        console.log("sign up successful!");
         Alert.alert("Enter the confirmation code you received.");
       })
       .catch(err => {
         if (!err.message) {
           this.setState({ loading: false });
-          console.log("Error when signing up: ", err);
           Alert.alert("Error when signing up: ", err);
         } else {
           this.setState({ loading: false });
-          console.log("Error when signing up: ", err.message);
           Alert.alert("Error when signing up: ", err.message);
         }
       });
@@ -57,16 +54,13 @@ export default class SignUpScreen extends React.Component {
       .then(() => {
         this.setState({ loading: false });
         this.props.navigation.navigate("SignIn");
-        console.log("Confirm sign up successful");
       })
       .catch(err => {
         if (!err.message) {
           this.setState({ loading: false });
-          console.log("Error when entering confirmation code: ", err);
           Alert.alert("Error when entering confirmation code: ", err);
         } else {
           this.setState({ loading: false });
-          console.log("Error when entering confirmation code: ", err.message);
           Alert.alert("Error when entering confirmation code: ", err.message);
         }
       });
