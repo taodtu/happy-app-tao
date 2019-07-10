@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const ImageWrapper = styled.Image`
-  height: 120;
-  width: 120;
+const VenueImageWrapper = styled.Image`
+  height: 90;
+  width: 90;
+  flex: 1;
+  align-self: flex-end;
 `;
 
 export default function VenueImage(props) {
-  const { image } = props;
-  return <ImageWrapper source={image} />;
+  const { venueImg } = props;
+  return <VenueImageWrapper source={venueImg} />;
 }
