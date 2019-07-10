@@ -1,16 +1,16 @@
-// import React from "react";
-// import {
-//   View,
-//   Text,
-//   Image,
-//   ScrollView,
-//   Dimensions,
-//   StyleSheet,
-//   TouchableOpacity
-// } from "react-native";
+import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity
+} from "react-native";
 
-// const WIDTH = Dimensions.get("window").width;
-// const HEIGHT = Dimensions.get("window").height;
+const WIDTH = Dimensions.get("window").width;
+const HEIGHT = Dimensions.get("window").height;
 
 // export default class MenuDrawer extends React.Component {
 //   navLink(nav, text) {
