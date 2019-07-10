@@ -1,6 +1,7 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
 import Loading from "./Loading";
+import MenuButton from "./MenuButton";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -76,6 +77,7 @@ export default class SettingScreen extends React.Component {
     if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
+        <MenuButton navigation={this.props.navigation} />
         <StatusBar />
         <KeyboardAvoidingView
           style={styles.container}

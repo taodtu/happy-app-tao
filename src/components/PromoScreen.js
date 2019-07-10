@@ -1,10 +1,12 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-export default class HomeScreen extends React.Component {
+import MenuButton from "./MenuButton";
+export default class PromoScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.textStyle}>Promo</Text>
+        <MenuButton navigation={this.props.navigation} />
+        <Text style={styles.textStyle}>Promo List</Text>
       </View>
     );
   }
@@ -14,6 +16,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#3a73b7",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "space-around"
   }
 });
