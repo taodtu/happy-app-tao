@@ -5,28 +5,36 @@ export const dealsObj = {
       drink: "House Lager",
       quantity: 2,
       name: "The Pilcrow",
-      venueImg: require("../images/pilcrowIcon.jpg")
+      timerImg: require("../images/timer.png"),
+      venueImg: require("../images/pilcrowIcon.jpg"),
+      type: "🍺"
     },
     {
       price: "£10",
       drink: "House Wine",
       quantity: 1,
       name: "Terrace",
-      venueImg: require("../images/TerraceIcon.jpg")
+      timerImg: require("../images/timer.png"),
+      venueImg: require("../images/TerraceIcon.jpg"),
+      type: "🍷"
     },
     {
       price: "£10",
       drink: "Mojito",
       quantity: 2,
       name: "Trof",
-      venueImg: require("../images/trofIcon.jpg")
+      timerImg: require("../images/timer.png"),
+      venueImg: require("../images/trofIcon.jpg"),
+      type: "🍸"
     },
     {
       price: "£3",
-      drink: "Schofferhoffer",
+      drink: "Sheep Dip",
       quantity: 1,
       name: "Common",
-      venueImg: require("../images/commonIcon.jpg")
+      timerImg: require("../images/timer.png"),
+      venueImg: require("../images/commonIcon.jpg"),
+      type: "🥃"
     }
   ]
 };
