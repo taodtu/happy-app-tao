@@ -42,13 +42,12 @@ export default class SignUpScreen extends React.Component {
       });
   }
 
-  // Confirm users and redirect them to the SignIn page
+  // Confirm users and redirect them to the Landing page
   async confirmSignUp() {
     const { username, authCode, password } = this.state;
     this.setState({ loading: true });
     await Auth.confirmSignUp(username, authCode)
       .then(async () => {
-        // this.props.navigation.navigate("SignIn");
         await Auth.signIn(username, password)
           .then(user => {
             this.setState({ user, loading: false });

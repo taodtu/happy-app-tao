@@ -36,10 +36,8 @@ export default class SignInScreen extends React.Component {
       .catch(err => {
         this.setState({ loading: false });
         if (!err.message) {
-          console.log("Error when signing in: ", err);
           Alert.alert("Error when signing in: ", err);
         } else {
-          console.log("Error when signing in: ", err.message);
           Alert.alert("Error when signing in: ", err.message);
         }
       });
@@ -152,11 +150,7 @@ const styles = StyleSheet.create({
     color: "#5a52a5"
   },
   infoContainer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    height: 200,
-    bottom: 25,
+    marginTop: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
