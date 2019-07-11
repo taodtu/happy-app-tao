@@ -25,22 +25,18 @@ export default class SignUpScreen extends React.Component {
   };
   async signUp() {
     const { username, password } = this.state;
-    this.setState({ loading: true });
     // rename variable to conform with Amplify Auth field phone attribute
     await Auth.signUp({
       username,
       password
     })
       .then(() => {
-        this.setState({ loading: false });
         Alert.alert("Enter the confirmation code you received.");
       })
       .catch(err => {
         if (!err.message) {
-          this.setState({ loading: false });
           Alert.alert("Error when signing up: ", err);
         } else {
-          this.setState({ loading: false });
           Alert.alert("Error when signing up: ", err.message);
         }
       });
@@ -48,12 +44,25 @@ export default class SignUpScreen extends React.Component {
 
   // Confirm users and redirect them to the SignIn page
   async confirmSignUp() {
-    const { username, authCode } = this.state;
+    const { username, authCode, password } = this.state;
     this.setState({ loading: true });
     await Auth.confirmSignUp(username, authCode)
-      .then(() => {
-        this.setState({ loading: false });
-        this.props.navigation.navigate("SignIn");
+      .then(async () => {
+        // this.props.navigation.navigate("SignIn");
+        await Auth.signIn(username, password)
+          .then(user => {
+            this.setState({ user, loading: false });
+            this.props.navigation.navigate("Landing");
+          })
+          .catch(err => {
+            if (!err.message) {
+              this.setState({ loading: false });
+              Alert.alert("Error when signing in: ", err);
+            } else {
+              this.setState({ loading: false });
+              Alert.alert("Error when signing in: ", err.message);
+            }
+          });
       })
       .catch(err => {
         if (!err.message) {
@@ -68,23 +77,15 @@ export default class SignUpScreen extends React.Component {
   // Resend code if not received already
   async resendSignUp() {
     const { username } = this.state;
-    this.setState({ loading: true });
-    await Auth.resendSignUp(username)
-      .then(() => {
+    await Auth.resendSignUp(username).catch(err => {
+      if (!err.message) {
         this.setState({ loading: false });
-        console.log("Confirmation code resent successfully");
-      })
-      .catch(err => {
-        if (!err.message) {
-          this.setState({ loading: false });
-          console.log("Error requesting new confirmation code: ", err);
-          Alert.alert("Error requesting new confirmation code: ", err);
-        } else {
-          this.setState({ loading: false });
-          console.log("Error requesting new confirmation code: ", err.message);
-          Alert.alert("Error requesting new confirmation code: ", err.message);
-        }
-      });
+        Alert.alert("Error requesting new confirmation code: ", err);
+      } else {
+        this.setState({ loading: false });
+        Alert.alert("Error requesting new confirmation code: ", err.message);
+      }
+    });
   }
   onChangeText(key, value) {
     this.setState({ [key]: value });
