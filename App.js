@@ -66,16 +66,16 @@ const DrawerConfig = {
 };
 const OwnerDrawerNavigator = createDrawerNavigator(
   {
-    Promo: {
-      screen: PromoScreen,
-      navigationOptions: () => ({
-        title: `Offers` // for the header screen
-      })
-    },
     Profile: {
       screen: ProfileScreen, //define above
       navigationOptions: () => ({
         title: `Profile` // for the header screen
+      })
+    },
+    Promo: {
+      screen: PromoScreen,
+      navigationOptions: () => ({
+        title: `Offers` // for the header screen
       })
     },
     Setting: {

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   SafeAreaView,
+  StatusBar,
   KeyboardAvoidingView,
   Keyboard,
   Alert,
@@ -47,6 +48,7 @@ export default class SignInScreen extends React.Component {
     if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar />
         <KeyboardAvoidingView
           style={styles.container}
           behavior="padding"
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
     color: "#5a52a5"
   },
   infoContainer: {
-    marginTop: 60,
+    marginTop: 120,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
