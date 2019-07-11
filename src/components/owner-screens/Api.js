@@ -1,4 +1,5 @@
 import axios from "axios";
+import { googleApiKey } from "../../../apiKey";
 
 const request = axios.create({
   baseURL: "https://nc-news-rest-api.herokuapp.com/api"
