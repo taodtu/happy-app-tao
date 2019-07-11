@@ -5,9 +5,10 @@ import SignInScreen from "./src/components/SignInScreen";
 import SignUpScreen from "./src/components/SignUpScreen";
 import ForgetPasswordScreen from "./src/components/ForgetPasswordScreen";
 import HomeScreen from "./src/components/HomeScreen";
-import PromoScreen from "./src/components/OwnerScreens/PromoScreen";
-import ProfileScreen from "./src/components/OwnerScreens/ProfileScreen";
+import PromoScreen from "./src/components/owner-screens/PromoScreen";
+import ProfileScreen from "./src/components/owner-screens/ProfileScreen";
 import SettingScreen from "./src/components/SettingScreen";
+import CouponDetailScreen from "./src/components/coupon-screen/CouponDetailScreen";
 import MenuDrawer from "./src/components/MenuDrawer";
 import {
   createSwitchNavigator,
@@ -40,14 +41,23 @@ const options = {
     tabBarVisible: true
   }
 };
+const OfferStackNavigator = createStackNavigator({
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: () => ({
+      title: `Offers list` // for the header screen
+    })
+  },
+  Coupon: {
+    screen: CouponDetailScreen,
+    navigationOptions: () => ({
+      title: `Coupon detail` // for the header screen
+    })
+  }
+});
 const AppTabNavigator = createMaterialTopTabNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: () => ({
-        title: `Offers list` // for the header screen
-      })
-    },
+    Offer: OfferStackNavigator, //define above
     SignIn: {
       screen: SignInStackNavigator, //define above
       navigationOptions: () => ({
