@@ -59,14 +59,14 @@ const AppTabNavigator = createMaterialTopTabNavigator(
 );
 const WIDTH = Dimensions.get("window").width;
 const DrawerConfig = {
-  drawerWidth: WIDTH * 0.8
-  // contentComponent: ({ navigation }) => {
-  //   return <MenuDrawer navigation={navigation} />;
-  // }
+  drawerWidth: WIDTH * 0.8,
+  contentComponent: ({ navigation }) => {
+    return <MenuDrawer navigation={navigation} />;
+  }
 };
 const OwnerDrawerNavigator = createDrawerNavigator(
   {
-    Home: {
+    Promo: {
       screen: PromoScreen,
       navigationOptions: () => ({
         title: `Offers` // for the header screen
