@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   SafeAreaView,
+  StatusBar,
   KeyboardAvoidingView,
   Keyboard,
   Alert,
@@ -36,10 +37,8 @@ export default class SignInScreen extends React.Component {
       .catch(err => {
         this.setState({ loading: false });
         if (!err.message) {
-          console.log("Error when signing in: ", err);
           Alert.alert("Error when signing in: ", err);
         } else {
-          console.log("Error when signing in: ", err.message);
           Alert.alert("Error when signing in: ", err.message);
         }
       });
@@ -49,6 +48,7 @@ export default class SignInScreen extends React.Component {
     if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar />
         <KeyboardAvoidingView
           style={styles.container}
           behavior="padding"
@@ -99,6 +99,9 @@ export default class SignInScreen extends React.Component {
                       onChangeText={value =>
                         this.onChangeText("password", value)
                       }
+                      onSubmitEditing={event => {
+                        this.signIn();
+                      }}
                     />
                   </Item>
                   <TouchableOpacity
@@ -149,11 +152,7 @@ const styles = StyleSheet.create({
     color: "#5a52a5"
   },
   infoContainer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    height: 200,
-    bottom: 25,
+    marginTop: 120,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

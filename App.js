@@ -5,8 +5,8 @@ import SignInScreen from "./src/components/SignInScreen";
 import SignUpScreen from "./src/components/SignUpScreen";
 import ForgetPasswordScreen from "./src/components/ForgetPasswordScreen";
 import HomeScreen from "./src/components/HomeScreen";
-import PromoScreen from "./src/components/PromoScreen";
-import ProfileScreen from "./src/components/ProfileScreen";
+import PromoScreen from "./src/components/OwnerScreens/PromoScreen";
+import ProfileScreen from "./src/components/OwnerScreens/ProfileScreen";
 import SettingScreen from "./src/components/SettingScreen";
 import MenuDrawer from "./src/components/MenuDrawer";
 import {
@@ -59,23 +59,23 @@ const AppTabNavigator = createMaterialTopTabNavigator(
 );
 const WIDTH = Dimensions.get("window").width;
 const DrawerConfig = {
-  drawerWidth: WIDTH * 0.8
-  // contentComponent: ({ navigation }) => {
-  //   return <MenuDrawer navigation={navigation} />;
-  // }
+  drawerWidth: WIDTH * 0.8,
+  contentComponent: ({ navigation }) => {
+    return <MenuDrawer navigation={navigation} />;
+  }
 };
 const OwnerDrawerNavigator = createDrawerNavigator(
   {
-    Home: {
-      screen: PromoScreen,
-      navigationOptions: () => ({
-        title: `Offers` // for the header screen
-      })
-    },
     Profile: {
       screen: ProfileScreen, //define above
       navigationOptions: () => ({
         title: `Profile` // for the header screen
+      })
+    },
+    Promo: {
+      screen: PromoScreen,
+      navigationOptions: () => ({
+        title: `Offers` // for the header screen
       })
     },
     Setting: {
