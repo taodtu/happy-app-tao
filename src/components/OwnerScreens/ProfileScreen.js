@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import MenuButton from "./MenuButton";
-export default class PromoScreen extends React.Component {
+import MenuButton from "../MenuButton";
+export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <MenuButton navigation={this.props.navigation} />
-        <Text style={styles.textStyle}>Promo List</Text>
+        <Text style={styles.textStyle}>Owner Profile</Text>
       </View>
     );
   }
@@ -14,8 +14,8 @@ export default class PromoScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#3a73b7",
+    backgroundColor: "#aa73b7",
     alignItems: "center",
-    justifyContent: "space-around"
+    justifyContent: "center"
   }
 });

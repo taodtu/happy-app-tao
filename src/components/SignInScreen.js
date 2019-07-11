@@ -99,6 +99,9 @@ export default class SignInScreen extends React.Component {
                       onChangeText={value =>
                         this.onChangeText("password", value)
                       }
+                      onSubmitEditing={event => {
+                        this.signIn();
+                      }}
                     />
                   </Item>
                   <TouchableOpacity
