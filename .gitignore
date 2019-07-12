@@ -9,6 +9,7 @@ npm-debug.*
 web-build/
 web-report/
 apiKey.js
+app.json
 
 #amplify
 amplify/\#current-cloud-backend
