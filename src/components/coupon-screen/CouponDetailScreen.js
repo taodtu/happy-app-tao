@@ -1,13 +1,17 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-export default class PromoScreen extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.textStyle}>Coupon Detail</Text>
-      </View>
-    );
-  }
+import DealCard from "../deals-screen/DealCard";
+import QRCode from "react-native-qrcode";
+export default function PromoScreen(props) {
+  const { navigation } = props;
+  const name = navigation.getParam("name");
+  console.log(name);
+  return (
+    <View style={styles.container}>
+      <QRCode value="qr" size={200} bgColor="purple" fgColor="white" />
+      <DealCard />
+    </View>
+  );
 }
 const styles = StyleSheet.create({
   container: {
