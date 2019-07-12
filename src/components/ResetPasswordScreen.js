@@ -42,36 +42,6 @@ export default class SettingScreen extends React.Component {
         }
       });
   };
-  // Sign out from the app
-  signOutAlert = async () => {
-    await Alert.alert(
-      "Sign Out",
-      "Are you sure you want to sign out from the app?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Canceled"),
-          style: "cancel"
-        },
-        // Calling signOut
-        {
-          text: "OK",
-          onPress: () => this.signOut()
-        }
-      ],
-      { cancelable: false }
-    );
-  };
-  // Confirm sign out
-  signOut = async () => {
-    this.setState({ loading: true });
-    await Auth.signOut()
-      .then(() => {
-        this.setState({ loading: false });
-        this.props.navigation.navigate("Landing");
-      })
-      .catch(err => this.setState({ loading: false }));
-  };
   render() {
     const { loading } = this.state;
     if (loading) return <Loading />;
@@ -149,22 +119,6 @@ export default class SettingScreen extends React.Component {
                       paddingBottom: 40
                     }}
                   />
-                  <TouchableOpacity
-                    style={[
-                      styles.buttonStyle,
-                      {
-                        flexDirection: "row",
-                        justifyContent: "center"
-                      }
-                    ]}
-                    onPress={this.signOutAlert}
-                  >
-                    <Icon
-                      name="md-power"
-                      style={{ color: "#fff", paddingRight: 10 }}
-                    />
-                    <Text style={styles.buttonText}>Sign out</Text>
-                  </TouchableOpacity>
                 </View>
               </Container>
             </View>
