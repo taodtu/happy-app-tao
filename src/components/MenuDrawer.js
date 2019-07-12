@@ -1,12 +1,15 @@
 import React from "react";
+import Auth from "@aws-amplify/auth";
 import logo from "../images/beer.png";
+import { Icon } from "native-base";
 import {
   View,
   Text,
   Image,
   ScrollView,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from "react-native";
 
 export default class MenuDrawer extends React.Component {
@@ -20,7 +23,40 @@ export default class MenuDrawer extends React.Component {
       </TouchableOpacity>
     );
   }
-
+  // Sign out from the app
+  signOutAlert = async () => {
+    await Alert.alert(
+      "Sign Out",
+      "Are you sure you want to sign out from the app?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Canceled"),
+          style: "cancel"
+        },
+        // Calling signOut
+        {
+          text: "OK",
+          onPress: () => this.signOut()
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+  // Confirm sign out
+  signOut = async () => {
+    await Auth.signOut()
+      .then(() => {
+        this.props.navigation.navigate("Landing");
+      })
+      .catch(err => {
+        if (!err.message) {
+          Alert.alert("Error changing password: ", err);
+        } else {
+          Alert.alert("Error changing password: ", err.message);
+        }
+      });
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -39,7 +75,23 @@ export default class MenuDrawer extends React.Component {
             {this.navLink("Profile", "Profile")}
             {this.navLink("Edit", "Edit profile")}
             {this.navLink("Promo", "Offers list")}
-            {this.navLink("Setting", "Setting")}
+            {this.navLink("Reset", "Reset password")}
+            <TouchableOpacity
+              style={[
+                styles.buttonStyle,
+                {
+                  flexDirection: "row",
+                  justifyContent: "center"
+                }
+              ]}
+              onPress={this.signOutAlert}
+            >
+              <Icon
+                name="md-power"
+                style={{ color: "#fff", paddingRight: 10 }}
+              />
+              <Text style={styles.buttonText}>Sign out</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
         <View style={styles.footer}>
@@ -124,5 +176,20 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 20,
     fontSize: 16
+  },
+  buttonStyle: {
+    alignItems: "center",
+    backgroundColor: "gray",
+    padding: 14,
+    marginBottom: 20,
+    marginTop: 50,
+    marginLeft: 10,
+    marginRight: 40,
+    borderRadius: 50
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff"
   }
 });
