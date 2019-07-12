@@ -8,7 +8,7 @@ import HomeScreen from "./src/components/HomeScreen";
 import PromoScreen from "./src/components/owner-screens/PromoScreen";
 import ProfileScreen from "./src/components/owner-screens/ProfileScreen";
 import EditScreen from "./src/components/owner-screens/EditScreen";
-import ResetPasswordScreen from "./src/components/ResetPasswordScreen";
+import ResetPasswordScreen from "./src/components/owner-screens/ResetPasswordScreen";
 import CouponDetailScreen from "./src/components/coupon-screen/CouponDetailScreen";
 import MenuDrawer from "./src/components/MenuDrawer";
 import {
