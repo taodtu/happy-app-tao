@@ -6,6 +6,7 @@ import SignUpScreen from "./src/components/SignUpScreen";
 import ForgetPasswordScreen from "./src/components/ForgetPasswordScreen";
 import HomeScreen from "./src/components/HomeScreen";
 import PromoScreen from "./src/components/owner-screens/PromoScreen";
+import ProfileScreen from "./src/components/owner-screens/ProfileScreen";
 import EditScreen from "./src/components/owner-screens/EditScreen";
 import SettingScreen from "./src/components/SettingScreen";
 import CouponDetailScreen from "./src/components/coupon-screen/CouponDetailScreen";
@@ -76,24 +77,10 @@ const DrawerConfig = {
 };
 const OwnerDrawerNavigator = createDrawerNavigator(
   {
-    Edit: {
-      screen: EditScreen, //define above
-      navigationOptions: () => ({
-        title: `Profile` // for the header screen
-      })
-    },
-    Promo: {
-      screen: PromoScreen,
-      navigationOptions: () => ({
-        title: `Offers` // for the header screen
-      })
-    },
-    Setting: {
-      screen: SettingScreen, //define above
-      navigationOptions: () => ({
-        title: `Setting` // for the header screen
-      })
-    }
+    Profile: ProfileScreen,
+    Edit: EditScreen,
+    Promo: PromoScreen,
+    Setting: SettingScreen
   },
   DrawerConfig
 );

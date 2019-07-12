@@ -38,7 +38,7 @@ export default class MenuDrawer extends React.Component {
           <View style={styles.bottomLinks}>
             {this.navLink("Profile", "Profile")}
             {this.navLink("Edit", "Edit profile")}
-            {this.navLink("Promo", "All deals")}
+            {this.navLink("Promo", "Offers list")}
             {this.navLink("Setting", "Setting")}
           </View>
         </ScrollView>
