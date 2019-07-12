@@ -21,7 +21,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.happyapp",
       "config": {
-        "googleMapsApiKey": "AIzaSyDH6s_Cn5Cp1SFC31WvMrAxkXyzK9djkbw"
+        "googleMapsApiKey": "your key"
       }
     }
   }
