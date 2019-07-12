@@ -8,6 +8,7 @@ import Quantity from "./Quantity";
 import VenueImage from "./VenueImage";
 import Emoji from "./Emoji";
 import styled from "styled-components";
+import CountDown from "react-native-countdown-component";
 
 const Card = styled.View`
   width: 300;
@@ -25,14 +26,37 @@ const DealWrapper = styled.View`
   background: #3cdbd3;
   padding-left: 3px;
   margin-vertical: 18px;
-  margin-left: 45px;
+  margin-left: 30px;
+`;
+
+const CountdownWrapper = styled.View`
+  padding-left: 15px;
 `;
 
 export default function DealCard(props) {
-  const { timerImg, venueName, drink, price, quantity, venueImg, type } = props;
+  const {
+    timerImg,
+    venueName,
+    drink,
+    price,
+    quantity,
+    venueImg,
+    type,
+    duration
+  } = props;
   return (
     <Card>
-      {timerImg ? <TimerImage image={timerImg} /> : <VenueImage venueImg={venueImg} />}
+      <CountdownWrapper>
+        <CountDown
+          until={duration}
+          size={20}
+          timeToShow={["M", "S"]}
+          digitStyle={{ backgroundColor: "#f5e4ed" }}
+          digitTxtStyle={{ color: "#3cdbd3" }}
+          timeLabels={{ m: "Mins", s: "Secs" }}
+        />
+      </CountdownWrapper>
+
       <DealWrapper>
         <Drink drink={drink} />
         <VenueName name={venueName} />

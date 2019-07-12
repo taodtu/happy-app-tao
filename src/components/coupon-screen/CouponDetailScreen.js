@@ -14,17 +14,18 @@ export default function PromoScreen(props) {
   const quantity = navigation.getParam("quantity", "No Quantity");
   const type = navigation.getParam("type", "No Type");
   const couponID = navigation.getParam("couponID", "No Coupon ID");
+  const duration = navigation.getParam("duration");
 
   return (
     <View style={styles.container}>
       <QRCode value={couponID} size={300} bgColor="purple" fgColor="white" />
       <DealCard
         venueName={name}
-        venueImg={venueImg}
         drink={drink}
         price={price}
         quantity={quantity}
         type={type}
+        duration={duration}
       />
     </View>
   );
