@@ -32,8 +32,7 @@ export default function DealCard(props) {
   const { timerImg, venueName, drink, price, quantity, venueImg, type } = props;
   return (
     <Card>
-      <TimerImage image={timerImg} />
-      {/* <VenueImage venueImg={venueImg} /> */}
+      {timerImg ? <TimerImage image={timerImg} /> : <VenueImage venueImg={venueImg} />}
       <DealWrapper>
         <Drink drink={drink} />
         <VenueName name={venueName} />
