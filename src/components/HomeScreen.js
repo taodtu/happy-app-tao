@@ -16,6 +16,7 @@ export default class HomeScreen extends Component {
   state = { deals: dealsObj.dealsArr };
   render() {
     const { deals } = this.state;
+    const {navigate} = this.props.navigation;
     return (
       <MainView>
         {/*map over deals and create a card for each deal */}
@@ -27,13 +28,22 @@ export default class HomeScreen extends Component {
             price,
             quantity,
             timerImg,
-            type
+            type,
+            couponID
           } = venue;
           return (
             <View key={name}>
               <TouchableOpacity
                 onPress={() =>
-                  this.props.navigation.navigate("Coupon", { name: name })
+                  navigate("Coupon", {
+                    name: name,
+                    drink: drink,
+                    venueImg: venueImg,
+                    price: price,
+                    quantity: quantity,
+                    type: type,
+                    couponID: couponID
+                  })
                 }
               >
                 <DealCard
