@@ -10,6 +10,8 @@ const MainView = styled.ScrollView`
   top: 25;
 `;
 
+const CardWrapper = styled.TouchableOpacity``;
+
 export default class HomeScreen extends Component {
   state = { deals: dealsObj.dealsArr };
   render() {
@@ -28,16 +30,23 @@ export default class HomeScreen extends Component {
             type
           } = venue;
           return (
-            <DealCard
-              venueName={name}
-              timerImg={timerImg}
-              venueImg={venueImg}
-              drink={drink}
-              price={price}
-              quantity={quantity}
-              type={type}
-              key={name}
-            />
+            <View key={name}>
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate("Coupon", { name: name })
+                }
+              >
+                <DealCard
+                  venueName={name}
+                  timerImg={timerImg}
+                  venueImg={venueImg}
+                  drink={drink}
+                  price={price}
+                  quantity={quantity}
+                  type={type}
+                />
+              </TouchableOpacity>
+            </View>
           );
         })}
       </MainView>
