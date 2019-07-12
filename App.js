@@ -7,6 +7,7 @@ import ForgetPasswordScreen from "./src/components/ForgetPasswordScreen";
 import HomeScreen from "./src/components/HomeScreen";
 import PromoScreen from "./src/components/owner-screens/PromoScreen";
 import ProfileScreen from "./src/components/owner-screens/ProfileScreen";
+import NewPromoScreen from "./src/components/owner-screens/NewPromoScreen";
 import EditScreen from "./src/components/owner-screens/EditScreen";
 import ResetPasswordScreen from "./src/components/owner-screens/ResetPasswordScreen";
 import CouponDetailScreen from "./src/components/coupon-screen/CouponDetailScreen";
@@ -80,6 +81,7 @@ const OwnerDrawerNavigator = createDrawerNavigator(
     Profile: ProfileScreen,
     Edit: EditScreen,
     Promo: PromoScreen,
+    NewPromo: NewPromoScreen,
     Reset: ResetPasswordScreen
   },
   DrawerConfig

@@ -1,11 +1,12 @@
 import React from "react";
 import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, View, ScrollView, Text, Image } from "react-native";
+import { StyleSheet, View, ScrollView, Text, Dimensions } from "react-native";
+import Image from "react-native-scalable-image";
 import MenuButton from "../MenuButton";
 
 const INITIAL_STATE = {
   email: "",
-  phone_number: "",
+  phone_number: "441618344989",
   description:
     "Whilst we sell fantastic modern & seasonal beers, wines & mixed drinks we also have loose leaf teas and locally sourced filtered coffee from Ancoats Coffee plus sandwiches, pastries, sweet & savory baked goods.",
   address: "Hanover St, Manchester M60 0AB, UK",
@@ -41,16 +42,18 @@ export default class PromoScreen extends React.Component {
         <View style={styles.container}>
           <Text style={styles.textStyle}>{name}</Text>
           <Text style={styles.title}>{title}</Text>
+          <Text style={styles.phone}>Tel: {phone_number}</Text>
           <Image
-            style={{ width: 300, height: 250, marginBottom: 10 }}
+            width={Dimensions.get("window").width - 32}
             source={{ uri: `${photo_uri}` }}
           />
+          <Text style={styles.title}>{description}</Text>
           <MapView
             style={styles.map}
             provider="google"
             region={{
-              latitude: lat,
-              longitude: lng,
+              latitude: 53.4808,
+              longitude: -2.2426,
               latitudeDelta: 0.03,
               longitudeDelta: 0.02
             }}
@@ -64,6 +67,7 @@ export default class PromoScreen extends React.Component {
               description={title}
             />
           </MapView>
+          <Text style={styles.offer}>Previous offers</Text>
         </View>
       </ScrollView>
     );
@@ -75,21 +79,33 @@ const styles = StyleSheet.create({
     backgroundColor: "#3a73b7",
     alignItems: "center",
     justifyContent: "space-around",
-    marginLeft: 10,
-    marginRight: 10
+    marginLeft: 16,
+    marginRight: 16
   },
-  map: { alignSelf: "stretch", height: 300 },
+  map: { marginTop: 10, alignSelf: "stretch", height: 300 },
 
   textStyle: {
     marginTop: 50,
-    marginBottom: 10,
     fontSize: 17,
     fontWeight: "bold",
     color: "#fff"
   },
   title: {
+    marginTop: 10,
     marginBottom: 10,
     fontSize: 15,
+    color: "#fff"
+  },
+  phone: {
+    marginBottom: 10,
+    fontSize: 15,
+    color: "#fff"
+  },
+  offer: {
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 17,
+    fontWeight: "bold",
     color: "#fff"
   }
 });

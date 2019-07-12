@@ -75,6 +75,7 @@ export default class MenuDrawer extends React.Component {
             {this.navLink("Profile", "Profile")}
             {this.navLink("Edit", "Edit profile")}
             {this.navLink("Promo", "Offers list")}
+            {this.navLink("NewPromo", "Create a new promo")}
             {this.navLink("Reset", "Reset password")}
             <TouchableOpacity
               style={[
@@ -90,7 +91,7 @@ export default class MenuDrawer extends React.Component {
                 name="md-power"
                 style={{ color: "#fff", paddingRight: 10 }}
               />
-              <Text style={styles.buttonText}>Sign out</Text>
+              <Text style={styles.buttonText}>Sign Out</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
     padding: 14,
     marginBottom: 20,
-    marginTop: 50,
+    marginTop: 20,
     marginLeft: 10,
     marginRight: 40,
     borderRadius: 50
