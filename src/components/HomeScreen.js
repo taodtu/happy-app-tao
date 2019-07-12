@@ -7,7 +7,6 @@ import DealCard from "./deals-screen/DealCard";
 const MainView = styled.ScrollView`
   flex: 1;
   background-color: #eac5d8;
-  top: 25;
 `;
 
 const CardWrapper = styled.TouchableOpacity``;
