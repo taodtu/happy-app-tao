@@ -1,6 +1,7 @@
 import React from "react";
 import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, View, ScrollView, Text, Image } from "react-native";
+import { StyleSheet, View, ScrollView, Text, Dimensions } from "react-native";
+import Image from "react-native-scalable-image";
 import MenuButton from "../MenuButton";
 
 const INITIAL_STATE = {
@@ -42,7 +43,7 @@ export default class PromoScreen extends React.Component {
           <Text style={styles.textStyle}>{name}</Text>
           <Text style={styles.title}>{title}</Text>
           <Image
-            style={{ width: 300, height: 250, marginBottom: 10 }}
+            width={Dimensions.get("window").width - 32}
             source={{ uri: `${photo_uri}` }}
           />
           <MapView
@@ -75,10 +76,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#3a73b7",
     alignItems: "center",
     justifyContent: "space-around",
-    marginLeft: 10,
-    marginRight: 10
+    marginLeft: 16,
+    marginRight: 16
   },
-  map: { alignSelf: "stretch", height: 300 },
+  map: { marginTop: 10, alignSelf: "stretch", height: 300 },
 
   textStyle: {
     marginTop: 50,
