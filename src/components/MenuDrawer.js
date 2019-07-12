@@ -75,6 +75,7 @@ export default class MenuDrawer extends React.Component {
             {this.navLink("Profile", "Profile")}
             {this.navLink("Edit", "Edit profile")}
             {this.navLink("Promo", "Offers list")}
+            {this.navLink("NewPromo", "Create a new promo")}
             {this.navLink("Reset", "Reset password")}
             <TouchableOpacity
               style={[
