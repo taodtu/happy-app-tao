@@ -133,7 +133,7 @@ export default class SignUpScreen extends React.Component {
                       style={styles.input}
                       placeholder="Password"
                       placeholderTextColor="#0468d4"
-                      returnKeyType="next"
+                      returnKeyType="go"
                       autoCapitalize="none"
                       autoCorrect={false}
                       secureTextEntry={true}

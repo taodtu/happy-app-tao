@@ -2,11 +2,15 @@ import axios from "axios";
 import { googleApiKey } from "../apiKey";
 
 const request = axios.create({
-  baseURL: "https://nc-news-rest-api.herokuapp.com/api"
+  baseURL: "https://maps.googleapis.com/maps/api/place/findplacefromtext"
 });
 
-export const getTopics = () => {
-  return request.get("/topics").then(({ data }) => data.topics);
+export const getOwner = phoneNumber => {
+  return axios
+    .get(
+      `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=%2B${phoneNumber}&inputtype=phonenumber&fields=formatted_address,name,place_id,geometry&key=${googleApiKey}`
+    )
+    .then(({ data }) => data.candidates[0]);
 };
 
 export const getArticles = (topic, author, sort_by, order, limit, p) => {
