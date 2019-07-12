@@ -16,7 +16,7 @@ export default class HomeScreen extends Component {
   state = { deals: dealsObj.dealsArr };
   render() {
     const { deals } = this.state;
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
     return (
       <MainView>
         {/*map over deals and create a card for each deal */}
@@ -29,7 +29,8 @@ export default class HomeScreen extends Component {
             quantity,
             timerImg,
             type,
-            couponID
+            couponID,
+            duration
           } = venue;
           return (
             <View key={name}>
@@ -42,7 +43,8 @@ export default class HomeScreen extends Component {
                     price: price,
                     quantity: quantity,
                     type: type,
-                    couponID: couponID
+                    couponID: couponID,
+                    duration: duration
                   })
                 }
               >
@@ -54,6 +56,7 @@ export default class HomeScreen extends Component {
                   price={price}
                   quantity={quantity}
                   type={type}
+                  duration={duration}
                 />
               </TouchableOpacity>
             </View>

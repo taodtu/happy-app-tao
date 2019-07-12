@@ -8,6 +8,7 @@ export const dealsObj = {
       timerImg: require("../images/timer.png"),
       venueImg: require("../images/pilcrowIcon.jpg"),
       type: "🍺",
+      duration: 850,
       couponID: 12345
     },
     {
@@ -18,6 +19,7 @@ export const dealsObj = {
       timerImg: require("../images/timer.png"),
       venueImg: require("../images/TerraceIcon.jpg"),
       type: "🍷",
+      duration: 900,
       couponID: 12346
     },
     {
@@ -28,6 +30,7 @@ export const dealsObj = {
       timerImg: require("../images/timer.png"),
       venueImg: require("../images/trofIcon.jpg"),
       type: "🍸",
+      duration: 950,
       couponID: 12347
     },
     {
@@ -38,6 +41,7 @@ export const dealsObj = {
       timerImg: require("../images/timer.png"),
       venueImg: require("../images/commonIcon.jpg"),
       type: "🥃",
+      duration: 1000,
       couponID: 12348
     }
   ]
