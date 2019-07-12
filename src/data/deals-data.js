@@ -7,7 +7,8 @@ export const dealsObj = {
       name: "The Pilcrow",
       timerImg: require("../images/timer.png"),
       venueImg: require("../images/pilcrowIcon.jpg"),
-      type: "🍺"
+      type: "🍺",
+      couponID: 12345
     },
     {
       price: "£10",
@@ -16,7 +17,8 @@ export const dealsObj = {
       name: "Terrace",
       timerImg: require("../images/timer.png"),
       venueImg: require("../images/TerraceIcon.jpg"),
-      type: "🍷"
+      type: "🍷",
+      couponID: 12346
     },
     {
       price: "£10",
@@ -25,7 +27,8 @@ export const dealsObj = {
       name: "Trof",
       timerImg: require("../images/timer.png"),
       venueImg: require("../images/trofIcon.jpg"),
-      type: "🍸"
+      type: "🍸",
+      couponID: 12347
     },
     {
       price: "£3",
@@ -34,7 +37,8 @@ export const dealsObj = {
       name: "Common",
       timerImg: require("../images/timer.png"),
       venueImg: require("../images/commonIcon.jpg"),
-      type: "🥃"
+      type: "🥃",
+      couponID: 12348
     }
   ]
 };
