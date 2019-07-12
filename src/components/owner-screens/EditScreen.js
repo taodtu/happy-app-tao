@@ -12,7 +12,6 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   View,
-  Button,
   Alert
 } from "react-native";
 import { Container, Item, Input, Icon } from "native-base";
@@ -24,6 +23,7 @@ const INITIAL_STATE = {
   description: "",
   address: "",
   name: "",
+  title: "",
   photo_uri: "",
   lat: 53.4868458,
   lng: -2.2401032,
@@ -83,7 +83,7 @@ export default class HomeScreen extends React.Component {
   };
   submit = () => {
     this.setState({ loading: true });
-    const { photo_uri, description } = this.state;
+    const { photo_uri, title, description } = this.state;
   };
   render() {
     const { loading } = this.state;
@@ -149,6 +149,23 @@ export default class HomeScreen extends React.Component {
                       }
                     />
                   </Item>
+                  {/*  title section  */}
+                  <Item rounded style={styles.itemStyle}>
+                    <Icon active name="beer" style={styles.iconStyle} />
+                    <Input
+                      style={styles.input}
+                      placeholder="short description"
+                      placeholderTextColor="#0468d4"
+                      returnKeyType="next"
+                      ref="SecondInput"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      onSubmitEditing={event => {
+                        this.refs.ThirdInput._root.focus();
+                      }}
+                      onChangeText={value => this.onChangeText("title", value)}
+                    />
+                  </Item>
                   {/*  description section  */}
                   <Item rounded style={styles.itemStyle}>
                     <Icon active name="book" style={styles.iconStyle} />
@@ -159,7 +176,7 @@ export default class HomeScreen extends React.Component {
                       returnKeyType="go"
                       autoCapitalize="none"
                       autoCorrect={false}
-                      ref="SecondInput"
+                      ref="ThirdInput"
                       onSubmitEditing={event => this.submit()}
                       onChangeText={value =>
                         this.onChangeText("description", value)

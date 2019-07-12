@@ -1,7 +1,7 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
-import Loading from "./Loading";
-import MenuButton from "./MenuButton";
+import Loading from "../Loading";
+import MenuButton from "../MenuButton";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
