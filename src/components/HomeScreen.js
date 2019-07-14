@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { dealsObj } from "../data/deals-data";
 import DealCard from "./deals-screen/DealCard";
+import { getOffers } from "../Api";
 
 const MainView = styled.ScrollView`
   flex: 1;
@@ -12,17 +13,17 @@ const MainView = styled.ScrollView`
 const CardWrapper = styled.TouchableOpacity``;
 
 export default class HomeScreen extends Component {
-  state = { deals: dealsObj.dealsArr };
+  state = { offers: [] };
   render() {
-    const { deals } = this.state;
+    const { offers } = this.state;
     const { navigate } = this.props.navigation;
     return (
       <MainView>
         {/*map over deals and create a card for each deal */}
-        {deals.map(venue => {
+        {offers.map(venue => {
           const {
-            name,
-            venueImg,
+            active,
+            coupon_id,
             drink,
             price,
             quantity,
@@ -32,13 +33,11 @@ export default class HomeScreen extends Component {
             duration
           } = venue;
           return (
-            <View key={name}>
+            <View key={coupon_id}>
               <TouchableOpacity
                 onPress={() =>
                   navigate("Coupon", {
-                    name: name,
                     drink: drink,
-                    venueImg: venueImg,
                     price: price,
                     quantity: quantity,
                     type: type,
@@ -48,9 +47,7 @@ export default class HomeScreen extends Component {
                 }
               >
                 <DealCard
-                  venueName={name}
                   timerImg={timerImg}
-                  venueImg={venueImg}
                   drink={drink}
                   price={price}
                   quantity={quantity}
@@ -63,5 +60,8 @@ export default class HomeScreen extends Component {
         })}
       </MainView>
     );
+  }
+  componentDidMount() {
+    getOffers().then(offers => this.setState({ offers }));
   }
 }

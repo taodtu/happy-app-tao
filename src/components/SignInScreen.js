@@ -28,11 +28,12 @@ export default class SignInScreen extends React.Component {
   }
   signIn = async () => {
     const { username, password } = this.state;
+    const { navigate } = this.props.navigation;
     this.setState({ loading: true });
     await Auth.signIn(username, password)
       .then(user => {
         this.setState({ user, loading: false });
-        this.props.navigation.navigate("Landing");
+        navigate("Landing");
       })
       .catch(err => {
         this.setState({ loading: false });
