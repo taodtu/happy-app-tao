@@ -2,7 +2,7 @@ import axios from "axios";
 import { googleApiKey } from "../apiKey";
 
 const request = axios.create({
-  baseURL: "https://maps.googleapis.com/maps/api/place/findplacefromtext"
+  baseURL: "https://uo5xzzqrwb.execute-api.us-east-1.amazonaws.com/dev/api/"
 });
 
 export const getOwner = phoneNumber => {
@@ -13,6 +13,13 @@ export const getOwner = phoneNumber => {
     .then(({ data }) => data.candidates[0]);
 };
 
+export const getOffers = () => {
+  return request.get(`offers`).then(({ data }) => {
+    return data;
+  });
+};
+
+/* demo API calls for reference */
 export const getArticles = (topic, author, sort_by, order, limit, p) => {
   return request
     .get(`/articles`, { params: { topic, author, sort_by, order, limit, p } })
