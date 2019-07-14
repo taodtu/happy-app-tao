@@ -3,7 +3,12 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { dealsObj } from "../data/deals-data";
 import DealCard from "./deals-screen/DealCard";
-import { getOffers, getOffersByOwnerId, postOwner } from "../Api";
+import {
+  getOffers,
+  getOffersByOwnerId,
+  postOwner,
+  updateOwnerDetails
+} from "../Api";
 
 const MainView = styled.ScrollView`
   flex: 1;
@@ -66,10 +71,23 @@ export default class HomeScreen extends Component {
     // getOffersByOwnerId("03a27660-a4b7-11e9-ac27-97a3f1fac344").then(res => {
     //   console.log(res);
     // });
-    postOwner({
+    // postOwner({
+    // phoneNumber: "87485959063",
+    // place_id: "iuhff6",
+    // venueName: "Testing Post",
+    // address: "Deansgate",
+    // photoUri: "iuhdoidsax.com",
+    // email: "billy@theWhiteParadise.com",
+    // longDescription: "a cool semi paradise where people have experiences",
+    // data_type: "profile",
+    // shortDescription: "Paradise",
+    // longitude: "54675",
+    // latitude: "8697"
+    // }).then(console.log);
+    updateOwnerDetails("03a27660-a4b7-11e9-ac27-97a3f1fac344", {
       phoneNumber: "87485959063",
       place_id: "iuhff6",
-      venueName: "Testing Post",
+      venueName: "Testing Put",
       address: "Deansgate",
       photoUri: "iuhdoidsax.com",
       email: "billy@theWhiteParadise.com",
@@ -78,6 +96,6 @@ export default class HomeScreen extends Component {
       shortDescription: "Paradise",
       longitude: "54675",
       latitude: "8697"
-    }).then(console.log);
+    });
   }
 }

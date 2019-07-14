@@ -30,3 +30,9 @@ export const postOwner = body => {
     return data;
   });
 };
+
+export const updateOwnerDetails = (ownerId, body) => {
+  return request.put(`owners/${ownerId}`, body).then(({ data }) => {
+    return data;
+  });
+};
