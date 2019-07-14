@@ -40,3 +40,9 @@ export const updateOwnerDetails = (ownerId, body) => {
 export const deleteOwner = ownerId => {
   return request.delete(`owners/${ownerId}`).then(console.log);
 };
+
+export const postOffer = body => {
+  return request.post(`offers`, body).then(({ data }) => {
+    return data;
+  });
+};

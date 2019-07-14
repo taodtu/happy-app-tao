@@ -8,7 +8,7 @@ import {
   getOffersByOwnerId,
   postOwner,
   updateOwnerDetails,
-  deleteOwner
+  deleteOwner, postOffer
 } from "../Api";
 
 const MainView = styled.ScrollView`
@@ -98,6 +98,14 @@ export default class HomeScreen extends Component {
     //   longitude: "54675",
     //   latitude: "8697"
     // }).then(console.log);
-    deleteOwner("03a27660-a4b7-11e9-ac27-97a3f1fac344");
+    // deleteOwner("03a27660-a4b7-11e9-ac27-97a3f1fac344");
+    postOffer({data_type:	"offer",
+duration:	"30",
+price:	"£3.00",
+drink:	"Gin and Tonic",
+quantity:	"6",
+type:	"Spirit mixer",
+coupon_id:	"sdfghjuiop456789",
+active:	"true"}).then(console.log)
   }
 }
