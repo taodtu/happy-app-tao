@@ -18,3 +18,9 @@ export const getOffers = () => {
     return data;
   });
 };
+
+export const getOffersByOwnerId = ownerId => {
+  return request.get(`owners/${ownerId}`).then(({ data }) => {
+    return data;
+  });
+};

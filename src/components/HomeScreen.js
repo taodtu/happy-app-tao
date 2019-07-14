@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { dealsObj } from "../data/deals-data";
 import DealCard from "./deals-screen/DealCard";
-import { getOffers } from "../Api";
+import { getOffers, getOffersByOwnerId } from "../Api";
 
 const MainView = styled.ScrollView`
   flex: 1;
@@ -19,7 +19,7 @@ export default class HomeScreen extends Component {
     const { navigate } = this.props.navigation;
     return (
       <MainView>
-        {/*map over deals and create a card for each deal */}
+        {/* map over deals and create a card for each deal */}
         {offers.map(venue => {
           const {
             active,
@@ -63,5 +63,8 @@ export default class HomeScreen extends Component {
   }
   componentDidMount() {
     getOffers().then(offers => this.setState({ offers }));
+    getOffersByOwnerId("03a27660-a4b7-11e9-ac27-97a3f1fac344").then(res => {
+      console.log(res);
+    });
   }
 }
