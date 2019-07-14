@@ -36,3 +36,7 @@ export const updateOwnerDetails = (ownerId, body) => {
     return data;
   });
 };
+
+export const deleteOwner = ownerId => {
+  return request.delete(`owners/${ownerId}`).then(console.log);
+};
