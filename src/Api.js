@@ -24,3 +24,9 @@ export const getOffersByOwnerId = ownerId => {
     return data;
   });
 };
+
+export const postOwner = body => {
+  return request.post(`owners`, body).then(({ data }) => {
+    return data;
+  });
+};
