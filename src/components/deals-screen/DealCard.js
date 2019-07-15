@@ -1,6 +1,5 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import TimerImage from "./TimerImage";
 import VenueName from "./VenueName";
 import Drink from "./Drink";
 import Price from "./Price";
@@ -12,7 +11,7 @@ import CountDown from "react-native-countdown-component";
 
 const Card = styled.View`
   width: 300;
-  background: #7fbeeb;
+  background: #1cbbf3;
   height: 130;
   flex-direction: row;
   align-items: center;
@@ -21,21 +20,32 @@ const Card = styled.View`
 `;
 
 const DealWrapper = styled.View`
+  flex: 1;
   margin: 10px;
-  flex: 2;
-  background: #3cdbd3;
+  background: #b9f0f8;
   padding-left: 3px;
-  margin-vertical: 18px;
-  margin-left: 30px;
+  height: 100;
+  text-align: center;
+  justify-content: center;
 `;
 
-const CountdownWrapper = styled.View`
-  padding-left: 15px;
+const LeftContainer = styled.View`
+  align-items: center;
+  margin: 10px 0 10px 10px;
+  flex: 1;
+  padding-left: 3px;
 `;
+
+const QuantityPriceWrapper = styled.Text`
+  flex: 1;
+  text-align: center;
+`;
+
+const CountdownWrapper = styled.View``;
 
 export default function DealCard(props) {
   const {
-    timerImg,
+    active,
     venueName,
     drink,
     price,
@@ -44,24 +54,26 @@ export default function DealCard(props) {
     type,
     duration
   } = props;
+
   return (
     <Card>
-      <CountdownWrapper>
-        <CountDown
-          until={duration}
-          size={20}
-          timeToShow={["M", "S"]}
-          digitStyle={{ backgroundColor: "#f5e4ed" }}
-          digitTxtStyle={{ color: "#3cdbd3" }}
-          timeLabels={{ m: "Mins", s: "Secs" }}
-        />
-      </CountdownWrapper>
+      <LeftContainer>
+        <VenueName name={venueName} />
+        <CountdownWrapper>
+          <CountDown
+            until={duration}
+            size={20}
+            timeToShow={["M", "S"]}
+            digitStyle={{ backgroundColor: "#feeec1" }}
+            digitTxtStyle={{ color: "#1cbbf3" }}
+            timeLabels={{ m: "Mins", s: "Secs" }}
+          />
+        </CountdownWrapper>
+      </LeftContainer>
 
       <DealWrapper>
         <Drink drink={drink} />
-        <VenueName name={venueName} />
-        <Quantity quantity={quantity} />
-        <Price price={price} />
+        <QuantityPriceWrapper>{`${quantity} for ${price}`}</QuantityPriceWrapper>
         <Emoji type={type} />
       </DealWrapper>
     </Card>

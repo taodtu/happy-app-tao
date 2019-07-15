@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components";
-import { dealsObj } from "../data/deals-data";
 import DealCard from "./deals-screen/DealCard";
+import BurgerMenuHeader from "./BurgerMenuHeader";
+import Loading from "./Loading";
+import { LinearGradient } from "expo-linear-gradient";
 import {
   getOffers,
   getOffersByOwnerId,
@@ -11,68 +13,77 @@ import {
   deleteOwner,
   postOffer
 } from "../Api";
-import MenuButton from "./MenuButton";
 
 const MainView = styled.ScrollView`
   flex: 1;
-  background-color: #eac5d8;
+  background-color: #fdd96e;
+`;
+const MapWrapper = styled.View`
+  align-items: center;
 `;
 
-const CardWrapper = styled.TouchableOpacity``;
-
 export default class HomeScreen extends Component {
-  state = { offers: [] };
+  state = { offers: [], loading: true };
   render() {
     const { offers } = this.state;
     const { navigate } = this.props.navigation;
+    const { navigation } = this.props;
+    const { loading } = this.state;
+
+    if (loading) return <Loading />;
     return (
-      <MainView>
-        <MenuButton navigation={this.props.navigation} />
-        {/* map over deals and create a card for each deal */}
-        {offers.map(venue => {
-          const {
-            active,
-            createdAt,
-            coupon_id,
-            drink,
-            price,
-            quantity,
-            timerImg,
-            type,
-            couponID,
-            duration
-          } = venue;
-          return (
-            <View key={createdAt}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigate("Coupon", {
-                    drink: drink,
-                    price: price,
-                    quantity: quantity,
-                    type: type,
-                    couponID: couponID,
-                    duration: duration
-                  })
-                }
-              >
-                <DealCard
-                  timerImg={timerImg}
-                  drink={drink}
-                  price={price}
-                  quantity={quantity}
-                  type={type}
-                  duration={duration}
-                />
-              </TouchableOpacity>
-            </View>
-          );
-        })}
-      </MainView>
+      <>
+        <BurgerMenuHeader navigation={navigation} />
+        <MainView>
+          <LinearGradient colors={["#fdd96e", "#fdc41c", "#f0a202"]}>
+            <MapWrapper>
+              {/* map over deals and create a card for each deal */}
+              {offers.map(offer => {
+                
+                const {
+                  createdAt,
+                  active,
+                  coupon_id,
+                  drink,
+                  price,
+                  quantity,
+                  type,
+                  duration
+                } = offer;
+
+                return (
+                  <View key={createdAt}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigate("Coupon", {
+                          drink: drink,
+                          price: price,
+                          quantity: quantity,
+                          type: type,
+                          coupon_id: coupon_id,
+                          duration: duration
+                        })
+                      }
+                    >
+                      <DealCard
+                        drink={drink}
+                        price={price}
+                        quantity={quantity}
+                        type={type}
+                        duration={duration}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </MapWrapper>
+          </LinearGradient>
+        </MainView>
+      </>
     );
   }
   componentDidMount() {
-    getOffers().then(offers => this.setState({ offers }));
+    getOffers().then(offers => this.setState({ offers, loading: false }));
     // getOffersByOwnerId("03a27660-a4b7-11e9-ac27-97a3f1fac344").then(res => {
     //   console.log(res);
     // });
@@ -107,11 +118,12 @@ export default class HomeScreen extends Component {
     //   data_type: "offer",
     //   duration: "30",
     //   price: "£3.00",
-    //   drink: "Gin and Tonic",
+    //   drink: "Mojitos!",
     //   quantity: "6",
-    //   type: "Spirit mixer",
+    //   type: "🍸",
     //   coupon_id: "sdfghjuiop456789",
-    //   active: "true"
+    //   active: "true",
+    //   venueName: "Trof"
     // }).then(console.log);
   }
 }

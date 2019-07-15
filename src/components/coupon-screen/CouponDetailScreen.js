@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import DealCard from "../deals-screen/DealCard";
 import QRCode from "react-native-qrcode";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function PromoScreen(props) {
   /*getting items from props*/
@@ -18,22 +19,24 @@ export default function PromoScreen(props) {
 
   return (
     <View style={styles.container}>
-      <QRCode value={couponID} size={300} bgColor="purple" fgColor="white" />
-      <DealCard
-        venueName={name}
-        drink={drink}
-        price={price}
-        quantity={quantity}
-        type={type}
-        duration={duration}
-      />
+      <LinearGradient colors={["#fdd96e", "#fdc41c", "#f0a202"]}>
+        <QRCode value={couponID} size={300} bgColor="#1cbbf3" fgColor="white" />
+        <DealCard
+          venueName={name}
+          drink={drink}
+          price={price}
+          quantity={quantity}
+          type={type}
+          duration={duration}
+        />
+      </LinearGradient>
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#3a73b7",
+    backgroundColor: "#fdd96e",
     alignItems: "center",
     justifyContent: "space-around"
   }

@@ -6,14 +6,14 @@ export default (Loading = () => {
   return (
     <View style={styles.container}>
       <Image source={logo} />
-      <Spinner color="green" />
+      <Spinner color="#1cbbf3" />
     </View>
   );
 });
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F75A84",
+    backgroundColor: "#fdd96e",
     alignItems: "center",
     justifyContent: "center"
   }
