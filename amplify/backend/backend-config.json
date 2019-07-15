@@ -1,0 +1,8 @@
+{
+	"auth": {
+		"happyapptaoab5ae723": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}

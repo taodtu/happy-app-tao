@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "happy-app-tao-dev-20190715130959-authRole",
+            "UnauthRoleArn": "arn:aws:iam::197785695534:role/happy-app-tao-dev-20190715130959-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::197785695534:role/happy-app-tao-dev-20190715130959-authRole",
+            "Region": "eu-west-2",
+            "DeploymentBucketName": "happy-app-tao-dev-20190715130959-deployment",
+            "UnauthRoleName": "happy-app-tao-dev-20190715130959-unauthRole",
+            "StackName": "happy-app-tao-dev-20190715130959",
+            "StackId": "arn:aws:cloudformation:eu-west-2:197785695534:stack/happy-app-tao-dev-20190715130959/77c24a40-a6f9-11e9-9125-06bdc1af1230"
+        },
+        "categories": {
+            "auth": {
+                "happyapptaoab5ae723": {}
+            }
+        }
+    }
+}
