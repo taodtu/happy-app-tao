@@ -57,7 +57,6 @@ export default class PromoScreen extends React.Component {
                   <Text style={styles.Text}>Create a new promo</Text>
                   {/*  duration section  */}
                   <Item rounded style={styles.itemStyle}>
-                    <Icon active name="clock" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
                       value={duration}
@@ -76,7 +75,6 @@ export default class PromoScreen extends React.Component {
                   </Item>
                   {/*  price section  */}
                   <Item rounded style={styles.itemStyle}>
-                    <Icon active name="beer" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
                       value={price}
@@ -94,7 +92,6 @@ export default class PromoScreen extends React.Component {
                   </Item>
                   {/*  drink section  */}
                   <Item rounded style={styles.itemStyle}>
-                    <Icon active name="beer" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
                       value={drink}
@@ -105,14 +102,13 @@ export default class PromoScreen extends React.Component {
                       autoCorrect={false}
                       ref="ThirdInput"
                       onSubmitEditing={event => {
-                        this.refs.FouthInput._root.focus();
+                        this.refs.FourthInput._root.focus();
                       }}
                       onChangeText={value => this.onChangeText("drink", value)}
                     />
                   </Item>
                   {/*  quantity section  */}
                   <Item rounded style={styles.itemStyle}>
-                    <Icon active name="beer" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
                       value={quantity}
@@ -149,6 +145,7 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   input: {
+    textAlign: "center",
     flex: 1,
     fontSize: 17,
     fontWeight: "bold",
@@ -165,11 +162,6 @@ const styles = StyleSheet.create({
   itemStyle: {
     marginBottom: 10,
     borderColor: "#5a52a5"
-  },
-  iconStyle: {
-    color: "#5a52a5",
-    fontSize: 28,
-    marginLeft: 5
   },
   buttonStyle: {
     alignItems: "center",

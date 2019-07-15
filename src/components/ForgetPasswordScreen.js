@@ -185,7 +185,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#23ccc9"
   },
   itemStyle: {
-    marginBottom: 20
+    marginBottom: 20,
+    borderColor: "#5a52a5"
   },
   iconStyle: {
     color: "#5a52a5",
