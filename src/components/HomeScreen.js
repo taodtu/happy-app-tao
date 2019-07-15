@@ -11,6 +11,7 @@ import {
   deleteOwner,
   postOffer
 } from "../Api";
+import MenuButton from "./MenuButton";
 
 const MainView = styled.ScrollView`
   flex: 1;
@@ -26,6 +27,7 @@ export default class HomeScreen extends Component {
     const { navigate } = this.props.navigation;
     return (
       <MainView>
+        <MenuButton navigation={this.props.navigation} />
         {/* map over deals and create a card for each deal */}
         {offers.map(venue => {
           const {

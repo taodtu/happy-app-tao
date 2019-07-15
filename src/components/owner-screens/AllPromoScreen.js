@@ -6,7 +6,7 @@ export default class PromoScreen extends React.Component {
     return (
       <View style={styles.container}>
         <MenuButton navigation={this.props.navigation} />
-        <Text style={styles.textStyle}>Promo List</Text>
+        <Text style={styles.textStyle}>All Promo List</Text>
       </View>
     );
   }
