@@ -17,6 +17,8 @@ import {
   Animated
 } from "react-native";
 import { Container, Item, Input, Icon } from "native-base";
+import MenuButton from "./MenuButton";
+
 export default class SignInScreen extends React.Component {
   state = {
     username: "",
@@ -48,6 +50,7 @@ export default class SignInScreen extends React.Component {
     if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
+        <MenuButton navigation={this.props.navigation} />
         <StatusBar />
         <KeyboardAvoidingView
           style={styles.container}

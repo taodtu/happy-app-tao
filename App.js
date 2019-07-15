@@ -5,7 +5,8 @@ import SignInScreen from "./src/components/SignInScreen";
 import SignUpScreen from "./src/components/SignUpScreen";
 import ForgetPasswordScreen from "./src/components/ForgetPasswordScreen";
 import HomeScreen from "./src/components/HomeScreen";
-import PromoScreen from "./src/components/owner-screens/PromoScreen";
+import AllPromoScreen from "./src/components/owner-screens/AllPromoScreen";
+import YourPromoScreen from "./src/components/owner-screens/YourPromoScreen";
 import ProfileScreen from "./src/components/owner-screens/ProfileScreen";
 import NewPromoScreen from "./src/components/owner-screens/NewPromoScreen";
 import EditScreen from "./src/components/owner-screens/EditScreen";
@@ -24,17 +25,22 @@ import config from "./src/aws-exports";
 
 Amplify.configure(config);
 
-const SignInStackNavigator = createStackNavigator({
-  SignIn: {
-    screen: SignInScreen,
-    navigationOptions: () => ({
-      title: `Pub sign in`, // for the header screen
-      headerBackTitle: "Back to Sign In"
-    })
+const SignInStackNavigator = createStackNavigator(
+  {
+    SignIn: {
+      screen: SignInScreen,
+      navigationOptions: () => ({
+        title: `Pub sign in`, // for the header screen
+        headerBackTitle: "Back to Sign In"
+      })
+    },
+    SignUp: { screen: SignUpScreen },
+    ForgetPassword: ForgetPasswordScreen
   },
-  SignUp: { screen: SignUpScreen },
-  ForgetPassword: ForgetPasswordScreen
-});
+  {
+    headerMode: "none"
+  }
+);
 const options = {
   tabBarPosition: "bottom",
   swipeEnabled: true,
@@ -43,21 +49,26 @@ const options = {
     tabBarVisible: true
   }
 };
-const OfferStackNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-    navigationOptions: () => ({
-      title: `Offers list` // for the header screen
-    })
+const OfferStackNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: () => ({
+        title: `Offers list` // for the header screen
+      })
+    },
+    Coupon: {
+      screen: CouponDetailScreen,
+      navigationOptions: () => ({
+        title: `Coupon detail` // for the header screen
+      })
+    }
   },
-  Coupon: {
-    screen: CouponDetailScreen,
-    navigationOptions: () => ({
-      title: `Coupon detail` // for the header screen
-    })
+  {
+    headerMode: "none"
   }
-});
-const AppTabNavigator = createMaterialTopTabNavigator(
+);
+const AppDrawerNavigator = createDrawerNavigator(
   {
     Offer: OfferStackNavigator, //define above
     SignIn: {
@@ -76,11 +87,28 @@ const DrawerConfig = {
     return <MenuDrawer navigation={navigation} />;
   }
 };
+const PromoTabNavigator = createMaterialTopTabNavigator(
+  {
+    All: {
+      screen: AllPromoScreen,
+      navigationOptions: () => ({
+        title: `all promos now` // for the header screen
+      })
+    },
+    Yours: {
+      screen: YourPromoScreen,
+      navigationOptions: () => ({
+        title: `Your promo` // for the header screen
+      })
+    }
+  },
+  options
+);
 const OwnerDrawerNavigator = createDrawerNavigator(
   {
     Profile: ProfileScreen,
     Edit: EditScreen,
-    Promo: PromoScreen,
+    Promo: PromoTabNavigator,
     NewPromo: NewPromoScreen,
     Reset: ResetPasswordScreen
   },
@@ -89,7 +117,7 @@ const OwnerDrawerNavigator = createDrawerNavigator(
 const AppNavigator = createSwitchNavigator({
   Landing: LandingScreen,
   Owner: OwnerDrawerNavigator, // the Owner stack
-  App: AppTabNavigator // the App stack
+  App: AppDrawerNavigator // the App stack
 });
 
 const AppContainer = createAppContainer(AppNavigator);
