@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../images/beer.png";
 import Auth from "@aws-amplify/auth";
 import Loading from "./Loading";
 import {
@@ -13,8 +12,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Alert,
-  Button,
-  Animated
+  Button
 } from "react-native";
 import { Container, Item, Input, Icon } from "native-base";
 import MenuButton from "./MenuButton";
@@ -33,6 +31,7 @@ export default class SignInScreen extends React.Component {
     this.setState({ loading: true });
     await Auth.signIn(username, password)
       .then(user => {
+        console.log(user.username);
         this.setState({ user, loading: false });
         this.props.navigation.navigate("Landing");
       })
@@ -62,12 +61,6 @@ export default class SignInScreen extends React.Component {
             onPress={Keyboard.dismiss}
           >
             <View style={styles.container}>
-              <View style={styles.logoContainer}>
-                <Animated.Image
-                  source={logo}
-                  style={{ width: 60, height: 60 }}
-                />
-              </View>
               <Container style={styles.infoContainer}>
                 <View style={styles.container}>
                   <Item rounded style={styles.itemStyle}>
@@ -181,16 +174,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#fff"
-  },
-  logoContainer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    height: 400,
-    bottom: 180,
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1
   },
   Text: {
     textAlign: "center"

@@ -89,7 +89,7 @@ export default class MenuDrawer extends React.Component {
             >
               <Icon
                 name="md-power"
-                style={{ color: "#fff", paddingRight: 10 }}
+                style={{ color: "#FFF", paddingRight: 10 }}
               />
               <Text style={styles.buttonText}>Sign Out</Text>
             </TouchableOpacity>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   topLinks: {
     height: 160,
-    backgroundColor: "gray"
+    backgroundColor: "#FDD96E"
   },
   bottomLinks: {
     flex: 1,
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     alignItems: "center",
-    backgroundColor: "gray",
+    backgroundColor: "#FF5D24",
     padding: 14,
     marginBottom: 20,
     marginTop: 20,

@@ -1,21 +1,35 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity
+} from "react-native";
 import MenuButton from "../MenuButton";
 export default class PromoScreen extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={{ backgroundColor: "#FDD96E" }}>
         <MenuButton navigation={this.props.navigation} />
-        <Text style={styles.textStyle}>New Offer</Text>
-      </View>
+        <View style={styles.container}>
+          <Text style={styles.textStyle}>Make a New Offer</Text>
+        </View>
+      </ScrollView>
     );
   }
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#3a73b7",
+    backgroundColor: "#FDD96E",
     alignItems: "center",
     justifyContent: "space-around"
+  },
+  title: {
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 15,
+    color: "#fff"
   }
 });

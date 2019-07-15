@@ -25,22 +25,6 @@ import config from "./src/aws-exports";
 
 Amplify.configure(config);
 
-const SignInStackNavigator = createStackNavigator(
-  {
-    SignIn: {
-      screen: SignInScreen,
-      navigationOptions: () => ({
-        title: `Pub sign in`, // for the header screen
-        headerBackTitle: "Back to Sign In"
-      })
-    },
-    SignUp: { screen: SignUpScreen },
-    ForgetPassword: ForgetPasswordScreen
-  },
-  {
-    headerMode: "none"
-  }
-);
 const options = {
   tabBarPosition: "bottom",
   swipeEnabled: true,
@@ -49,6 +33,29 @@ const options = {
     tabBarVisible: true
   }
 };
+const AuthTabNavigator = createMaterialTopTabNavigator(
+  {
+    SignIn: {
+      screen: SignInScreen,
+      navigationOptions: () => ({
+        title: `Sign In` // for the header screen
+      })
+    },
+    SignUp: {
+      screen: SignUpScreen,
+      navigationOptions: () => ({
+        title: `Sign Up` // for the header screen
+      })
+    },
+    ForgetPassword: {
+      screen: ForgetPasswordScreen,
+      navigationOptions: () => ({
+        title: `Forget password` // for the header screen
+      })
+    }
+  },
+  options
+);
 const OfferStackNavigator = createStackNavigator(
   {
     Home: {
@@ -72,7 +79,7 @@ const AppDrawerNavigator = createDrawerNavigator(
   {
     Offer: OfferStackNavigator, //define above
     SignIn: {
-      screen: SignInStackNavigator, //define above
+      screen: AuthTabNavigator, //define above
       navigationOptions: () => ({
         title: `Pub sign in/up` // for the header screen
       })

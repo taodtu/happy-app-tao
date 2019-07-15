@@ -65,7 +65,7 @@ export default class ScreenName extends React.Component {
     this.setState({ [key]: value });
   }
   render() {
-    const { loading } = this.state;
+    const { loading, email } = this.state;
     if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
@@ -91,12 +91,16 @@ export default class ScreenName extends React.Component {
                     <Input
                       style={styles.input}
                       placeholder="email"
+                      value={email}
                       placeholderTextColor="#0468d4"
                       keyboardType={"email-address"}
                       returnKeyType="go"
                       autoCapitalize="none"
                       autoCorrect={false}
                       onChangeText={value => this.onChangeText("email", value)}
+                      onSubmitEditing={event => {
+                        this.forgotPassword();
+                      }}
                     />
                   </Item>
                   <TouchableOpacity

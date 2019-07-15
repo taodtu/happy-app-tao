@@ -37,7 +37,7 @@ export default class PromoScreen extends React.Component {
       loading
     } = this.state;
     return (
-      <ScrollView style={{ backgroundColor: "#3a73b7" }}>
+      <ScrollView style={{ backgroundColor: "#FDD96E" }}>
         <MenuButton navigation={this.props.navigation} />
         <View style={styles.container}>
           <Text style={styles.textStyle}>{name}</Text>
@@ -76,7 +76,7 @@ export default class PromoScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#3a73b7",
+    backgroundColor: "#FDD96E",
     alignItems: "center",
     justifyContent: "space-around",
     marginLeft: 16,
