@@ -128,13 +128,14 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 20,
     paddingBottom: 5,
-    color: "white",
+    fontWeight: "bold",
+    color: "#FF5D24",
     textAlign: "left"
   },
   imgView: {
     flex: 1,
-    paddingLeft: 15,
-    paddingRight: 15
+    paddingLeft: 10,
+    paddingRight: 10
   },
   img: {
     height: 60,

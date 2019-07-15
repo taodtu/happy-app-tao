@@ -5,6 +5,7 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
   Text,
+  SafeAreaView,
   KeyboardAvoidingView,
   Keyboard,
   View,
@@ -40,7 +41,7 @@ export default class PromoScreen extends React.Component {
   render() {
     const { duration, price, drink, quantity } = this.state;
     return (
-      <ScrollView style={{ backgroundColor: "#FDD96E" }}>
+      <SafeAreaView style={styles.container}>
         <MenuButton navigation={this.props.navigation} />
         <KeyboardAvoidingView
           style={styles.container}
@@ -60,7 +61,7 @@ export default class PromoScreen extends React.Component {
                     <Input
                       style={styles.input}
                       value={duration}
-                      placeholder="Duration as minutes e.g. 30"
+                      placeholder="duration (minutes)"
                       placeholderTextColor="#0468d4"
                       returnKeyType="next"
                       autoCapitalize="none"
@@ -78,7 +79,7 @@ export default class PromoScreen extends React.Component {
                     <Input
                       style={styles.input}
                       value={price}
-                      placeholder="short description"
+                      placeholder="Price £"
                       placeholderTextColor="#0468d4"
                       returnKeyType="next"
                       ref="SecondInput"
@@ -95,7 +96,7 @@ export default class PromoScreen extends React.Component {
                     <Input
                       style={styles.input}
                       value={drink}
-                      placeholder="venue description"
+                      placeholder="Drink"
                       placeholderTextColor="#0468d4"
                       returnKeyType="go"
                       autoCapitalize="none"
@@ -112,7 +113,7 @@ export default class PromoScreen extends React.Component {
                     <Input
                       style={styles.input}
                       value={quantity}
-                      placeholder="venue description"
+                      placeholder="Quantity"
                       placeholderTextColor="#0468d4"
                       returnKeyType="go"
                       autoCapitalize="none"
@@ -133,7 +134,7 @@ export default class PromoScreen extends React.Component {
             </View>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
-      </ScrollView>
+      </SafeAreaView>
     );
   }
 }

@@ -88,24 +88,24 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 17,
     fontWeight: "bold",
-    color: "#fff"
+    color: "#0468d4"
   },
   title: {
     marginTop: 10,
     marginBottom: 10,
     fontSize: 15,
-    color: "#fff"
+    color: "#0468d4"
   },
   phone: {
     marginBottom: 10,
     fontSize: 15,
-    color: "#fff"
+    color: "#0468d4"
   },
   offer: {
     marginTop: 10,
     marginBottom: 10,
     fontSize: 17,
     fontWeight: "bold",
-    color: "#fff"
+    color: "#0468d4"
   }
 });
