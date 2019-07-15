@@ -2,7 +2,7 @@ import axios from "axios";
 import { googleApiKey } from "../apiKey";
 
 const request = axios.create({
-  baseURL: "https://uo5xzzqrwb.execute-api.us-east-1.amazonaws.com/dev/api/"
+  baseURL: "https://maps.googleapis.com/maps/api/place/findplacefromtext"
 });
 
 export const getOwner = phoneNumber => {
@@ -13,36 +13,52 @@ export const getOwner = phoneNumber => {
     .then(({ data }) => data.candidates[0]);
 };
 
-export const getOffers = () => {
-  return request.get(`offers`).then(({ data }) => {
-    return data;
-  });
+export const getArticles = (topic, author, sort_by, order, limit, p) => {
+  return request
+    .get(`/articles`, { params: { topic, author, sort_by, order, limit, p } })
+    .then(({ data }) => data);
 };
 
-export const getOffersByOwnerId = ownerId => {
-  return request.get(`owners/${ownerId}`).then(({ data }) => {
-    return data;
-  });
+export const getUser = username => {
+  return request.get(`/users/${username}`).then(({ data }) => data.user);
 };
 
-export const postOwner = body => {
-  return request.post(`owners`, body).then(({ data }) => {
-    return data;
-  });
+export const getArticle = article_id => {
+  return request
+    .get(`/articles/${article_id}`)
+    .then(({ data }) => data.article);
 };
 
-export const updateOwnerDetails = (ownerId, body) => {
-  return request.put(`owners/${ownerId}`, body).then(({ data }) => {
-    return data;
-  });
+export const updateArticle = (id, body) => {
+  return request
+    .patch(`/articles/${id}`, body)
+    .then(({ data }) => data.article);
 };
 
-export const deleteOwner = ownerId => {
-  return request.delete(`owners/${ownerId}`).then(console.log);
+export const addComment = (article_id, body) => {
+  return request
+    .post(`/articles/${article_id}/comments`, body)
+    .then(({ data }) => data.comment);
 };
 
-export const postOffer = body => {
-  return request.post(`offers`, body).then(({ data }) => {
-    return data;
-  });
+export const getCommentsByArticle = (article_id, sort_by, order) => {
+  return request
+    .get(`/articles/${article_id}/comments`, { params: { sort_by, order } })
+    .then(({ data }) => data.comments);
+};
+
+export const getCommentsByUser = (username, sort_by, order) => {
+  return request
+    .get(`/users/${username}/comments`, { params: { sort_by, order } })
+    .then(({ data }) => data.comments);
+};
+
+export const updateComment = (id, body) => {
+  return request
+    .patch(`/comments/${id}`, body)
+    .then(({ data }) => data.comment);
+};
+
+export const deleteComment = id => {
+  return request.delete(`/comments/${id}`);
 };
