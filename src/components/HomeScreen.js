@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components";
-import { dealsObj } from "../data/deals-data";
 import DealCard from "./deals-screen/DealCard";
+import BurgerMenuHeader from "./BurgerMenuHeader";
+import Loading from "./Loading";
+import { LinearGradient } from "expo-linear-gradient";
 import {
   getOffers,
   getOffersByOwnerId,
@@ -11,67 +13,71 @@ import {
   deleteOwner,
   postOffer
 } from "../Api";
-import MenuButton from "./MenuButton";
 
 const MainView = styled.ScrollView`
   flex: 1;
-  background-color: #eac5d8;
+  background-color: #fdd96e;
 `;
 
-const CardWrapper = styled.TouchableOpacity``;
-
 export default class HomeScreen extends Component {
-  state = { offers: [] };
+  state = { offers: [], loading: true };
   render() {
     const { offers } = this.state;
     const { navigate } = this.props.navigation;
+    const { navigation } = this.props;
+    const { loading } = this.state;
+
+    if (loading) return <Loading />;
     return (
-      <MainView>
-        <MenuButton navigation={this.props.navigation} />
-        {/* map over deals and create a card for each deal */}
-        {offers.map(venue => {
-          const {
-            active,
-            coupon_id,
-            drink,
-            price,
-            quantity,
-            timerImg,
-            type,
-            couponID,
-            duration
-          } = venue;
-          return (
-            <View key={coupon_id}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigate("Coupon", {
-                    drink: drink,
-                    price: price,
-                    quantity: quantity,
-                    type: type,
-                    couponID: couponID,
-                    duration: duration
-                  })
-                }
-              >
-                <DealCard
-                  timerImg={timerImg}
-                  drink={drink}
-                  price={price}
-                  quantity={quantity}
-                  type={type}
-                  duration={duration}
-                />
-              </TouchableOpacity>
-            </View>
-          );
-        })}
-      </MainView>
+      <>
+        <BurgerMenuHeader naviation={navigation} />
+        <MainView>
+          <LinearGradient colors={["#fdd96e", "#fdc41c", "#f0a202"]}>
+            {/* map over deals and create a card for each deal */}
+            {offers.map(venue => {
+              const {
+                createdAt,
+                active,
+                coupon_id,
+                drink,
+                price,
+                quantity,
+                type,
+                duration
+              } = venue;
+
+              return (
+                <View key={createdAt}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigate("Coupon", {
+                        drink: drink,
+                        price: price,
+                        quantity: quantity,
+                        type: type,
+                        coupon_id: coupon_id,
+                        duration: duration
+                      })
+                    }
+                  >
+                    <DealCard
+                      drink={drink}
+                      price={price}
+                      quantity={quantity}
+                      type={type}
+                      duration={duration}
+                    />
+                  </TouchableOpacity>
+                </View>
+              );
+            })}
+          </LinearGradient>
+        </MainView>
+      </>
     );
   }
   componentDidMount() {
-    getOffers().then(offers => this.setState({ offers }));
+    getOffers().then(offers => this.setState({ offers, loading: false }));
     // getOffersByOwnerId("03a27660-a4b7-11e9-ac27-97a3f1fac344").then(res => {
     //   console.log(res);
     // });
@@ -102,15 +108,15 @@ export default class HomeScreen extends Component {
     //   latitude: "8697"
     // }).then(console.log);
     // deleteOwner("03a27660-a4b7-11e9-ac27-97a3f1fac344");
-    postOffer({
-      data_type: "offer",
-      duration: "30",
-      price: "£3.00",
-      drink: "Gin and Tonic",
-      quantity: "6",
-      type: "Spirit mixer",
-      coupon_id: "sdfghjuiop456789",
-      active: "true"
-    }).then(console.log);
+    // postOffer({
+    //   data_type: "offer",
+    //   duration: "30",
+    //   price: "£3.00",
+    //   drink: "Gin and Tonic",
+    //   quantity: "6",
+    //   type: "Spirit mixer",
+    //   coupon_id: "sdfghjuiop456789",
+    //   active: "true"
+    // }).then(console.log);
   }
 }

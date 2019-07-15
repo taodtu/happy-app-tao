@@ -1,6 +1,5 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import TimerImage from "./TimerImage";
 import VenueName from "./VenueName";
 import Drink from "./Drink";
 import Price from "./Price";
@@ -12,7 +11,7 @@ import CountDown from "react-native-countdown-component";
 
 const Card = styled.View`
   width: 300;
-  background: #7fbeeb;
+  background: #1cbbf3;
   height: 130;
   flex-direction: row;
   align-items: center;
@@ -23,7 +22,7 @@ const Card = styled.View`
 const DealWrapper = styled.View`
   margin: 10px;
   flex: 2;
-  background: #3cdbd3;
+  background: #b9f0f8;
   padding-left: 3px;
   margin-vertical: 18px;
   margin-left: 30px;
@@ -35,7 +34,7 @@ const CountdownWrapper = styled.View`
 
 export default function DealCard(props) {
   const {
-    timerImg,
+    active,
     venueName,
     drink,
     price,
@@ -44,6 +43,7 @@ export default function DealCard(props) {
     type,
     duration
   } = props;
+
   return (
     <Card>
       <CountdownWrapper>
@@ -51,8 +51,8 @@ export default function DealCard(props) {
           until={duration}
           size={20}
           timeToShow={["M", "S"]}
-          digitStyle={{ backgroundColor: "#f5e4ed" }}
-          digitTxtStyle={{ color: "#3cdbd3" }}
+          digitStyle={{ backgroundColor: "#feeec1" }}
+          digitTxtStyle={{ color: "#1cbbf3" }}
           timeLabels={{ m: "Mins", s: "Secs" }}
         />
       </CountdownWrapper>
