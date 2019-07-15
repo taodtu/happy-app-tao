@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 const EmojiWrapper = styled.Text`
   flex: 1;
+  font-size: 30;
   justify-content: center;
-  padding-left: 70px;
   margin-horizontal: auto;
 `;
 
 export default function Emoji(props) {
   const { type } = props;
-  return <EmojiWrapper>{type}</EmojiWrapper>;
+  console.log(type);
+  return <EmojiWrapper>🍾</EmojiWrapper>;
 }

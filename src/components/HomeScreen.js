@@ -18,6 +18,9 @@ const MainView = styled.ScrollView`
   flex: 1;
   background-color: #fdd96e;
 `;
+const MapWrapper = styled.View`
+  align-items: center;
+`;
 
 export default class HomeScreen extends Component {
   state = { offers: [], loading: true };
@@ -30,47 +33,50 @@ export default class HomeScreen extends Component {
     if (loading) return <Loading />;
     return (
       <>
-        <BurgerMenuHeader naviation={navigation} />
+        <BurgerMenuHeader navigation={navigation} />
         <MainView>
           <LinearGradient colors={["#fdd96e", "#fdc41c", "#f0a202"]}>
-            {/* map over deals and create a card for each deal */}
-            {offers.map(venue => {
-              const {
-                createdAt,
-                active,
-                coupon_id,
-                drink,
-                price,
-                quantity,
-                type,
-                duration
-              } = venue;
+            <MapWrapper>
+              {/* map over deals and create a card for each deal */}
+              {offers.map(offer => {
+                console.log(offer);
+                const {
+                  createdAt,
+                  active,
+                  coupon_id,
+                  drink,
+                  price,
+                  quantity,
+                  type,
+                  duration
+                } = offer;
 
-              return (
-                <View key={createdAt}>
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigate("Coupon", {
-                        drink: drink,
-                        price: price,
-                        quantity: quantity,
-                        type: type,
-                        coupon_id: coupon_id,
-                        duration: duration
-                      })
-                    }
-                  >
-                    <DealCard
-                      drink={drink}
-                      price={price}
-                      quantity={quantity}
-                      type={type}
-                      duration={duration}
-                    />
-                  </TouchableOpacity>
-                </View>
-              );
-            })}
+                return (
+                  <View key={createdAt}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigate("Coupon", {
+                          drink: drink,
+                          price: price,
+                          quantity: quantity,
+                          type: type,
+                          coupon_id: coupon_id,
+                          duration: duration
+                        })
+                      }
+                    >
+                      <DealCard
+                        drink={drink}
+                        price={price}
+                        quantity={quantity}
+                        type={type}
+                        duration={duration}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </MapWrapper>
           </LinearGradient>
         </MainView>
       </>
@@ -114,7 +120,7 @@ export default class HomeScreen extends Component {
     //   price: "£3.00",
     //   drink: "Gin and Tonic",
     //   quantity: "6",
-    //   type: "Spirit mixer",
+    //   type: "🍸",
     //   coupon_id: "sdfghjuiop456789",
     //   active: "true"
     // }).then(console.log);

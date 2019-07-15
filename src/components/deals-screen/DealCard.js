@@ -24,13 +24,16 @@ const DealWrapper = styled.View`
   flex: 2;
   background: #b9f0f8;
   padding-left: 3px;
-  margin-vertical: 18px;
-  margin-left: 30px;
 `;
 
-const CountdownWrapper = styled.View`
-  padding-left: 15px;
+const LeftContainer = styled.View`
+  align-items: center;
+  margin: 10px 0 10px 10px;
+  flex: 2;
+  padding-left: 3px;
 `;
+
+const CountdownWrapper = styled.View``;
 
 export default function DealCard(props) {
   const {
@@ -46,23 +49,25 @@ export default function DealCard(props) {
 
   return (
     <Card>
-      <CountdownWrapper>
-        <CountDown
-          until={duration}
-          size={20}
-          timeToShow={["M", "S"]}
-          digitStyle={{ backgroundColor: "#feeec1" }}
-          digitTxtStyle={{ color: "#1cbbf3" }}
-          timeLabels={{ m: "Mins", s: "Secs" }}
-        />
-      </CountdownWrapper>
+      <LeftContainer>
+        <Emoji type={type} />
+        <CountdownWrapper>
+          <CountDown
+            until={duration}
+            size={20}
+            timeToShow={["M", "S"]}
+            digitStyle={{ backgroundColor: "#feeec1" }}
+            digitTxtStyle={{ color: "#1cbbf3" }}
+            timeLabels={{ m: "Mins", s: "Secs" }}
+          />
+        </CountdownWrapper>
+      </LeftContainer>
 
       <DealWrapper>
-        <Drink drink={drink} />
         <VenueName name={venueName} />
         <Quantity quantity={quantity} />
+        <Drink drink={drink} />
         <Price price={price} />
-        <Emoji type={type} />
       </DealWrapper>
     </Card>
   );
