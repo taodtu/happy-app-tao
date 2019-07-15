@@ -1,10 +1,12 @@
 import React from "react";
+import Auth from "@aws-amplify/auth";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet, View, ScrollView, Text, Dimensions } from "react-native";
 import Image from "react-native-scalable-image";
 import MenuButton from "../MenuButton";
 
 const INITIAL_STATE = {
+  userID: "",
   email: "",
   phone_number: "441618344989",
   description:
@@ -21,6 +23,14 @@ const INITIAL_STATE = {
 export default class PromoScreen extends React.Component {
   state = { ...INITIAL_STATE };
   componentDidMount() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        console.log(user.username);
+        this.setState({
+          userID: user.username
+        });
+      })
+      .catch(err => console.log(err));
     //get owner profile from backend
   }
   render() {

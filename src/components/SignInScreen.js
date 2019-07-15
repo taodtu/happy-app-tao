@@ -1,5 +1,6 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
+import logo from "../images/beer.png";
 import Loading from "./Loading";
 import {
   StyleSheet,
@@ -12,6 +13,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Alert,
+  Image,
   Button
 } from "react-native";
 import { Container, Item, Input, Icon } from "native-base";
@@ -31,7 +33,6 @@ export default class SignInScreen extends React.Component {
     this.setState({ loading: true });
     await Auth.signIn(username, password)
       .then(user => {
-        console.log(user.username);
         this.setState({ user, loading: false });
         this.props.navigation.navigate("Landing");
       })
@@ -51,6 +52,7 @@ export default class SignInScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <MenuButton navigation={this.props.navigation} />
         <StatusBar />
+
         <KeyboardAvoidingView
           style={styles.container}
           behavior="padding"
@@ -63,6 +65,14 @@ export default class SignInScreen extends React.Component {
             <View style={styles.container}>
               <Container style={styles.infoContainer}>
                 <View style={styles.container}>
+                  <View
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <Image source={logo} style={styles.image} />
+                  </View>
                   <Item rounded style={styles.itemStyle}>
                     <Icon active name="person" style={styles.iconStyle} />
                     <Input
@@ -106,25 +116,6 @@ export default class SignInScreen extends React.Component {
                   >
                     <Text style={styles.buttonText}>Sign In</Text>
                   </TouchableOpacity>
-
-                  <View>
-                    <Text style={styles.Text}>Don't have an account?</Text>
-                    <Button
-                      title="Sign Up"
-                      color="#841584"
-                      onPress={() => this.props.navigation.navigate("SignUp")}
-                    />
-                  </View>
-                  <View style={styles.Button}>
-                    <Text style={styles.Text}>Forget your password?</Text>
-                    <Button
-                      title="Click here"
-                      color="#841584"
-                      onPress={() =>
-                        this.props.navigation.navigate("ForgetPassword")
-                      }
-                    />
-                  </View>
                 </View>
               </Container>
             </View>
@@ -146,6 +137,11 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "bold",
     color: "#5a52a5"
+  },
+  image: {
+    width: 80,
+    height: 80,
+    marginBottom: 20
   },
   infoContainer: {
     marginTop: 120,
