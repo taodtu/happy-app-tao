@@ -7,14 +7,110 @@ import {
   TouchableOpacity
 } from "react-native";
 import MenuButton from "../MenuButton";
+import { Container, Item, Input, Icon } from "native-base";
 export default class PromoScreen extends React.Component {
+  state = {
+    duration: "",
+    price: "",
+    drink: "",
+    quantity: ""
+  };
+  componentDidMount = async () => {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        this.setState({
+          email: user.attributes.email
+        });
+      })
+      .catch(err => console.log(err));
+  };
+  onChangeText = (key, value) => {
+    this.setState({ [key]: value });
+  };
+  submit = () => {
+    this.setState({ loading: true });
+    const {} = this.state;
+  };
   render() {
     return (
       <ScrollView style={{ backgroundColor: "#FDD96E" }}>
         <MenuButton navigation={this.props.navigation} />
-        <View style={styles.container}>
-          <Text style={styles.textStyle}>Make a New Offer</Text>
-        </View>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior="padding"
+          enabled
+        >
+          <TouchableWithoutFeedback
+            style={styles.container}
+            onPress={Keyboard.dismiss}
+          >
+            <View style={styles.container}>
+              <Container style={styles.infoContainer}>
+                <View style={styles.container}>
+                  <Text style={styles.Text}>Create a new promo</Text>
+                  {/*  duration section  */}
+                  <Item rounded style={styles.itemStyle}>
+                    <Icon active name="image" style={styles.iconStyle} />
+                    <Input
+                      style={styles.input}
+                      placeholder="Duration as minutes e.g. 30"
+                      placeholderTextColor="#0468d4"
+                      returnKeyType="next"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      onSubmitEditing={event => {
+                        this.refs.SecondInput._root.focus();
+                      }}
+                      onChangeText={value =>
+                        this.onChangeText("photo_uri", value)
+                      }
+                    />
+                  </Item>
+                  {/*  title section  */}
+                  <Item rounded style={styles.itemStyle}>
+                    <Icon active name="beer" style={styles.iconStyle} />
+                    <Input
+                      style={styles.input}
+                      placeholder="short description"
+                      placeholderTextColor="#0468d4"
+                      returnKeyType="next"
+                      ref="SecondInput"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      onSubmitEditing={event => {
+                        this.refs.ThirdInput._root.focus();
+                      }}
+                      onChangeText={value => this.onChangeText("title", value)}
+                    />
+                  </Item>
+                  {/*  description section  */}
+                  <Item rounded style={styles.itemStyle}>
+                    <Icon active name="book" style={styles.iconStyle} />
+                    <Input
+                      style={styles.input}
+                      placeholder="venue description"
+                      placeholderTextColor="#0468d4"
+                      returnKeyType="go"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      ref="ThirdInput"
+                      onSubmitEditing={event => this.submit()}
+                      onChangeText={value =>
+                        this.onChangeText("description", value)
+                      }
+                    />
+                  </Item>
+                  <TouchableOpacity
+                    onPress={() => this.submit()}
+                    style={styles.buttonStyle}
+                  >
+                    <Text style={styles.buttonText}>Submit</Text>
+                  </TouchableOpacity>
+                </View>
+              </Container>
+            </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
       </ScrollView>
     );
   }
@@ -22,14 +118,73 @@ export default class PromoScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FDD96E",
-    alignItems: "center",
-    justifyContent: "space-around"
+    backgroundColor: "#23ccc9",
+    justifyContent: "center",
+    flexDirection: "column"
   },
-  title: {
-    marginTop: 10,
+  input: {
+    flex: 1,
+    fontSize: 17,
+    fontWeight: "bold",
+    color: "#5a52a5"
+  },
+  infoContainer: {
+    marginTop: 60,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 30,
+    backgroundColor: "#23ccc9"
+  },
+  itemStyle: {
+    marginBottom: 10
+  },
+  iconStyle: {
+    color: "#5a52a5",
+    fontSize: 28,
+    marginLeft: 15
+  },
+  buttonStyle: {
+    alignItems: "center",
+    backgroundColor: "#61a0d4",
+    padding: 14,
     marginBottom: 10,
-    fontSize: 15,
+    borderRadius: 24
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: "bold",
     color: "#fff"
+  },
+  logoContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1
+  },
+  textStyle: {
+    padding: 5,
+    fontSize: 18
+  },
+  countryStyle: {
+    flex: 1,
+    backgroundColor: "#99ff",
+    borderTopColor: "#211f",
+    borderTopWidth: 1,
+    padding: 12
+  },
+  closeButtonStyle: {
+    flex: 1,
+    padding: 12,
+    alignItems: "center",
+    borderTopWidth: 1,
+    borderTopColor: "#211f",
+    backgroundColor: "#fff3"
+  },
+  Text: {
+    textAlign: "center",
+    fontSize: 17,
+    fontWeight: "bold",
+    color: "#5a52a5",
+    marginBottom: 20
   }
 });
