@@ -45,10 +45,9 @@ export default class MenuDrawer extends React.Component {
   };
   // Confirm sign out
   signOut = async () => {
-    const { navigate } = this.props.navigation;
     await Auth.signOut()
       .then(() => {
-        navigate("Landing");
+        this.props.navigation.navigate("Landing");
       })
       .catch(err => {
         if (!err.message) {
