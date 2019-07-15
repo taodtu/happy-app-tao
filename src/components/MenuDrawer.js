@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 25,
     borderBottomWidth: 1,
-    borderBottomColor: "#777777"
+    borderBottomColor: "#FDD96E"
   },
   profileText: {
     flex: 3,

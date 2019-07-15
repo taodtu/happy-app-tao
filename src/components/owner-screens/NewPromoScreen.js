@@ -1,15 +1,21 @@
 import React from "react";
+import Auth from "@aws-amplify/auth";
 import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
   StyleSheet,
-  View,
   Text,
+  KeyboardAvoidingView,
+  Keyboard,
+  View,
   ScrollView,
-  TouchableOpacity
+  Alert
 } from "react-native";
 import MenuButton from "../MenuButton";
 import { Container, Item, Input, Icon } from "native-base";
 export default class PromoScreen extends React.Component {
   state = {
+    owner: "",
     duration: "",
     price: "",
     drink: "",
@@ -32,6 +38,7 @@ export default class PromoScreen extends React.Component {
     const {} = this.state;
   };
   render() {
+    const { duration, price, drink, quantity } = this.state;
     return (
       <ScrollView style={{ backgroundColor: "#FDD96E" }}>
         <MenuButton navigation={this.props.navigation} />
@@ -50,9 +57,10 @@ export default class PromoScreen extends React.Component {
                   <Text style={styles.Text}>Create a new promo</Text>
                   {/*  duration section  */}
                   <Item rounded style={styles.itemStyle}>
-                    <Icon active name="image" style={styles.iconStyle} />
+                    <Icon active name="clock" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
+                      value={duration}
                       placeholder="Duration as minutes e.g. 30"
                       placeholderTextColor="#0468d4"
                       returnKeyType="next"
@@ -62,15 +70,16 @@ export default class PromoScreen extends React.Component {
                         this.refs.SecondInput._root.focus();
                       }}
                       onChangeText={value =>
-                        this.onChangeText("photo_uri", value)
+                        this.onChangeText("duration", value)
                       }
                     />
                   </Item>
-                  {/*  title section  */}
+                  {/*  price section  */}
                   <Item rounded style={styles.itemStyle}>
                     <Icon active name="beer" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
+                      value={price}
                       placeholder="short description"
                       placeholderTextColor="#0468d4"
                       returnKeyType="next"
@@ -80,24 +89,41 @@ export default class PromoScreen extends React.Component {
                       onSubmitEditing={event => {
                         this.refs.ThirdInput._root.focus();
                       }}
-                      onChangeText={value => this.onChangeText("title", value)}
+                      onChangeText={value => this.onChangeText("price", value)}
                     />
                   </Item>
-                  {/*  description section  */}
+                  {/*  drink section  */}
                   <Item rounded style={styles.itemStyle}>
-                    <Icon active name="book" style={styles.iconStyle} />
+                    <Icon active name="beer" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
+                      value={drink}
                       placeholder="venue description"
                       placeholderTextColor="#0468d4"
                       returnKeyType="go"
                       autoCapitalize="none"
                       autoCorrect={false}
                       ref="ThirdInput"
+                      onSubmitEditing={event => {
+                        this.refs.FouthInput._root.focus();
+                      }}
+                      onChangeText={value => this.onChangeText("drink", value)}
+                    />
+                  </Item>
+                  {/*  quantity section  */}
+                  <Item rounded style={styles.itemStyle}>
+                    <Icon active name="beer" style={styles.iconStyle} />
+                    <Input
+                      style={styles.input}
+                      value={quantity}
+                      placeholder="venue description"
+                      placeholderTextColor="#0468d4"
+                      returnKeyType="go"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      ref="FourthInput"
                       onSubmitEditing={event => this.submit()}
-                      onChangeText={value =>
-                        this.onChangeText("description", value)
-                      }
+                      onChangeText={value => this.onChangeText("drink", value)}
                     />
                   </Item>
                   <TouchableOpacity
@@ -118,7 +144,7 @@ export default class PromoScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#23ccc9",
+    backgroundColor: "#FDD96E",
     justifyContent: "center",
     flexDirection: "column"
   },
@@ -134,15 +160,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 30,
-    backgroundColor: "#23ccc9"
+    backgroundColor: "#FDD96E"
   },
   itemStyle: {
-    marginBottom: 10
+    marginBottom: 10,
+    borderColor: "#5a52a5"
   },
   iconStyle: {
     color: "#5a52a5",
     fontSize: 28,
-    marginLeft: 15
+    marginLeft: 5
   },
   buttonStyle: {
     alignItems: "center",
