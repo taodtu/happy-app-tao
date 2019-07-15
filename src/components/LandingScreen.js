@@ -6,10 +6,13 @@ export default class LandingScreen extends React.Component {
   state = {
     userToken: null
   };
+
   componentDidMount = async () => {
     await this.loadApp();
   };
   loadApp = async () => {
+    const { navigate } = this.props.navigation;
+    const { userToken } = this.state;
     await Auth.currentAuthenticatedUser()
       .then(user => {
         this.setState({
@@ -17,7 +20,7 @@ export default class LandingScreen extends React.Component {
         });
       })
       .catch(err => console.log(err));
-    this.props.navigation.navigate(this.state.userToken ? "Owner" : "App");
+    navigate(userToken ? "Owner" : "App");
   };
   render() {
     return (

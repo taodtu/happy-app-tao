@@ -42,13 +42,14 @@ export default class ScreenName extends React.Component {
   }
   // Upon confirmation redirect the user to the Sign In page
   async forgotPasswordSubmit() {
+    const { navigate } = this.props.navigation;
     this.setState({ loading: true });
     const { email, authCode, newPassword } = this.state;
     await Auth.forgotPasswordSubmit(email, authCode, newPassword)
       .then(() => {
         this.setState({ loading: false });
-        this.props.navigation.navigate("SignIn");
-        console.log("the New password submitted successfully");
+        navigate("SignIn");
+        console.log("new password submitted successfully");
       })
       .catch(err => {
         if (!err.message) {
