@@ -1,11 +1,19 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
 import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, View, ScrollView, Text, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  Dimensions,
+  Alert
+} from "react-native";
 import Image from "react-native-scalable-image";
 import MenuButton from "../MenuButton";
 
 const INITIAL_STATE = {
+  userExist: false,
   userID: "",
   email: "",
   phone_number: "441618344989",

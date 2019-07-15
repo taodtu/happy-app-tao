@@ -9,7 +9,9 @@ import AllPromoScreen from "./src/components/owner-screens/AllPromoScreen";
 import YourPromoScreen from "./src/components/owner-screens/YourPromoScreen";
 import ProfileScreen from "./src/components/owner-screens/ProfileScreen";
 import NewPromoScreen from "./src/components/owner-screens/NewPromoScreen";
+import OwnerLandingScreen from "./src/components/owner-screens/OwnerLandingScreen";
 import EditScreen from "./src/components/owner-screens/EditScreen";
+import CreateOwnerScreen from "./src/components/owner-screens/CreateOwnerScreen";
 import ResetPasswordScreen from "./src/components/owner-screens/ResetPasswordScreen";
 import CouponDetailScreen from "./src/components/coupon-screen/CouponDetailScreen";
 import MenuDrawer from "./src/components/MenuDrawer";
@@ -121,9 +123,14 @@ const OwnerDrawerNavigator = createDrawerNavigator(
   },
   DrawerConfig
 );
+const OwnerSwitchNavigator = createSwitchNavigator({
+  OwnerLanding: OwnerLandingScreen,
+  OwnerApp: OwnerDrawerNavigator, // the Owner stack
+  Register: CreateOwnerScreen // the App stack
+});
 const AppNavigator = createSwitchNavigator({
   Landing: LandingScreen,
-  Owner: OwnerDrawerNavigator, // the Owner stack
+  Owner: OwnerSwitchNavigator, // the Owner stack
   App: AppDrawerNavigator // the App stack
 });
 
