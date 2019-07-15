@@ -41,7 +41,6 @@ export default class SignUpScreen extends React.Component {
         }
       });
   }
-
   // Confirm users and redirect them to the Landing page
   async confirmSignUp() {
     const { username, authCode, password } = this.state;
@@ -213,7 +212,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#23ccc9"
   },
   itemStyle: {
-    marginBottom: 10
+    marginBottom: 10,
+    borderColor: "#5a52a5"
   },
   iconStyle: {
     color: "#5a52a5",
