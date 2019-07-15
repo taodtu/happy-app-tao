@@ -26,6 +26,7 @@ const DealWrapper = styled.View`
   padding-left: 3px;
   height: 100;
   text-align: center;
+  justify-content: center;
 `;
 
 const LeftContainer = styled.View`
@@ -37,8 +38,8 @@ const LeftContainer = styled.View`
 
 const QuantityPriceWrapper = styled.Text`
   flex: 1;
-  
-  `
+  text-align: center;
+`;
 
 const CountdownWrapper = styled.View``;
 

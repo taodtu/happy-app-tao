@@ -4,7 +4,7 @@ import styled from "styled-components";
 const EmojiWrapper = styled.Text`
   flex: 1;
   justify-content: center;
-  margin-horizontal: auto;
+  text-align: center;
 `;
 
 export default function Emoji(props) {
