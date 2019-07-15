@@ -9,7 +9,9 @@ import AllPromoScreen from "./src/components/owner-screens/AllPromoScreen";
 import YourPromoScreen from "./src/components/owner-screens/YourPromoScreen";
 import ProfileScreen from "./src/components/owner-screens/ProfileScreen";
 import NewPromoScreen from "./src/components/owner-screens/NewPromoScreen";
+import OwnerLandingScreen from "./src/components/owner-screens/OwnerLandingScreen";
 import EditScreen from "./src/components/owner-screens/EditScreen";
+import CreateOwnerScreen from "./src/components/owner-screens/CreateOwnerScreen";
 import ResetPasswordScreen from "./src/components/owner-screens/ResetPasswordScreen";
 import CouponDetailScreen from "./src/components/coupon-screen/CouponDetailScreen";
 import MenuDrawer from "./src/components/MenuDrawer";
@@ -25,22 +27,6 @@ import config from "./src/aws-exports";
 
 Amplify.configure(config);
 
-const SignInStackNavigator = createStackNavigator(
-  {
-    SignIn: {
-      screen: SignInScreen,
-      navigationOptions: () => ({
-        title: `Pub sign in`, // for the header screen
-        headerBackTitle: "Back to Sign In"
-      })
-    },
-    SignUp: { screen: SignUpScreen },
-    ForgetPassword: ForgetPasswordScreen
-  },
-  {
-    headerMode: "none"
-  }
-);
 const options = {
   tabBarPosition: "bottom",
   swipeEnabled: true,
@@ -49,6 +35,29 @@ const options = {
     tabBarVisible: true
   }
 };
+const AuthTabNavigator = createMaterialTopTabNavigator(
+  {
+    SignIn: {
+      screen: SignInScreen,
+      navigationOptions: () => ({
+        title: `Sign In` // for the header screen
+      })
+    },
+    SignUp: {
+      screen: SignUpScreen,
+      navigationOptions: () => ({
+        title: `Sign Up` // for the header screen
+      })
+    },
+    ForgetPassword: {
+      screen: ForgetPasswordScreen,
+      navigationOptions: () => ({
+        title: `Forget password` // for the header screen
+      })
+    }
+  },
+  options
+);
 const OfferStackNavigator = createStackNavigator(
   {
     Home: {
@@ -72,7 +81,7 @@ const AppDrawerNavigator = createDrawerNavigator(
   {
     Offer: OfferStackNavigator, //define above
     SignIn: {
-      screen: SignInStackNavigator, //define above
+      screen: AuthTabNavigator, //define above
       navigationOptions: () => ({
         title: `Pub sign in/up` // for the header screen
       })
@@ -114,9 +123,14 @@ const OwnerDrawerNavigator = createDrawerNavigator(
   },
   DrawerConfig
 );
+const OwnerSwitchNavigator = createSwitchNavigator({
+  OwnerLanding: OwnerLandingScreen,
+  OwnerApp: OwnerDrawerNavigator, // the Owner stack
+  Register: CreateOwnerScreen // the App stack
+});
 const AppNavigator = createSwitchNavigator({
   Landing: LandingScreen,
-  Owner: OwnerDrawerNavigator, // the Owner stack
+  Owner: OwnerSwitchNavigator, // the Owner stack
   App: AppDrawerNavigator // the App stack
 });
 

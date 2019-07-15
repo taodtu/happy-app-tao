@@ -1,10 +1,20 @@
 import React from "react";
+import Auth from "@aws-amplify/auth";
 import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, View, ScrollView, Text, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  Dimensions,
+  Alert
+} from "react-native";
 import Image from "react-native-scalable-image";
 import MenuButton from "../MenuButton";
 
 const INITIAL_STATE = {
+  userExist: false,
+  userID: "",
   email: "",
   phone_number: "441618344989",
   description:
@@ -21,6 +31,14 @@ const INITIAL_STATE = {
 export default class PromoScreen extends React.Component {
   state = { ...INITIAL_STATE };
   componentDidMount() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        console.log(user.username);
+        this.setState({
+          userID: user.username
+        });
+      })
+      .catch(err => console.log(err));
     //get owner profile from backend
   }
   render() {
@@ -37,7 +55,7 @@ export default class PromoScreen extends React.Component {
       loading
     } = this.state;
     return (
-      <ScrollView style={{ backgroundColor: "#3a73b7" }}>
+      <ScrollView style={{ backgroundColor: "#FDD96E" }}>
         <MenuButton navigation={this.props.navigation} />
         <View style={styles.container}>
           <Text style={styles.textStyle}>{name}</Text>
@@ -76,7 +94,7 @@ export default class PromoScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#3a73b7",
+    backgroundColor: "#FDD96E",
     alignItems: "center",
     justifyContent: "space-around",
     marginLeft: 16,
@@ -88,24 +106,24 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 17,
     fontWeight: "bold",
-    color: "#fff"
+    color: "#0468d4"
   },
   title: {
     marginTop: 10,
     marginBottom: 10,
     fontSize: 15,
-    color: "#fff"
+    color: "#0468d4"
   },
   phone: {
     marginBottom: 10,
     fontSize: 15,
-    color: "#fff"
+    color: "#0468d4"
   },
   offer: {
     marginTop: 10,
     marginBottom: 10,
     fontSize: 17,
     fontWeight: "bold",
-    color: "#fff"
+    color: "#0468d4"
   }
 });

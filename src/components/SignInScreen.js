@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "../images/beer.png";
 import Auth from "@aws-amplify/auth";
+import logo from "../images/beer.png";
 import Loading from "./Loading";
 import {
   StyleSheet,
@@ -13,8 +13,8 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Alert,
-  Button,
-  Animated
+  Image,
+  Button
 } from "react-native";
 import { Container, Item, Input, Icon } from "native-base";
 import MenuButton from "./MenuButton";
@@ -52,6 +52,7 @@ export default class SignInScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <MenuButton navigation={this.props.navigation} />
         <StatusBar />
+
         <KeyboardAvoidingView
           style={styles.container}
           behavior="padding"
@@ -62,14 +63,16 @@ export default class SignInScreen extends React.Component {
             onPress={Keyboard.dismiss}
           >
             <View style={styles.container}>
-              <View style={styles.logoContainer}>
-                <Animated.Image
-                  source={logo}
-                  style={{ width: 60, height: 60 }}
-                />
-              </View>
               <Container style={styles.infoContainer}>
                 <View style={styles.container}>
+                  <View
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <Image source={logo} style={styles.image} />
+                  </View>
                   <Item rounded style={styles.itemStyle}>
                     <Icon active name="person" style={styles.iconStyle} />
                     <Input
@@ -113,25 +116,6 @@ export default class SignInScreen extends React.Component {
                   >
                     <Text style={styles.buttonText}>Sign In</Text>
                   </TouchableOpacity>
-
-                  <View>
-                    <Text style={styles.Text}>Don't have an account?</Text>
-                    <Button
-                      title="Sign Up"
-                      color="#841584"
-                      onPress={() => this.props.navigation.navigate("SignUp")}
-                    />
-                  </View>
-                  <View style={styles.Button}>
-                    <Text style={styles.Text}>Forget your password?</Text>
-                    <Button
-                      title="Click here"
-                      color="#841584"
-                      onPress={() =>
-                        this.props.navigation.navigate("ForgetPassword")
-                      }
-                    />
-                  </View>
                 </View>
               </Container>
             </View>
@@ -154,6 +138,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#5a52a5"
   },
+  image: {
+    width: 80,
+    height: 80,
+    marginBottom: 20
+  },
   infoContainer: {
     marginTop: 120,
     flexDirection: "row",
@@ -163,7 +152,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#23ccc9"
   },
   itemStyle: {
-    marginBottom: 20
+    marginBottom: 20,
+    borderColor: "#5a52a5"
   },
   iconStyle: {
     color: "#5a52a5",
@@ -181,16 +171,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#fff"
-  },
-  logoContainer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    height: 400,
-    bottom: 180,
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1
   },
   Text: {
     textAlign: "center"

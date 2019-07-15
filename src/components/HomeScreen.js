@@ -32,6 +32,7 @@ export default class HomeScreen extends Component {
         {offers.map(venue => {
           const {
             active,
+            createdAt,
             coupon_id,
             drink,
             price,
@@ -42,7 +43,7 @@ export default class HomeScreen extends Component {
             duration
           } = venue;
           return (
-            <View key={coupon_id}>
+            <View key={createdAt}>
               <TouchableOpacity
                 onPress={() =>
                   navigate("Coupon", {
@@ -102,15 +103,15 @@ export default class HomeScreen extends Component {
     //   latitude: "8697"
     // }).then(console.log);
     // deleteOwner("03a27660-a4b7-11e9-ac27-97a3f1fac344");
-    postOffer({
-      data_type: "offer",
-      duration: "30",
-      price: "£3.00",
-      drink: "Gin and Tonic",
-      quantity: "6",
-      type: "Spirit mixer",
-      coupon_id: "sdfghjuiop456789",
-      active: "true"
-    }).then(console.log);
+    // postOffer({
+    //   data_type: "offer",
+    //   duration: "30",
+    //   price: "£3.00",
+    //   drink: "Gin and Tonic",
+    //   quantity: "6",
+    //   type: "Spirit mixer",
+    //   coupon_id: "sdfghjuiop456789",
+    //   active: "true"
+    // }).then(console.log);
   }
 }

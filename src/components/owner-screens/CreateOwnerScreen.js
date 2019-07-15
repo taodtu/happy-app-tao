@@ -15,7 +15,6 @@ import {
   Alert
 } from "react-native";
 import { Container, Item, Input, Icon } from "native-base";
-import MenuButton from "../MenuButton";
 
 const INITIAL_STATE = {
   email: "",
@@ -71,7 +70,12 @@ export default class HomeScreen extends React.Component {
       )
       .then(() => {
         Alert.alert(
-          "Sucessful! Please finish the following options and click the submit button"
+          "Sucessful! ",
+          {
+            text: "OK",
+            onPress: () => this.props.navigation.navigate("OwnerApp")
+          },
+          { cancelable: false }
         );
       })
       .catch(err => {
@@ -81,9 +85,39 @@ export default class HomeScreen extends React.Component {
         );
       });
   };
-  submit = () => {
-    this.setState({ loading: true });
-    const { photo_uri, title, description } = this.state;
+  // Sign out from the app
+  signOutAlert = async () => {
+    await Alert.alert(
+      "Sign Out",
+      "Are you sure you want to sign out from the app?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Canceled"),
+          style: "cancel"
+        },
+        // Calling signOut
+        {
+          text: "OK",
+          onPress: () => this.signOut()
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+  // Confirm sign out
+  signOut = async () => {
+    await Auth.signOut()
+      .then(() => {
+        this.props.navigation.navigate("Landing");
+      })
+      .catch(err => {
+        if (!err.message) {
+          Alert.alert("Error changing password: ", err);
+        } else {
+          Alert.alert("Error changing password: ", err.message);
+        }
+      });
   };
   render() {
     const { loading } = this.state;
@@ -91,7 +125,6 @@ export default class HomeScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar />
-        <MenuButton navigation={this.props.navigation} />
         <KeyboardAvoidingView
           style={styles.container}
           behavior="padding"
@@ -131,63 +164,22 @@ export default class HomeScreen extends React.Component {
                   >
                     <Text style={styles.buttonText}>Register</Text>
                   </TouchableOpacity>
-                  {/*  photo_uri section  */}
-                  <Item rounded style={styles.itemStyle}>
-                    <Icon active name="image" style={styles.iconStyle} />
-                    <Input
-                      style={styles.input}
-                      placeholder="profile photo url"
-                      placeholderTextColor="#0468d4"
-                      returnKeyType="next"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      onSubmitEditing={event => {
-                        this.refs.SecondInput._root.focus();
-                      }}
-                      onChangeText={value =>
-                        this.onChangeText("photo_uri", value)
-                      }
-                    />
-                  </Item>
-                  {/*  title section  */}
-                  <Item rounded style={styles.itemStyle}>
-                    <Icon active name="beer" style={styles.iconStyle} />
-                    <Input
-                      style={styles.input}
-                      placeholder="short description"
-                      placeholderTextColor="#0468d4"
-                      returnKeyType="next"
-                      ref="SecondInput"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      onSubmitEditing={event => {
-                        this.refs.ThirdInput._root.focus();
-                      }}
-                      onChangeText={value => this.onChangeText("title", value)}
-                    />
-                  </Item>
-                  {/*  description section  */}
-                  <Item rounded style={styles.itemStyle}>
-                    <Icon active name="book" style={styles.iconStyle} />
-                    <Input
-                      style={styles.input}
-                      placeholder="venue description"
-                      placeholderTextColor="#0468d4"
-                      returnKeyType="go"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      ref="ThirdInput"
-                      onSubmitEditing={event => this.submit()}
-                      onChangeText={value =>
-                        this.onChangeText("description", value)
-                      }
-                    />
-                  </Item>
                   <TouchableOpacity
-                    onPress={() => this.submit()}
-                    style={styles.buttonStyle}
+                    style={[
+                      styles.buttonStyle,
+                      {
+                        marginTop: 20,
+                        flexDirection: "row",
+                        justifyContent: "center"
+                      }
+                    ]}
+                    onPress={this.signOutAlert}
                   >
-                    <Text style={styles.buttonText}>Submit</Text>
+                    <Icon
+                      name="md-power"
+                      style={{ color: "#FFF", paddingRight: 10 }}
+                    />
+                    <Text style={styles.buttonText}>Sign Out</Text>
                   </TouchableOpacity>
                 </View>
               </Container>
