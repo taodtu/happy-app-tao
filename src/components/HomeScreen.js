@@ -39,7 +39,7 @@ export default class HomeScreen extends Component {
             <MapWrapper>
               {/* map over deals and create a card for each deal */}
               {offers.map(offer => {
-                console.log(offer);
+                
                 const {
                   createdAt,
                   active,
@@ -118,11 +118,12 @@ export default class HomeScreen extends Component {
     //   data_type: "offer",
     //   duration: "30",
     //   price: "£3.00",
-    //   drink: "Gin and Tonic",
+    //   drink: "Mojitos!",
     //   quantity: "6",
     //   type: "🍸",
     //   coupon_id: "sdfghjuiop456789",
-    //   active: "true"
+    //   active: "true",
+    //   venueName: "Trof"
     // }).then(console.log);
   }
 }
