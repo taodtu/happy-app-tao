@@ -7,14 +7,7 @@ import Loading from "./Loading";
 import { LinearGradient } from "expo-linear-gradient";
 import { API, graphqlOperation } from "aws-amplify";
 import { listOffers } from "../graphql/queries";
-import {
-  getOffers,
-  getOffersByOwnerId,
-  postOwner,
-  updateOwnerDetails,
-  deleteOwner,
-  postOffer
-} from "../Api";
+import { onCreateOffer } from "../graphql/subscriptions";
 
 const MainView = styled.ScrollView`
   flex: 1;
@@ -49,7 +42,7 @@ export default class HomeScreen extends Component {
                   quantity,
                   type,
                   duration,
-                  vuenue_name
+                  venue_name
                 } = offer;
 
                 return (
@@ -61,8 +54,9 @@ export default class HomeScreen extends Component {
                           price,
                           quantity,
                           type,
-                          coupon_id,
-                          duration: created_at + duration - time
+                          coupon_id: id,
+                          duration:
+                            (created_at + duration * 60 * 1000 - time) / 1000
                         })
                       }
                     >
@@ -74,7 +68,7 @@ export default class HomeScreen extends Component {
                         duration={
                           (created_at + duration * 60 * 1000 - time) / 1000
                         }
-                        vunueName={vuenue_name}
+                        venueName={venue_name}
                       />
                     </TouchableOpacity>
                   </View>
@@ -88,58 +82,27 @@ export default class HomeScreen extends Component {
   }
   async componentDidMount() {
     const { data } = await API.graphql(graphqlOperation(listOffers));
-    const offers = data.listOffers.items;
     const time = Date.now();
-    offers.forEach(offer =>
-      console.log(
-        (offer.created_at + offer.duration * 60 * 1000 - time) / 60000
-      )
-    );
+    const offers = data.listOffers.items
+      .filter(offer => {
+        return offer.created_at + offer.duration * 60000 - time > 0;
+      })
+      .sort((a, b) => b.created_at - a.created_at);
     this.setState({
       offers,
       time,
       loading: false
     });
-    // getOffersByOwnerId("03a27660-a4b7-11e9-ac27-97a3f1fac344").then(res => {
-    //   console.log(res);
-    // });
-    // postOwner({
-    // phoneNumber: "87485959063",
-    // place_id: "iuhff6",
-    // venueName: "Testing Post",
-    // address: "Deansgate",
-    // photoUri: "iuhdoidsax.com",
-    // email: "billy@theWhiteParadise.com",
-    // longDescription: "a cool semi paradise where people have experiences",
-    // data_type: "profile",
-    // shortDescription: "Paradise",
-    // longitude: "54675",
-    // latitude: "8697"
-    // }).then(console.log);
-    // updateOwnerDetails("03a27660-a4b7-11e9-ac27-97a3f1fac344", {
-    //   phoneNumber: "87485959063",
-    //   place_id: "iuhff6",
-    //   venueName: "Testing Put",
-    //   address: "Deansgate",
-    //   photoUri: "iuhdoidsax.com",
-    //   email: "billy@theWhiteParadise.com",
-    //   longDescription: "a cool semi paradise where people have experiences",
-    //   data_type: "profile",
-    //   shortDescription: "Paradise",
-    //   longitude: "54675",
-    //   latitude: "8697"
-    // }).then(console.log);
-    // deleteOwner("03a27660-a4b7-11e9-ac27-97a3f1fac344");
-    // postOffer({
-    //   data_type: "offer",
-    //   duration: "30",
-    //   price: "£3.00",
-    //   drink: "Mojitos!",
-    //   quantity: "6",
-    //   type: "🍸",
-    //   coupon_id: "sdfghjuiop456789",
-    //   active: "true",
-    //   venueName: "Trof"
-    // }).then(console.log);
+    //initialize subscription
+    this.subscription = API.graphql(graphqlOperation(onCreateOffer)).subscribe({
+      next: OfferData => {
+        const newOffers = [OfferData.value.data.onCreateOffer, ...offers];
+        this.setState({ offers: newOffers });
+      }
+    });
+  }
+  // // remove the subscription in componentWillUnmount
+  componentWillUnmount() {
+    this.subscription.unsubscribe();
   }
 }
