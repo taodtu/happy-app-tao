@@ -5,6 +5,8 @@ import DealCard from "./deals-screen/DealCard";
 import BurgerMenuHeader from "./BurgerMenuHeader";
 import Loading from "./Loading";
 import { LinearGradient } from "expo-linear-gradient";
+import { API, graphqlOperation } from "aws-amplify";
+import { listOffers } from "../graphql/queries";
 import {
   getOffers,
   getOffersByOwnerId,
@@ -23,9 +25,9 @@ const MapWrapper = styled.View`
 `;
 
 export default class HomeScreen extends Component {
-  state = { offers: [], loading: true };
+  state = { offers: [], loading: true, time: 0 };
   render() {
-    const { offers } = this.state;
+    const { offers, time } = this.state;
     const { navigate } = this.props.navigation;
     const { navigation } = this.props;
     const { loading } = this.state;
@@ -39,29 +41,28 @@ export default class HomeScreen extends Component {
             <MapWrapper>
               {/* map over deals and create a card for each deal */}
               {offers.map(offer => {
-                
                 const {
-                  createdAt,
-                  active,
-                  coupon_id,
+                  created_at,
+                  id,
                   drink,
                   price,
                   quantity,
                   type,
-                  duration
+                  duration,
+                  vuenue_name
                 } = offer;
 
                 return (
-                  <View key={createdAt}>
+                  <View key={id}>
                     <TouchableOpacity
                       onPress={() =>
                         navigate("Coupon", {
-                          drink: drink,
-                          price: price,
-                          quantity: quantity,
-                          type: type,
-                          coupon_id: coupon_id,
-                          duration: duration
+                          drink,
+                          price,
+                          quantity,
+                          type,
+                          coupon_id,
+                          duration: created_at + duration - time
                         })
                       }
                     >
@@ -70,7 +71,10 @@ export default class HomeScreen extends Component {
                         price={price}
                         quantity={quantity}
                         type={type}
-                        duration={duration}
+                        duration={
+                          (created_at + duration * 60 * 1000 - time) / 1000
+                        }
+                        vunueName={vuenue_name}
                       />
                     </TouchableOpacity>
                   </View>
@@ -82,8 +86,20 @@ export default class HomeScreen extends Component {
       </>
     );
   }
-  componentDidMount() {
-    getOffers().then(offers => this.setState({ offers, loading: false }));
+  async componentDidMount() {
+    const { data } = await API.graphql(graphqlOperation(listOffers));
+    const offers = data.listOffers.items;
+    const time = Date.now();
+    offers.forEach(offer =>
+      console.log(
+        (offer.created_at + offer.duration * 60 * 1000 - time) / 60000
+      )
+    );
+    this.setState({
+      offers,
+      time,
+      loading: false
+    });
     // getOffersByOwnerId("03a27660-a4b7-11e9-ac27-97a3f1fac344").then(res => {
     //   console.log(res);
     // });

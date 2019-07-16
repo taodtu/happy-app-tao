@@ -104,7 +104,7 @@ const DrawerConfig = {
 const PromoTabNavigator = createMaterialTopTabNavigator(
   {
     All: {
-      screen: AllPromoScreen,
+      screen: HomeScreen,
       navigationOptions: () => ({
         title: `all promos now` // for the header screen
       })
