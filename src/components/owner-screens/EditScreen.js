@@ -55,7 +55,7 @@ export default class HomeScreen extends React.Component {
         })
       );
       this.setState({ loading: false });
-      console.log("sucess");
+      this.props.navigation.navigate("Profile");
     } catch {
       err => {
         this.setState({ loading: false });
