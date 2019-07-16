@@ -2,6 +2,7 @@ import React from "react";
 import Auth from "@aws-amplify/auth";
 import { API, graphqlOperation } from "aws-amplify";
 import { createOffer } from "../../graphql/mutations";
+import uuid from "react-native-uuid";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
