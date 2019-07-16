@@ -17,6 +17,7 @@ import { Container, Item, Input, Icon } from "native-base";
 import MenuButton from "../MenuButton";
 import { API, graphqlOperation } from "aws-amplify";
 import { getOwner } from "../../graphql/queries";
+import { updateOwner } from "../../graphql/mutations";
 
 const INITIAL_STATE = {
   owner: {},
@@ -44,9 +45,23 @@ export default class HomeScreen extends React.Component {
   onChangeText = (key, value) => {
     this.setState({ [key]: value });
   };
-  submit = () => {
-    this.setState({ loading: true });
-    const { photo_uri, title, description, owner } = this.state;
+  submit = async () => {
+    try {
+      this.setState({ loading: true });
+      const { photo_uri, title, description, owner } = this.state;
+      await API.graphql(
+        graphqlOperation(updateOwner, {
+          input: { ...owner, photo_uri, title, description }
+        })
+      );
+      this.setState({ loading: false });
+      console.log("sucess");
+    } catch {
+      err => {
+        this.setState({ loading: false });
+        Alert.alert("please fill all field");
+      };
+    }
   };
   render() {
     const { loading } = this.state;
