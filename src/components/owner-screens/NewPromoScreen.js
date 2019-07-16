@@ -40,7 +40,6 @@ export default class PromoScreen extends React.Component {
         );
         this.setState({
           ownerID: user.username,
-          id: Math.random().toString(),
           venue_name: data.getOwner.name
         });
       })
@@ -50,28 +49,12 @@ export default class PromoScreen extends React.Component {
     this.setState({ [key]: value });
   };
   submit = async () => {
-    const {
-      ownerID,
-      venue_name,
-      type,
-      price,
-      drink,
-      id,
-      quantity,
-      duration
-    } = this.state;
+    const offer = {
+      ...this.state,
+      created_at: Date.now(),
+      id: Math.random().toString()
+    };
     try {
-      const offer = {
-        ownerID,
-        type,
-        venue_name,
-        price,
-        drink,
-        id,
-        quantity,
-        duration,
-        created_at: Date.now()
-      };
       await API.graphql(graphqlOperation(createOffer, { input: offer }));
       this.setState({ ...INPUT });
       this.props.navigation.navigate("Promo");
