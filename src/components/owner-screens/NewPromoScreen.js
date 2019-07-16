@@ -16,17 +16,21 @@ import {
 } from "react-native";
 import MenuButton from "../MenuButton";
 import { Container, Item, Input, Icon } from "native-base";
+
+const INPUT = {
+  type: "",
+  duration: "",
+  price: "",
+  drink: "",
+  quantity: ""
+};
 export default class PromoScreen extends React.Component {
   state = {
     id: "",
-    type: "",
     created_at: "",
     venue_name: "",
     ownerID: "",
-    duration: "",
-    price: "",
-    drink: "",
-    quantity: ""
+    ...INPUT
   };
   componentDidMount = async () => {
     Auth.currentAuthenticatedUser()
@@ -68,12 +72,11 @@ export default class PromoScreen extends React.Component {
         duration,
         created_at: Date.now()
       };
-      console.log(offer);
-      const { data } = await API.graphql(
-        graphqlOperation(createOffer, { input: offer })
-      );
-      console.log(data);
+      await API.graphql(graphqlOperation(createOffer, { input: offer }));
+      this.setState({ ...INPUT });
+      this.props.navigation.navigate("Promo");
     } catch (err) {
+      this.setState({ ...INPUT });
       console.log("error: ", err);
     }
   };
