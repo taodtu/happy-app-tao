@@ -1,6 +1,8 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
 import Loading from "../Loading";
+import { API, graphqlOperation } from "aws-amplify";
+import { createOwner } from "../../graphql/mutations";
 import { getOwner } from "../../Api";
 import {
   TouchableOpacity,
@@ -17,13 +19,10 @@ import {
 import { Container, Item, Input, Icon } from "native-base";
 
 const INITIAL_STATE = {
-  email: "",
+  userID: "",
   phone_number: "",
-  description: "",
   address: "",
   name: "",
-  title: "",
-  photo_uri: "",
   lat: 53.4868458,
   lng: -2.2401032,
   loading: false
@@ -36,13 +35,39 @@ export default class HomeScreen extends React.Component {
     Auth.currentAuthenticatedUser()
       .then(user => {
         this.setState({
-          email: user.attributes.email
+          userID: user.username
         });
       })
       .catch(err => console.log(err));
   };
   onChangeText = (key, value) => {
     this.setState({ [key]: value });
+  };
+  postOwner = async () => {
+    const {
+      userID,
+      phone_number,
+      address,
+      name,
+      lat,
+      lng,
+      place_id
+    } = this.state;
+    try {
+      const owner = {
+        id: userID,
+        phone_number,
+        address,
+        name,
+        lat,
+        lng,
+        placeID: place_id
+      };
+      await API.graphql(graphqlOperation(createOwner, { input: owner }));
+      this.props.navigation.navigate("OwnerLanding");
+    } catch (err) {
+      console.log("error: ", err);
+    }
   };
   getOwner = () => {
     this.setState({ loading: true });
@@ -68,15 +93,8 @@ export default class HomeScreen extends React.Component {
           });
         }
       )
-      .then(() => {
-        Alert.alert(
-          "Sucessful! ",
-          {
-            text: "OK",
-            onPress: () => this.props.navigation.navigate("OwnerApp")
-          },
-          { cancelable: false }
-        );
+      .then(async () => {
+        await this.postOwner();
       })
       .catch(err => {
         this.setState({ loading: false });

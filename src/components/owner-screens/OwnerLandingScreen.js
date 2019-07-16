@@ -2,7 +2,8 @@ import React from "react";
 import Auth from "@aws-amplify/auth";
 import logo from "../../images/beer.png";
 import { StyleSheet, View, Image } from "react-native";
-import { get } from "react-native/Libraries/Utilities/PixelRatio";
+import { API, graphqlOperation } from "aws-amplify";
+import { getOwner } from "../../graphql/queries";
 export default class LandingScreen extends React.Component {
   state = {
     venue_name: ""
@@ -12,8 +13,11 @@ export default class LandingScreen extends React.Component {
   };
   loadApp = async () => {
     await Auth.currentAuthenticatedUser()
-      .then(user => {
-        //get owner(user.username)
+      .then(async user => {
+        const { data } = await API.graphql(
+          graphqlOperation(getOwner, { id: user.username })
+        );
+        this.setState({ venue_name: data.getOwner.name });
       })
       .catch(err => console.log(err));
     this.props.navigation.navigate(

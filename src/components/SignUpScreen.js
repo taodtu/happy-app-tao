@@ -49,6 +49,7 @@ export default class SignUpScreen extends React.Component {
       .then(async () => {
         await Auth.signIn(username, password)
           .then(user => {
+            console.log(user.username);
             this.setState({ user, loading: false });
             this.props.navigation.navigate("Landing");
           })

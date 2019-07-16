@@ -1,0 +1,22 @@
+type Owner @model {
+  id: ID!
+  phone_number: String!
+  address: String!
+  placeID: String!
+  lat: Float!
+  lng: Float!
+  name: String!
+  photo_uri: String
+  title: String
+  description: String
+}
+type Offer @model {
+  id: ID!
+  venue_name: String!
+  duration: Int!
+  price: Int!
+  quantity: Int
+  drink: String!
+  created_at: AWSTimestamp!
+  ownerID: String!
+}

@@ -1,5 +1,7 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
+import { API, graphqlOperation } from "aws-amplify";
+import { createOffer } from "../../graphql/mutations";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -9,13 +11,16 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   View,
-  ScrollView,
   Alert
 } from "react-native";
 import MenuButton from "../MenuButton";
 import { Container, Item, Input, Icon } from "native-base";
 export default class PromoScreen extends React.Component {
   state = {
+    id: "",
+    created_at: "",
+    venue_name: "",
+    userID: "",
     owner: "",
     duration: "",
     price: "",

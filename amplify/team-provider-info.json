@@ -15,5 +15,22 @@
                 "happyapp79d21a4e": {}
             }
         }
+    },
+    "tao": {
+        "awscloudformation": {
+            "AuthRoleName": "happy-app-tao-20190715205941-authRole",
+            "UnauthRoleArn": "arn:aws:iam::197785695534:role/happy-app-tao-20190715205941-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::197785695534:role/happy-app-tao-20190715205941-authRole",
+            "Region": "eu-west-2",
+            "DeploymentBucketName": "happy-app-tao-20190715205941-deployment",
+            "UnauthRoleName": "happy-app-tao-20190715205941-unauthRole",
+            "StackName": "happy-app-tao-20190715205941",
+            "StackId": "arn:aws:cloudformation:eu-west-2:197785695534:stack/happy-app-tao-20190715205941/155e6e50-a73b-11e9-865a-02d140453e24"
+        },
+        "categories": {
+            "auth": {
+                "happyappb27c4f27": {}
+            }
+        }
     }
 }

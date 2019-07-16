@@ -1,8 +1,17 @@
 {
 	"auth": {
-		"happyapp79d21a4e": {
+		"happyappb27c4f27": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
+		}
+	},
+	"api": {
+		"happyApp": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"securityType": "API_KEY"
+			}
 		}
 	}
 }
