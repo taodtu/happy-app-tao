@@ -78,7 +78,7 @@ export default class PromoScreen extends React.Component {
     }
   };
   render() {
-    const { duration, price, drink, quantity } = this.state;
+    const { duration, price, drink, quantity, type } = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <MenuButton navigation={this.props.navigation} />
@@ -137,7 +137,7 @@ export default class PromoScreen extends React.Component {
                       value={drink}
                       placeholder="Drink"
                       placeholderTextColor="#0468d4"
-                      returnKeyType="go"
+                      returnKeyType="next"
                       autoCapitalize="none"
                       autoCorrect={false}
                       ref="ThirdInput"
@@ -145,6 +145,23 @@ export default class PromoScreen extends React.Component {
                         this.refs.FourthInput._root.focus();
                       }}
                       onChangeText={value => this.onChangeText("drink", value)}
+                    />
+                  </Item>
+                  {/*  drink section  */}
+                  <Item rounded style={styles.itemStyle}>
+                    <Input
+                      style={styles.input}
+                      value={type}
+                      placeholder="type"
+                      placeholderTextColor="#0468d4"
+                      returnKeyType="next"
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      ref="FourthInput"
+                      onSubmitEditing={event => {
+                        this.refs.FifthInput._root.focus();
+                      }}
+                      onChangeText={value => this.onChangeText("type", value)}
                     />
                   </Item>
                   {/*  quantity section  */}
@@ -157,7 +174,7 @@ export default class PromoScreen extends React.Component {
                       returnKeyType="go"
                       autoCapitalize="none"
                       autoCorrect={false}
-                      ref="FourthInput"
+                      ref="FifthInput"
                       onSubmitEditing={event => this.submit()}
                       onChangeText={value =>
                         this.onChangeText("quantity", value)
