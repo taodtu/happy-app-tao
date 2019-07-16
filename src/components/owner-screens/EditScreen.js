@@ -1,7 +1,6 @@
 import React from "react";
 import Auth from "@aws-amplify/auth";
 import Loading from "../Loading";
-import { getOwner } from "../../Api";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -16,17 +15,14 @@ import {
 } from "react-native";
 import { Container, Item, Input, Icon } from "native-base";
 import MenuButton from "../MenuButton";
+import { API, graphqlOperation } from "aws-amplify";
+import { getOwner } from "../../graphql/queries";
 
 const INITIAL_STATE = {
-  email: "",
-  phone_number: "",
-  description: "",
-  address: "",
-  name: "",
-  title: "",
+  owner: {},
   photo_uri: "",
-  lat: 53.4868458,
-  lng: -2.2401032,
+  title: "",
+  description: "",
   loading: false
 };
 export default class HomeScreen extends React.Component {
@@ -35,9 +31,12 @@ export default class HomeScreen extends React.Component {
   };
   componentDidMount = async () => {
     Auth.currentAuthenticatedUser()
-      .then(user => {
+      .then(async user => {
+        const { data } = await API.graphql(
+          graphqlOperation(getOwner, { id: user.username })
+        );
         this.setState({
-          email: user.attributes.email
+          owner: data.getOwner
         });
       })
       .catch(err => console.log(err));
@@ -45,45 +44,9 @@ export default class HomeScreen extends React.Component {
   onChangeText = (key, value) => {
     this.setState({ [key]: value });
   };
-  getOwner = () => {
-    this.setState({ loading: true });
-    const { phone_number } = this.state;
-    getOwner(phone_number)
-      .then(
-        ({
-          formatted_address,
-          geometry: {
-            location: { lat, lng }
-          },
-          name,
-          place_id
-        }) => {
-          this.setState({
-            address: formatted_address,
-            name,
-            place_id,
-            lat,
-            lng,
-            phone_number,
-            loading: false
-          });
-        }
-      )
-      .then(() => {
-        Alert.alert(
-          "Sucessful! Please finish the following options and click the submit button"
-        );
-      })
-      .catch(err => {
-        this.setState({ loading: false });
-        Alert.alert(
-          "Error when register: please provide the correct telephone format"
-        );
-      });
-  };
   submit = () => {
     this.setState({ loading: true });
-    const { photo_uri, title, description } = this.state;
+    const { photo_uri, title, description, owner } = this.state;
   };
   render() {
     const { loading } = this.state;
@@ -104,33 +67,7 @@ export default class HomeScreen extends React.Component {
             <View style={styles.container}>
               <Container style={styles.infoContainer}>
                 <View style={styles.container}>
-                  <Text style={styles.Text}>
-                    Use your phone # registered in google map{" "}
-                  </Text>
-                  {/*  phone_number section  */}
-                  <Item rounded style={styles.itemStyle}>
-                    <Icon active name="call" style={styles.iconStyle} />
-                    <Input
-                      style={styles.input}
-                      placeholder="441234567890"
-                      placeholderTextColor="#0468d4"
-                      returnKeyType="go"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      onSubmitEditing={event => {
-                        this.getOwner();
-                      }}
-                      onChangeText={value =>
-                        this.onChangeText("phone_number", value)
-                      }
-                    />
-                  </Item>
-                  <TouchableOpacity
-                    onPress={() => this.getOwner()}
-                    style={styles.buttonStyle}
-                  >
-                    <Text style={styles.buttonText}>Register</Text>
-                  </TouchableOpacity>
+                  <Text style={styles.Text}>Update your profile </Text>
                   {/*  photo_uri section  */}
                   <Item rounded style={styles.itemStyle}>
                     <Icon active name="image" style={styles.iconStyle} />

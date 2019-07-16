@@ -161,10 +161,13 @@ export default class SignUpScreen extends React.Component {
                       placeholder="Confirmation code"
                       placeholderTextColor="#0468d4"
                       keyboardType={"numeric"}
-                      returnKeyType="done"
+                      returnKeyType="go"
                       autoCapitalize="none"
                       autoCorrect={false}
                       secureTextEntry={false}
+                      onSubmitEditing={event => {
+                        this.confirmSignUp();
+                      }}
                       onChangeText={value =>
                         this.onChangeText("authCode", value)
                       }
