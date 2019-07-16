@@ -13,7 +13,6 @@ import Image from "react-native-scalable-image";
 import MenuButton from "../MenuButton";
 
 const INITIAL_STATE = {
-  userExist: false,
   userID: "",
   email: "",
   phone_number: "441618344989",

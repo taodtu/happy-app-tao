@@ -42,7 +42,8 @@ export default class HomeScreen extends Component {
                   quantity,
                   type,
                   duration,
-                  venue_name
+                  venue_name,
+                  ownerID
                 } = offer;
 
                 return (
@@ -50,11 +51,13 @@ export default class HomeScreen extends Component {
                     <TouchableOpacity
                       onPress={() =>
                         navigate("Coupon", {
+                          name: venue_name,
                           drink,
                           price,
                           quantity,
                           type,
                           coupon_id: id,
+                          ownerID,
                           duration:
                             (created_at + duration * 60 * 1000 - time) / 1000
                         })
