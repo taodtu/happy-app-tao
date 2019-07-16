@@ -19,7 +19,6 @@ export const createOwner = `mutation CreateOwner($input: CreateOwnerInput!) {
 export const updateOwner = `mutation UpdateOwner($input: UpdateOwnerInput!) {
   updateOwner(input: $input) {
     id
-    userID
     phone_number
     address
     placeID
@@ -35,7 +34,6 @@ export const updateOwner = `mutation UpdateOwner($input: UpdateOwnerInput!) {
 export const deleteOwner = `mutation DeleteOwner($input: DeleteOwnerInput!) {
   deleteOwner(input: $input) {
     id
-    userID
     phone_number
     address
     placeID
@@ -51,6 +49,7 @@ export const deleteOwner = `mutation DeleteOwner($input: DeleteOwnerInput!) {
 export const createOffer = `mutation CreateOffer($input: CreateOfferInput!) {
   createOffer(input: $input) {
     id
+    type
     venue_name
     duration
     price
@@ -64,6 +63,7 @@ export const createOffer = `mutation CreateOffer($input: CreateOfferInput!) {
 export const updateOffer = `mutation UpdateOffer($input: UpdateOfferInput!) {
   updateOffer(input: $input) {
     id
+    type
     venue_name
     duration
     price
@@ -77,6 +77,7 @@ export const updateOffer = `mutation UpdateOffer($input: UpdateOfferInput!) {
 export const deleteOffer = `mutation DeleteOffer($input: DeleteOfferInput!) {
   deleteOffer(input: $input) {
     id
+    type
     venue_name
     duration
     price

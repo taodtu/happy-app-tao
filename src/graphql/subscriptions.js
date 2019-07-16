@@ -4,7 +4,6 @@
 export const onCreateOwner = `subscription OnCreateOwner {
   onCreateOwner {
     id
-    userID
     phone_number
     address
     placeID
@@ -20,7 +19,6 @@ export const onCreateOwner = `subscription OnCreateOwner {
 export const onUpdateOwner = `subscription OnUpdateOwner {
   onUpdateOwner {
     id
-    userID
     phone_number
     address
     placeID
@@ -36,7 +34,6 @@ export const onUpdateOwner = `subscription OnUpdateOwner {
 export const onDeleteOwner = `subscription OnDeleteOwner {
   onDeleteOwner {
     id
-    userID
     phone_number
     address
     placeID
@@ -52,6 +49,7 @@ export const onDeleteOwner = `subscription OnDeleteOwner {
 export const onCreateOffer = `subscription OnCreateOffer {
   onCreateOffer {
     id
+    type
     venue_name
     duration
     price
@@ -65,6 +63,7 @@ export const onCreateOffer = `subscription OnCreateOffer {
 export const onUpdateOffer = `subscription OnUpdateOffer {
   onUpdateOffer {
     id
+    type
     venue_name
     duration
     price
@@ -78,6 +77,7 @@ export const onUpdateOffer = `subscription OnUpdateOffer {
 export const onDeleteOffer = `subscription OnDeleteOffer {
   onDeleteOffer {
     id
+    type
     venue_name
     duration
     price

@@ -12,6 +12,7 @@ type Owner @model {
 }
 type Offer @model {
   id: ID!
+  type: String!
   venue_name: String!
   duration: Int!
   price: Int!

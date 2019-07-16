@@ -24,7 +24,6 @@ export const listOwners = `query ListOwners(
   listOwners(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      userID
       phone_number
       address
       placeID
@@ -42,6 +41,7 @@ export const listOwners = `query ListOwners(
 export const getOffer = `query GetOffer($id: ID!) {
   getOffer(id: $id) {
     id
+    type
     venue_name
     duration
     price
@@ -60,6 +60,7 @@ export const listOffers = `query ListOffers(
   listOffers(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      type
       venue_name
       duration
       price

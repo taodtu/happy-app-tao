@@ -19,6 +19,7 @@ import { Container, Item, Input, Icon } from "native-base";
 export default class PromoScreen extends React.Component {
   state = {
     id: "",
+    type: "",
     created_at: "",
     venue_name: "",
     ownerID: "",
@@ -35,7 +36,7 @@ export default class PromoScreen extends React.Component {
         );
         this.setState({
           ownerID: user.username,
-          id: Math.random(),
+          id: Math.random().toString(),
           venue_name: data.getOwner.name
         });
       })
@@ -44,9 +45,37 @@ export default class PromoScreen extends React.Component {
   onChangeText = (key, value) => {
     this.setState({ [key]: value });
   };
-  submit = () => {
-    this.setState({ loading: true });
-    const {} = this.state;
+  submit = async () => {
+    const {
+      ownerID,
+      venue_name,
+      type,
+      price,
+      drink,
+      id,
+      quantity,
+      duration
+    } = this.state;
+    try {
+      const offer = {
+        ownerID,
+        type,
+        venue_name,
+        price,
+        drink,
+        id,
+        quantity,
+        duration,
+        created_at: Date.now()
+      };
+      console.log(offer);
+      const { data } = await API.graphql(
+        graphqlOperation(createOffer, { input: offer })
+      );
+      console.log(data);
+    } catch (err) {
+      console.log("error: ", err);
+    }
   };
   render() {
     const { duration, price, drink, quantity } = this.state;
@@ -130,7 +159,9 @@ export default class PromoScreen extends React.Component {
                       autoCorrect={false}
                       ref="FourthInput"
                       onSubmitEditing={event => this.submit()}
-                      onChangeText={value => this.onChangeText("drink", value)}
+                      onChangeText={value =>
+                        this.onChangeText("quantity", value)
+                      }
                     />
                   </Item>
                   <TouchableOpacity
