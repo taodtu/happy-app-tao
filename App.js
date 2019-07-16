@@ -101,28 +101,11 @@ const DrawerConfig = {
     return <MenuDrawer navigation={navigation} />;
   }
 };
-const PromoTabNavigator = createMaterialTopTabNavigator(
-  {
-    All: {
-      screen: HomeScreen,
-      navigationOptions: () => ({
-        title: `all promos now` // for the header screen
-      })
-    },
-    Yours: {
-      screen: YourPromoScreen,
-      navigationOptions: () => ({
-        title: `Your promo` // for the header screen
-      })
-    }
-  },
-  options
-);
 const OwnerDrawerNavigator = createDrawerNavigator(
   {
     Profile: ProfileScreen,
     Edit: EditScreen,
-    Promo: PromoTabNavigator,
+    Promo: AllPromoScreen,
     NewPromo: NewPromoScreen,
     Reset: ResetPasswordScreen
   },

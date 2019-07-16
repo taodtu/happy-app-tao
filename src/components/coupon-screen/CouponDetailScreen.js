@@ -18,14 +18,15 @@ import MapView, { Marker } from "react-native-maps";
 export default class PromoScreen extends React.Component {
   state = {
     owner: {},
-    showOwner: false
+    showOwner: false,
+    time: 0
   };
   async componentDidMount() {
     const ownerID = this.props.navigation.getParam("ownerID", "No Venue Image");
     const { data } = await API.graphql(
       graphqlOperation(getOwner, { id: ownerID })
     );
-    this.setState({ owner: data.getOwner, showOwner: true });
+    this.setState({ owner: data.getOwner, showOwner: true, time: Date.now() });
   }
 
   render() {
@@ -38,6 +39,7 @@ export default class PromoScreen extends React.Component {
     const type = navigation.getParam("type", "No Type");
     const couponID = navigation.getParam("coupon_id", "No Coupon ID");
     const duration = navigation.getParam("duration");
+    const created_at = navigation.getParam("created_at");
     //profile props
     const {
       phone_number,
@@ -60,7 +62,9 @@ export default class PromoScreen extends React.Component {
                 price={price}
                 quantity={quantity}
                 type={type}
-                duration={duration}
+                duration={
+                  (created_at + duration * 60 * 1000 - this.state.time) / 1000
+                }
               />
             </View>
             <View style={styles.container}>

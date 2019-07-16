@@ -58,8 +58,8 @@ export default class HomeScreen extends Component {
                           type,
                           coupon_id: id,
                           ownerID,
-                          duration:
-                            (created_at + duration * 60 * 1000 - time) / 1000
+                          duration,
+                          created_at
                         })
                       }
                     >
@@ -93,7 +93,7 @@ export default class HomeScreen extends Component {
       .sort((a, b) => b.created_at - a.created_at);
     this.setState({
       offers,
-      time,
+      time: Date.now(),
       loading: false
     });
     //initialize subscription
