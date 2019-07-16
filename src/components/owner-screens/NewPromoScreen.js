@@ -2,7 +2,7 @@ import React from "react";
 import Auth from "@aws-amplify/auth";
 import { API, graphqlOperation } from "aws-amplify";
 import { createOffer } from "../../graphql/mutations";
-import uuid from "react-native-uuid";
+import { getOwner } from "../../graphql/queries";
 import {
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -21,8 +21,7 @@ export default class PromoScreen extends React.Component {
     id: "",
     created_at: "",
     venue_name: "",
-    userID: "",
-    owner: "",
+    ownerID: "",
     duration: "",
     price: "",
     drink: "",
@@ -30,9 +29,14 @@ export default class PromoScreen extends React.Component {
   };
   componentDidMount = async () => {
     Auth.currentAuthenticatedUser()
-      .then(user => {
+      .then(async user => {
+        const { data } = await API.graphql(
+          graphqlOperation(getOwner, { id: user.username })
+        );
         this.setState({
-          email: user.attributes.email
+          ownerID: user.username,
+          id: Math.random(),
+          venue_name: data.getOwner.name
         });
       })
       .catch(err => console.log(err));
