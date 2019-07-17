@@ -22,11 +22,19 @@ export default class PromoScreen extends React.Component {
     time: 0
   };
   async componentDidMount() {
-    const ownerID = this.props.navigation.getParam("ownerID", "No Venue Image");
-    const { data } = await API.graphql(
-      graphqlOperation(getOwner, { id: ownerID })
-    );
-    this.setState({ owner: data.getOwner, showOwner: true, time: Date.now() });
+    try {
+      const ownerID = this.props.navigation.getParam("ownerID");
+      const { data } = await API.graphql(
+        graphqlOperation(getOwner, { id: ownerID })
+      );
+      this.setState({
+        owner: data.getOwner,
+        showOwner: true,
+        time: Date.now()
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   render() {
@@ -82,10 +90,15 @@ export default class PromoScreen extends React.Component {
             <Text style={styles.textStyle}>{name}</Text>
             <Text style={styles.phone}>Tel: +{phone_number}</Text>
             {title ? <Text style={styles.title}>{title}</Text> : <View />}
-            <Image
-              width={Dimensions.get("window").width - 32}
-              source={{ uri: `${photo_uri}` }}
-            />
+            {photo_uri ? (
+              <Image
+                width={Dimensions.get("window").width - 32}
+                style={{ marginBottom: 10 }}
+                source={{ uri: `${photo_uri}` }}
+              />
+            ) : (
+              <View />
+            )}
             {description ? (
               <Text style={styles.title}>{description}</Text>
             ) : (

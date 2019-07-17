@@ -57,7 +57,7 @@ export default class PromoScreen extends React.Component {
     try {
       await API.graphql(graphqlOperation(createOffer, { input: offer }));
       await this.setState({ ...INPUT });
-      this.props.navigation.navigate("Promo");
+      Alert.alert("Sucessful, new promo released!");
     } catch (err) {
       this.setState({ ...INPUT });
       console.log("error: ", err);
@@ -165,6 +165,7 @@ export default class PromoScreen extends React.Component {
                         this.onChangeText("type", selectedValue)
                       }
                     >
+                      <Picker.Item label="Select a drink type" value="" />
                       <Picker.Item label="Beer" value="Beer" />
                       <Picker.Item label="Wine" value="Wine" />
                       <Picker.Item label="Spirits" value="Spirits" />
