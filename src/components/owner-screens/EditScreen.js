@@ -54,7 +54,12 @@ export default class HomeScreen extends React.Component {
           input: { ...owner, photo_uri, title, description }
         })
       );
-      this.setState({ loading: false });
+      this.setState({
+        loading: false,
+        photo_uri: "",
+        title: "",
+        description: ""
+      });
       this.props.navigation.navigate("Profile");
     } catch {
       err => {
@@ -64,7 +69,7 @@ export default class HomeScreen extends React.Component {
     }
   };
   render() {
-    const { loading } = this.state;
+    const { photo_uri, title, description, loading } = this.state;
     if (loading) return <Loading />;
     return (
       <SafeAreaView style={styles.container}>
@@ -88,6 +93,7 @@ export default class HomeScreen extends React.Component {
                     <Icon active name="image" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
+                      value={photo_uri}
                       placeholder="profile photo url"
                       placeholderTextColor="#0468d4"
                       returnKeyType="next"
@@ -106,6 +112,7 @@ export default class HomeScreen extends React.Component {
                     <Icon active name="beer" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
+                      value={title}
                       placeholder="short description"
                       placeholderTextColor="#0468d4"
                       returnKeyType="next"
@@ -123,6 +130,7 @@ export default class HomeScreen extends React.Component {
                     <Icon active name="book" style={styles.iconStyle} />
                     <Input
                       style={styles.input}
+                      value={description}
                       placeholder="venue description"
                       placeholderTextColor="#0468d4"
                       returnKeyType="go"
