@@ -70,7 +70,7 @@ export default class PromoScreen extends React.Component {
             <View style={styles.container}>
               <QRCode
                 value={couponID}
-                size={200}
+                size={250}
                 bgColor="#1cbbf3"
                 fgColor="white"
               />
