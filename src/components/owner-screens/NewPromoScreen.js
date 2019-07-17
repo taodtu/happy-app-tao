@@ -56,7 +56,7 @@ export default class PromoScreen extends React.Component {
     };
     try {
       await API.graphql(graphqlOperation(createOffer, { input: offer }));
-      this.setState({ ...INPUT });
+      await this.setState({ ...INPUT });
       this.props.navigation.navigate("Promo");
     } catch (err) {
       this.setState({ ...INPUT });
