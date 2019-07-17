@@ -15,7 +15,7 @@ import {
   Alert
 } from "react-native";
 import MenuButton from "../MenuButton";
-import { Container, Item, Input, Icon } from "native-base";
+import { Container, Item, Input, Icon, Picker } from "native-base";
 
 const INPUT = {
   type: "",
@@ -133,23 +133,6 @@ export default class PromoScreen extends React.Component {
                       onChangeText={value => this.onChangeText("drink", value)}
                     />
                   </Item>
-                  {/*  drink section  */}
-                  <Item rounded style={styles.itemStyle}>
-                    <Input
-                      style={styles.input}
-                      value={type}
-                      placeholder="type"
-                      placeholderTextColor="#0468d4"
-                      returnKeyType="next"
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      ref="FourthInput"
-                      onSubmitEditing={event => {
-                        this.refs.FifthInput._root.focus();
-                      }}
-                      onChangeText={value => this.onChangeText("type", value)}
-                    />
-                  </Item>
                   {/*  quantity section  */}
                   <Item rounded style={styles.itemStyle}>
                     <Input
@@ -157,15 +140,38 @@ export default class PromoScreen extends React.Component {
                       value={quantity}
                       placeholder="Quantity"
                       placeholderTextColor="#0468d4"
-                      returnKeyType="go"
+                      returnKeyType="done"
                       autoCapitalize="none"
                       autoCorrect={false}
-                      ref="FifthInput"
-                      onSubmitEditing={event => this.submit()}
+                      ref="FourthInput"
                       onChangeText={value =>
                         this.onChangeText("quantity", value)
                       }
                     />
+                  </Item>
+                  {/*  Type section  */}
+                  <Item style={styles.pickerStyle}>
+                    <Picker
+                      mode="dropdown"
+                      placeholder="Select drink type"
+                      placeholderStyle={{ color: "#0468d4" }}
+                      placeholderIconColor="#007aff"
+                      style={{ borderColor: "#0468d4" }}
+                      selectedValue={type}
+                      ref="FifthInput"
+                      onValueChange={selectedValue =>
+                        this.onChangeText("type", selectedValue)
+                      }
+                    >
+                      <Picker.Item label="Beer" value="Beer" />
+                      <Picker.Item label="Wine" value="Wine" />
+                      <Picker.Item label="Spirits" value="Spirits" />
+                      <Picker.Item label="Cocktail" value="Cocktail" />
+                      <Picker.Item
+                        label="Non-alcoholic"
+                        value="Non-alcoholic"
+                      />
+                    </Picker>
                   </Item>
                   <TouchableOpacity
                     onPress={() => this.submit()}
@@ -214,6 +220,10 @@ const styles = StyleSheet.create({
     padding: 14,
     marginBottom: 10,
     borderRadius: 24
+  },
+  pickerStyle: {
+    marginBottom: 30,
+    borderColor: "#5a52a5"
   },
   buttonText: {
     fontSize: 18,
