@@ -11,38 +11,37 @@ import {
 } from "react-native";
 import Image from "react-native-scalable-image";
 import MenuButton from "../MenuButton";
+import { API, graphqlOperation } from "aws-amplify";
+import { getOwner } from "../../graphql/queries";
+import { onUpdateOwner } from "../../graphql/subscriptions";
 
 const INITIAL_STATE = {
   userID: "",
   email: "",
-  phone_number: "441618344989",
-  description:
-    "Whilst we sell fantastic modern & seasonal beers, wines & mixed drinks we also have loose leaf teas and locally sourced filtered coffee from Ancoats Coffee plus sandwiches, pastries, sweet & savory baked goods.",
-  address: "Hanover St, Manchester M60 0AB, UK",
-  name: "The Pilcrow Pub",
-  title: "We are a contemporary pub situated at Sadlers Yard, Manchester.",
-  photo_uri:
-    "https://static1.squarespace.com/static/5437909ee4b02d632f5b2d5d/58d93902e4fcb5ad94d1f2e4/58d976766b8f5b87ea1852f5/1490646748896/DSC_9391.JPG?format=500w",
+  phone_number: "",
+  description: "",
+  address: "",
+  name: "",
+  title: "",
+  photo_uri: "",
   lat: 53.4868458,
   lng: -2.2401032,
   loading: false
 };
 export default class PromoScreen extends React.Component {
   state = { ...INITIAL_STATE };
-  componentDidMount() {
+  componentDidMount = async () => {
     Auth.currentAuthenticatedUser()
-      .then(user => {
-        console.log(user.username);
-        this.setState({
-          userID: user.username
-        });
+      .then(async user => {
+        const { data } = await API.graphql(
+          graphqlOperation(getOwner, { id: user.username })
+        );
+        this.setState({ ...data.getOwner });
       })
       .catch(err => console.log(err));
-    //get owner profile from backend
-  }
+  };
   render() {
     const {
-      email,
       phone_number,
       description,
       address,
@@ -59,12 +58,18 @@ export default class PromoScreen extends React.Component {
         <View style={styles.container}>
           <Text style={styles.textStyle}>{name}</Text>
           <Text style={styles.title}>{title}</Text>
-          <Text style={styles.phone}>Tel: {phone_number}</Text>
-          <Image
-            width={Dimensions.get("window").width - 32}
-            source={{ uri: `${photo_uri}` }}
-          />
-          <Text style={styles.title}>{description}</Text>
+          <Text style={styles.phone}>Tel: +{phone_number}</Text>
+          {photo_uri ? (
+            <Image
+              width={Dimensions.get("window").width - 32}
+              style={{ marginBottom: 10 }}
+              source={{ uri: `${photo_uri}` }}
+            />
+          ) : (
+            <View />
+          )}
+          <Text style={styles.phone}>{description}</Text>
+          <Text style={styles.title}>{address}</Text>
           <MapView
             style={styles.map}
             provider="google"
@@ -84,7 +89,6 @@ export default class PromoScreen extends React.Component {
               description={title}
             />
           </MapView>
-          <Text style={styles.offer}>Previous offers</Text>
         </View>
       </ScrollView>
     );
@@ -111,6 +115,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     fontSize: 15,
+    fontWeight: "bold",
     color: "#0468d4"
   },
   phone: {

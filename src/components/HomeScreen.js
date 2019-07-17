@@ -100,7 +100,7 @@ export default class HomeScreen extends Component {
     this.subscription = API.graphql(graphqlOperation(onCreateOffer)).subscribe({
       next: OfferData => {
         const newOffers = [OfferData.value.data.onCreateOffer, ...offers];
-        this.setState({ offers: newOffers });
+        this.setState({ offers: newOffers, time: Date.now() });
       }
     });
   }
