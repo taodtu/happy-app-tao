@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"happyappb27c4f27": {
+		"happyappcd7af131": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
 		}

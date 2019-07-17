@@ -1,12 +1,12 @@
 {
-    "identityPoolName": "happyappb27c4f27_identitypool_b27c4f27",
+    "identityPoolName": "happyappcd7af131_identitypool_cd7af131",
     "allowUnauthenticatedIdentities": false,
-    "lambdaLogPolicy": "happya_b27c4f27_lambda_log_policy",
-    "openIdLambdaRoleName": "happya_b27c4f27_openid_lambda_role",
-    "openIdRolePolicy": "happya_b27c4f27_openid_pass_role_policy",
-    "openIdLambdaIAMPolicy": "happya_b27c4f27_openid_lambda_iam_policy",
-    "openIdLogPolicy": "happya_b27c4f27_openid_lambda_log_policy",
-    "userPoolName": "happyappb27c4f27_userpool_b27c4f27",
+    "lambdaLogPolicy": "happya_cd7af131_lambda_log_policy",
+    "openIdLambdaRoleName": "happya_cd7af131_openid_lambda_role",
+    "openIdRolePolicy": "happya_cd7af131_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "happya_cd7af131_openid_lambda_iam_policy",
+    "openIdLogPolicy": "happya_cd7af131_openid_lambda_log_policy",
+    "userPoolName": "happyappcd7af131_userpool_cd7af131",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -14,9 +14,9 @@
     "mfaTypes": [
         "SMS Text Message"
     ],
-    "roleName": "happyab27c4f27_sns-role",
-    "roleExternalId": "happyab27c4f27_role_external_id",
-    "policyName": "happyab27c4f27-sns-policy",
+    "roleName": "happyacd7af131_sns-role",
+    "roleExternalId": "happyacd7af131_role_external_id",
+    "policyName": "happyacd7af131-sns-policy",
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Your verification code",
@@ -27,7 +27,7 @@
     "requiredAttributes": [
         "email"
     ],
-    "userpoolClientName": "happyab27c4f27_app_client",
+    "userpoolClientName": "happyacd7af131_app_client",
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
@@ -36,15 +36,15 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "mfaLambdaRole": "happyab27c4f27_totp_lambda_role",
-    "mfaLambdaLogPolicy": "happyab27c4f27_totp_lambda_log_policy",
-    "mfaPassRolePolicy": "happyab27c4f27_totp_pass_role_policy",
-    "mfaLambdaIAMPolicy": "happyab27c4f27_totp_lambda_iam_policy",
-    "userpoolClientLambdaRole": "happyab27c4f27_userpoolclient_lambda_role",
-    "userpoolClientLogPolicy": "happyab27c4f27_userpoolclient_lambda_log_policy",
-    "userpoolClientLambdaPolicy": "happyab27c4f27_userpoolclient_lambda_iam_policy",
+    "mfaLambdaRole": "happyacd7af131_totp_lambda_role",
+    "mfaLambdaLogPolicy": "happyacd7af131_totp_lambda_log_policy",
+    "mfaPassRolePolicy": "happyacd7af131_totp_pass_role_policy",
+    "mfaLambdaIAMPolicy": "happyacd7af131_totp_lambda_iam_policy",
+    "userpoolClientLambdaRole": "happyacd7af131_userpoolclient_lambda_role",
+    "userpoolClientLogPolicy": "happyacd7af131_userpoolclient_lambda_log_policy",
+    "userpoolClientLambdaPolicy": "happyacd7af131_userpoolclient_lambda_iam_policy",
     "userpoolClientSetAttributes": false,
-    "resourceName": "happyappb27c4f27",
+    "resourceName": "happyappcd7af131",
     "authSelections": "identityPoolAndUserPool",
     "authRoleName": {
         "Ref": "AuthRoleName"

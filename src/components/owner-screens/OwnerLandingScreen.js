@@ -17,6 +17,7 @@ export default class LandingScreen extends React.Component {
         const { data } = await API.graphql(
           graphqlOperation(getOwner, { id: user.username })
         );
+        if (!data.getOwner) return;
         this.setState({ venue_name: data.getOwner.name });
       })
       .catch(err => console.log(err));
