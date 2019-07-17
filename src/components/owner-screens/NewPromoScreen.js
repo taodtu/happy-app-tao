@@ -80,7 +80,9 @@ export default class PromoScreen extends React.Component {
             <View style={styles.container}>
               <Container style={styles.infoContainer}>
                 <View style={styles.container}>
-                  <Text style={styles.Text}>Create a new promo</Text>
+                  <Text style={styles.Text}>
+                    Create a new promo (make sure all fields are filled)
+                  </Text>
                   {/*  duration section  */}
                   <Item rounded style={styles.itemStyle}>
                     <Input
@@ -174,6 +176,13 @@ export default class PromoScreen extends React.Component {
                     </Picker>
                   </Item>
                   <TouchableOpacity
+                    disabled={
+                      duration === "" ||
+                      price === "" ||
+                      drink === "" ||
+                      quantity === "" ||
+                      type === ""
+                    }
                     onPress={() => this.submit()}
                     style={styles.buttonStyle}
                   >

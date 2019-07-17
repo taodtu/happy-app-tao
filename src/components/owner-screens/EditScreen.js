@@ -87,7 +87,9 @@ export default class HomeScreen extends React.Component {
             <View style={styles.container}>
               <Container style={styles.infoContainer}>
                 <View style={styles.container}>
-                  <Text style={styles.Text}>Update your profile </Text>
+                  <Text style={styles.Text}>
+                    Update your profile (make sure all fields are filled)
+                  </Text>
                   {/*  photo_uri section  */}
                   <Item rounded style={styles.itemStyle}>
                     <Icon active name="image" style={styles.iconStyle} />
@@ -144,6 +146,9 @@ export default class HomeScreen extends React.Component {
                     />
                   </Item>
                   <TouchableOpacity
+                    disabled={
+                      photo_uri === "" || title === "" || description === ""
+                    }
                     onPress={() => this.submit()}
                     style={styles.buttonStyle}
                   >
