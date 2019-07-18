@@ -7,17 +7,18 @@ export default class LandingScreen extends React.Component {
     userToken: null
   };
   componentDidMount = async () => {
-    await this.loadApp();
-  };
-  loadApp = async () => {
-    await Auth.currentAuthenticatedUser()
-      .then(user => {
-        this.setState({
-          userToken: user.signInUserSession.accessToken.jwtToken
-        });
-      })
-      .catch(err => console.log(err));
-    this.props.navigation.navigate(this.state.userToken ? "Owner" : "App");
+    try {
+      await Auth.currentAuthenticatedUser()
+        .then(user => {
+          this.setState({
+            userToken: user.signInUserSession.accessToken.jwtToken
+          });
+        })
+        .catch(err => console.log(err));
+      this.props.navigation.navigate(this.state.userToken ? "Owner" : "App");
+    } catch (err) {
+      console.log(err);
+    }
   };
   render() {
     return (

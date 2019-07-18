@@ -29,21 +29,25 @@ export default class SignInScreen extends React.Component {
     this.setState({ [key]: value });
   }
   signIn = async () => {
-    const { username, password } = this.state;
-    this.setState({ loading: true });
-    await Auth.signIn(username, password)
-      .then(user => {
-        this.setState({ user, loading: false });
-        this.props.navigation.navigate("Landing");
-      })
-      .catch(err => {
-        this.setState({ loading: false });
-        if (!err.message) {
-          Alert.alert("Error when signing in: ", err);
-        } else {
-          Alert.alert("Error when signing in: ", err.message);
-        }
-      });
+    try {
+      const { username, password } = this.state;
+      this.setState({ loading: true });
+      await Auth.signIn(username, password)
+        .then(user => {
+          this.setState({ user, loading: false });
+          this.props.navigation.navigate("Landing");
+        })
+        .catch(err => {
+          this.setState({ loading: false });
+          if (!err.message) {
+            Alert.alert("Error when signing in: ", err);
+          } else {
+            Alert.alert("Error when signing in: ", err.message);
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
   render() {
     const { loading } = this.state;
