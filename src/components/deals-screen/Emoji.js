@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const EmojiWrapper = styled.Text`
   margin: auto 0px;
-  flex: 1;
+  flex: 2;
   text-align: center;
   width: 35;
   height: 35;
