@@ -7,8 +7,15 @@ On the front-end, this project uses React Native, QR codes for coupon generation
 # Installation
 
 Make sure AWS Amplify and Expo is installed globally in your computer and configured.
+
 run : npm install
-then run: amplify init  
+
+then run: amplify init
+
 When prompt for source directory type src.
+
 run: amplify add auth
-Add your google api key: first, get your API Key from google developer console, and enable google place and google maps api service. Then, in the root, create a file as apiKey.js, inside write: export const googleApiKey = "Your API Key"; In app.json file, change: "ios": { "bundleIdentifier": "any thing you like to put here", "config": { "googleMapsApiKey": "YOUR IOS API KEY HERE" } },
+
+Add your google api key: first, get your API Key from google developer console, and enable google place and google maps api service. Then, in the root, create a file as apiKey.js, inside write: export const googleApiKey = "Your API Key"; In app.json file, change: "ios": { "bundleIdentifier": "any thing you like to put here", "config": { "googleMapsApiKey": "YOUR IOS API KEY HERE" } }.
+
+run: expo start
