@@ -84,25 +84,31 @@ export default class HomeScreen extends Component {
     );
   }
   async componentDidMount() {
-    const { data } = await API.graphql(graphqlOperation(listOffers));
-    const time = Date.now();
-    const offers = data.listOffers.items
-      .filter(offer => {
-        return offer.created_at + offer.duration * 60000 - time > 0;
-      })
-      .sort((a, b) => b.created_at - a.created_at);
-    this.setState({
-      offers,
-      time: Date.now(),
-      loading: false
-    });
-    //initialize subscription
-    this.subscription = API.graphql(graphqlOperation(onCreateOffer)).subscribe({
-      next: OfferData => {
-        const newOffers = [OfferData.value.data.onCreateOffer, ...offers];
-        this.setState({ offers: newOffers, time: Date.now() });
-      }
-    });
+    try {
+      const { data } = await API.graphql(graphqlOperation(listOffers));
+      const time = Date.now();
+      const offers = data.listOffers.items
+        .filter(offer => {
+          return offer.created_at + offer.duration * 60000 - time > 0;
+        })
+        .sort((a, b) => b.created_at - a.created_at);
+      this.setState({
+        offers,
+        time: Date.now(),
+        loading: false
+      });
+      //initialize subscription
+      this.subscription = API.graphql(
+        graphqlOperation(onCreateOffer)
+      ).subscribe({
+        next: OfferData => {
+          const newOffers = [OfferData.value.data.onCreateOffer, ...offers];
+          this.setState({ offers: newOffers, time: Date.now() });
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
   // // remove the subscription in componentWillUnmount
   componentWillUnmount() {

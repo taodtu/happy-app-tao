@@ -9,21 +9,26 @@ export default class LandingScreen extends React.Component {
     venue_name: ""
   };
   componentDidMount = async () => {
-    await this.loadApp();
-  };
-  loadApp = async () => {
-    await Auth.currentAuthenticatedUser()
-      .then(async user => {
-        const { data } = await API.graphql(
-          graphqlOperation(getOwner, { id: user.username })
-        );
-        if (!data.getOwner) return;
-        this.setState({ venue_name: data.getOwner.name });
-      })
-      .catch(err => console.log(err));
-    this.props.navigation.navigate(
-      this.state.venue_name ? "OwnerApp" : "Register"
-    );
+    try {
+      await Auth.currentAuthenticatedUser()
+        .then(async user => {
+          try {
+            const { data } = await API.graphql(
+              graphqlOperation(getOwner, { id: user.username })
+            );
+            if (!data.getOwner) return;
+            this.setState({ venue_name: data.getOwner.name });
+          } catch (err) {
+            console.log(err);
+          }
+        })
+        .catch(err => console.log(err));
+      this.props.navigation.navigate(
+        this.state.venue_name ? "OwnerApp" : "Register"
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
   render() {
     return (

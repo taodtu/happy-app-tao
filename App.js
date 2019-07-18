@@ -6,7 +6,6 @@ import SignUpScreen from "./src/components/SignUpScreen";
 import ForgetPasswordScreen from "./src/components/ForgetPasswordScreen";
 import HomeScreen from "./src/components/HomeScreen";
 import AllPromoScreen from "./src/components/owner-screens/AllPromoScreen";
-import YourPromoScreen from "./src/components/owner-screens/YourPromoScreen";
 import ProfileScreen from "./src/components/owner-screens/ProfileScreen";
 import NewPromoScreen from "./src/components/owner-screens/NewPromoScreen";
 import OwnerLandingScreen from "./src/components/owner-screens/OwnerLandingScreen";

@@ -25,37 +25,45 @@ export default class MenuDrawer extends React.Component {
   }
   // Sign out from the app
   signOutAlert = async () => {
-    await Alert.alert(
-      "Sign Out",
-      "Are you sure you want to sign out from the app?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Canceled"),
-          style: "cancel"
-        },
-        // Calling signOut
-        {
-          text: "OK",
-          onPress: () => this.signOut()
-        }
-      ],
-      { cancelable: false }
-    );
+    try {
+      await Alert.alert(
+        "Sign Out",
+        "Are you sure you want to sign out from the app?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Canceled"),
+            style: "cancel"
+          },
+          // Calling signOut
+          {
+            text: "OK",
+            onPress: () => this.signOut()
+          }
+        ],
+        { cancelable: false }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
   // Confirm sign out
   signOut = async () => {
-    await Auth.signOut()
-      .then(() => {
-        this.props.navigation.navigate("Landing");
-      })
-      .catch(err => {
-        if (!err.message) {
-          Alert.alert("Error changing password: ", err);
-        } else {
-          Alert.alert("Error changing password: ", err.message);
-        }
-      });
+    try {
+      await Auth.signOut()
+        .then(() => {
+          this.props.navigation.navigate("Landing");
+        })
+        .catch(err => {
+          if (!err.message) {
+            Alert.alert("Error changing password: ", err);
+          } else {
+            Alert.alert("Error changing password: ", err.message);
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
   render() {
     return (

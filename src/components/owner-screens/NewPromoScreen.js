@@ -33,17 +33,21 @@ export default class PromoScreen extends React.Component {
     ...INPUT
   };
   componentDidMount = async () => {
-    Auth.currentAuthenticatedUser()
-      .then(async user => {
-        const { data } = await API.graphql(
-          graphqlOperation(getOwner, { id: user.username })
-        );
-        this.setState({
-          ownerID: user.username,
-          venue_name: data.getOwner.name
-        });
-      })
-      .catch(err => console.log(err));
+    try {
+      Auth.currentAuthenticatedUser()
+        .then(async user => {
+          const { data } = await API.graphql(
+            graphqlOperation(getOwner, { id: user.username })
+          );
+          this.setState({
+            ownerID: user.username,
+            venue_name: data.getOwner.name
+          });
+        })
+        .catch(err => console.log(err));
+    } catch (err) {
+      console.log(err);
+    }
   };
   onChangeText = (key, value) => {
     this.setState({ [key]: value });

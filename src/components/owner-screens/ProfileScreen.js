@@ -33,19 +33,23 @@ export default class PromoScreen extends React.Component {
   componentDidMount() {
     Auth.currentAuthenticatedUser()
       .then(async user => {
-        const { data } = await API.graphql(
-          graphqlOperation(getOwner, { id: user.username })
-        );
-        this.setState({ ...data.getOwner });
-        //initialize subscription
-        this.subscription = API.graphql(
-          graphqlOperation(onUpdateOwner)
-        ).subscribe({
-          next: OwnerData => {
-            const newOwner = OwnerData.value.data.onUpdateOwner;
-            this.setState({ ...newOwner });
-          }
-        });
+        try {
+          const { data } = await API.graphql(
+            graphqlOperation(getOwner, { id: user.username })
+          );
+          this.setState({ ...data.getOwner });
+          //initialize subscription
+          this.subscription = API.graphql(
+            graphqlOperation(onUpdateOwner)
+          ).subscribe({
+            next: OwnerData => {
+              const newOwner = OwnerData.value.data.onUpdateOwner;
+              this.setState({ ...newOwner });
+            }
+          });
+        } catch (err) {
+          console.log(err);
+        }
       })
       .catch(err => console.log(err));
   }
@@ -62,15 +66,14 @@ export default class PromoScreen extends React.Component {
       title,
       photo_uri,
       lat,
-      lng,
-      loading
+      lng
     } = this.state;
     return (
       <ScrollView style={{ backgroundColor: "#FDD96E" }}>
         <MenuButton navigation={this.props.navigation} />
         <View style={styles.container}>
           <Text style={styles.textStyle}>{name}</Text>
-          <Text style={styles.title}>{title}</Text>
+          {title ? <Text style={styles.title}>{title}</Text> : null}
           <Text style={styles.phone}>Tel: +{phone_number}</Text>
           {photo_uri ? (
             <Image
@@ -78,10 +81,8 @@ export default class PromoScreen extends React.Component {
               style={{ marginBottom: 10 }}
               source={{ uri: `${photo_uri}` }}
             />
-          ) : (
-            <View />
-          )}
-          <Text style={styles.phone}>{description}</Text>
+          ) : null}
+          {description ? <Text style={styles.phone}>{description}</Text> : null}
           <Text style={styles.title}>{address}</Text>
           <MapView
             style={styles.map}
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   map: { marginTop: 10, alignSelf: "stretch", height: 300 },
 
   textStyle: {
-    marginTop: 50,
+    marginTop: 70,
     fontSize: 17,
     fontWeight: "bold",
     color: "#0468d4"
@@ -132,6 +133,7 @@ const styles = StyleSheet.create({
     color: "#0468d4"
   },
   phone: {
+    marginTop: 10,
     marginBottom: 10,
     fontSize: 15,
     color: "#0468d4"

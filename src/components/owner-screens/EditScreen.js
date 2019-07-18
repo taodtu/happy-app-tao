@@ -61,11 +61,9 @@ export default class HomeScreen extends React.Component {
         description: ""
       });
       this.props.navigation.navigate("Profile");
-    } catch {
-      err => {
-        this.setState({ loading: false });
-        Alert.alert("please fill all field");
-      };
+    } catch (err) {
+      this.setState({ loading: false });
+      Alert.alert("please fill all field");
     }
   };
   render() {

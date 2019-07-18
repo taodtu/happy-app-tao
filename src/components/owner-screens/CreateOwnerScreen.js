@@ -32,13 +32,17 @@ export default class HomeScreen extends React.Component {
     ...INITIAL_STATE
   };
   componentDidMount = async () => {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        this.setState({
-          userID: user.username
-        });
-      })
-      .catch(err => console.log(err));
+    try {
+      Auth.currentAuthenticatedUser()
+        .then(user => {
+          this.setState({
+            userID: user.username
+          });
+        })
+        .catch(err => console.log(err));
+    } catch (err) {
+      console.log(err);
+    }
   };
   onChangeText = (key, value) => {
     this.setState({ [key]: value });
@@ -93,8 +97,8 @@ export default class HomeScreen extends React.Component {
           });
         }
       )
-      .then(async () => {
-        await this.postOwner();
+      .then(() => {
+        this.postOwner();
       })
       .catch(err => {
         this.setState({ loading: false });
@@ -105,37 +109,45 @@ export default class HomeScreen extends React.Component {
   };
   // Sign out from the app
   signOutAlert = async () => {
-    await Alert.alert(
-      "Sign Out",
-      "Are you sure you want to sign out from the app?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Canceled"),
-          style: "cancel"
-        },
-        // Calling signOut
-        {
-          text: "OK",
-          onPress: () => this.signOut()
-        }
-      ],
-      { cancelable: false }
-    );
+    try {
+      await Alert.alert(
+        "Sign Out",
+        "Are you sure you want to sign out from the app?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Canceled"),
+            style: "cancel"
+          },
+          // Calling signOut
+          {
+            text: "OK",
+            onPress: () => this.signOut()
+          }
+        ],
+        { cancelable: false }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
   // Confirm sign out
   signOut = async () => {
-    await Auth.signOut()
-      .then(() => {
-        this.props.navigation.navigate("Landing");
-      })
-      .catch(err => {
-        if (!err.message) {
-          Alert.alert("Error changing password: ", err);
-        } else {
-          Alert.alert("Error changing password: ", err.message);
-        }
-      });
+    try {
+      await Auth.signOut()
+        .then(() => {
+          this.props.navigation.navigate("Landing");
+        })
+        .catch(err => {
+          if (!err.message) {
+            Alert.alert("Error changing password: ", err);
+          } else {
+            Alert.alert("Error changing password: ", err.message);
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
   render() {
     const { loading } = this.state;

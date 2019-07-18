@@ -23,42 +23,56 @@ export default class ScreenName extends React.Component {
   };
   // Request a new password
   async forgotPassword() {
-    const { email } = this.state;
-    this.setState({ loading: true });
-    await Auth.forgotPassword(email)
-      .then(data => {
-        this.setState({ loading: false });
-        Alert.alert("New code sent, please check your email");
-      })
-      .catch(err => {
-        if (!err.message) {
+    try {
+      const { email } = this.state;
+      this.setState({ loading: true });
+      await Auth.forgotPassword(email)
+        .then(data => {
           this.setState({ loading: false });
-          Alert.alert("Error while setting up the new password: ", err);
-        } else {
-          this.setState({ loading: false });
-          Alert.alert("Error while setting up the new password: ", err.message);
-        }
-      });
+          Alert.alert("New code sent, please check your email");
+        })
+        .catch(err => {
+          if (!err.message) {
+            this.setState({ loading: false });
+            Alert.alert("Error while setting up the new password: ", err);
+          } else {
+            this.setState({ loading: false });
+            Alert.alert(
+              "Error while setting up the new password: ",
+              err.message
+            );
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   }
   // Upon confirmation redirect the user to the Sign In page
   async forgotPasswordSubmit() {
-    this.setState({ loading: true });
-    const { email, authCode, newPassword } = this.state;
-    await Auth.forgotPasswordSubmit(email, authCode, newPassword)
-      .then(() => {
-        this.setState({ loading: false });
-        this.props.navigation.navigate("SignIn");
-        console.log("the New password submitted successfully");
-      })
-      .catch(err => {
-        if (!err.message) {
+    try {
+      this.setState({ loading: true });
+      const { email, authCode, newPassword } = this.state;
+      await Auth.forgotPasswordSubmit(email, authCode, newPassword)
+        .then(() => {
           this.setState({ loading: false });
-          Alert.alert("Error while confirming the new password: ", err);
-        } else {
-          this.setState({ loading: false });
-          Alert.alert("Error while confirming the new password: ", err.message);
-        }
-      });
+          this.props.navigation.navigate("SignIn");
+          console.log("the New password submitted successfully");
+        })
+        .catch(err => {
+          if (!err.message) {
+            this.setState({ loading: false });
+            Alert.alert("Error while confirming the new password: ", err);
+          } else {
+            this.setState({ loading: false });
+            Alert.alert(
+              "Error while confirming the new password: ",
+              err.message
+            );
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   onChangeText(key, value) {

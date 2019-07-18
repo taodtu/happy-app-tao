@@ -89,21 +89,17 @@ export default class PromoScreen extends React.Component {
           <View style={styles.container}>
             <Text style={styles.textStyle}>{name}</Text>
             <Text style={styles.phone}>Tel: +{phone_number}</Text>
-            {title ? <Text style={styles.title}>{title}</Text> : <View />}
+            {title ? <Text style={styles.title}>{title}</Text> : null}
             {photo_uri ? (
               <Image
                 width={Dimensions.get("window").width - 32}
                 style={{ marginBottom: 10 }}
                 source={{ uri: `${photo_uri}` }}
               />
-            ) : (
-              <View />
-            )}
+            ) : null}
             {description ? (
               <Text style={styles.title}>{description}</Text>
-            ) : (
-              <View />
-            )}
+            ) : null}
             <Text style={styles.title}>{address}</Text>
             <MapView
               style={styles.map}

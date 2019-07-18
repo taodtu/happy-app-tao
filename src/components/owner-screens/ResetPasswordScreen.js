@@ -25,22 +25,26 @@ export default class SettingScreen extends React.Component {
     this.setState({ [key]: value });
   }
   changePassword = async () => {
-    const { password1, password2 } = this.state;
-    this.setState({ loading: true });
-    await Auth.currentAuthenticatedUser()
-      .then(user => {
-        return Auth.changePassword(user, password1, password2);
-      })
-      .then(data => this.setState({ loading: false }))
-      .catch(err => {
-        if (!err.message) {
-          this.setState({ loading: false });
-          Alert.alert("Error changing password: ", err);
-        } else {
-          this.setState({ loading: false });
-          Alert.alert("Error changing password: ", err.message);
-        }
-      });
+    try {
+      const { password1, password2 } = this.state;
+      this.setState({ loading: true });
+      await Auth.currentAuthenticatedUser()
+        .then(user => {
+          return Auth.changePassword(user, password1, password2);
+        })
+        .then(data => this.setState({ loading: false }))
+        .catch(err => {
+          if (!err.message) {
+            this.setState({ loading: false });
+            Alert.alert("Error changing password: ", err);
+          } else {
+            this.setState({ loading: false });
+            Alert.alert("Error changing password: ", err.message);
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
   render() {
     const { loading } = this.state;
