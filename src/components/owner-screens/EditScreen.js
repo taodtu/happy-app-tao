@@ -54,13 +54,13 @@ export default class HomeScreen extends React.Component {
           input: { ...owner, photo_uri, title, description }
         })
       );
-      this.setState({
+      await this.setState({
         loading: false,
         photo_uri: "",
         title: "",
         description: ""
       });
-      this.props.navigation.navigate("Profile");
+      Alert.alert("Update successful, please re-log in to see effects");
     } catch (err) {
       this.setState({ loading: false });
       Alert.alert("please fill all field");

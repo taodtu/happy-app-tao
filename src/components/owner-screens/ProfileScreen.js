@@ -38,24 +38,11 @@ export default class PromoScreen extends React.Component {
             graphqlOperation(getOwner, { id: user.username })
           );
           this.setState({ ...data.getOwner });
-          //initialize subscription
-          this.subscription = API.graphql(
-            graphqlOperation(onUpdateOwner)
-          ).subscribe({
-            next: OwnerData => {
-              const newOwner = OwnerData.value.data.onUpdateOwner;
-              this.setState({ ...newOwner });
-            }
-          });
         } catch (err) {
           console.log(err);
         }
       })
       .catch(err => console.log(err));
-  }
-  //  remove the subscription in componentWillUnmount
-  componentWillUnmount() {
-    this.subscription.unsubscribe();
   }
   render() {
     const {
