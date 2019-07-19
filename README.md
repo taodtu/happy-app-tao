@@ -2,7 +2,7 @@
 
 Appy App is an instant notification service that lets pubs and bars send out promotions and offers to app users on an immediate-start, time-limited basis, to add a dynamic aspect to nights out.
 
-On the front-end, this project uses React Native, QR codes for coupon generation, Geolocation with calls to Google Places API and Google Maps API, and AWS Cognito for authentification. For the back-end, the tech stack includes DynamoDB, Node.js, AWS Lambda and Serverless. We are using a TDD approach throughout, with the aid of Mocha, Chai and Supertest.
+On the front-end, this project uses React Native, QR codes for coupon generation, Geolocation with calls to Google Places API and Google Maps API, and AWS Cognito for authentification. For the back-end, the tech stack includes DynamoDB, real-time graphql server built with AWS AppSync.
 
 # Installation
 
