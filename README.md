@@ -6,7 +6,13 @@ This is the updated version of the final week project of Northcoders with a grou
 
 On the front-end, this project uses React Native, QR codes for coupon generation, Geolocation with calls to Google Places API and Google Maps API, and AWS Cognito for authentification. For the back-end, the tech stack includes DynamoDB, real-time graphql server built with AWS AppSync.
 
+Tech stack:
 
+![tech stack](https://github.com/taodtu/happy-app-tao/blob/dev/src/images/tech%20stack.png)
+
+App structure:
+
+![App structure](https://github.com/taodtu/happy-app-tao/blob/dev/src/images/app%20flow.png)
 
 # Installation
 
