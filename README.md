@@ -1,6 +1,6 @@
 # Appy App
 
-Appy App is an instant notification service that lets pubs and bars send out promotions and offers to app users on an immediate-start, time-limited basis, to add a dynamic aspect to nights out.
+Appy App is an instant notification service that lets pubs and bars send out promotions and offers to app users on an immediate-start, time-limited basis, to add a dynamic aspect to nights out. Here is a video demo (https://youtu.be/W_vw-W-yvEI).
 
 This is the updated version of the final week project of Northcoders with a group of 5. In this version, I wrote most of the front-end and completely replaced the backen-end of the group version with my own back-end 
 
